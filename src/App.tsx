@@ -17,6 +17,7 @@ import StockLedger from './pages/StockLedger';
 import Reporting from './pages/Reporting';
 import Statement from './pages/Statement';
 import Requisition from './pages/Requisition';
+import Finance from './pages/Finance';
 import FinancialStatement from './pages/FinancialStatement';
 import Attendance from './pages/Attendance';
 import DataStock from './pages/DataStock';
@@ -41,6 +42,7 @@ function App() {
               <Route path="reporting" element={<Reporting />} />
               <Route path="statement" element={<Statement />} />
               <Route path="requisition" element={<Requisition />} />
+              <Route path="finance" element={<Finance />} />
               <Route path="financial-statement" element={<FinancialStatement />} />
               <Route path="attendance" element={<Attendance />} />
               <Route path="data-stock" element={<DataStock />} />

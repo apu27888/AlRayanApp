@@ -13,7 +13,15 @@ import {
   Factory as FactoryIcon, 
   PlayCircle, 
   ChevronDown,
-  ClipboardList 
+  ClipboardList,
+  DollarSign,
+  CreditCard,
+  Receipt,
+  Calculator,
+  Banknote,
+  Building,
+  UserCheck,
+  PieChart
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -31,7 +39,8 @@ interface NavItem {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
     'order-management': false,
-    'stock': true
+    'stock': true,
+    'finance': false
   });
 
   const navItems: NavItem[] = [
@@ -50,6 +59,21 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       ]
     },
     { path: '/requisition', icon: FileText, label: 'Requisition' },
+    { 
+      path: 'finance',
+      icon: DollarSign,
+      label: 'Finance',
+      children: [
+        { path: '/finance?tab=general-ledger', icon: FileText, label: 'General Ledger' },
+        { path: '/finance?tab=accounts-payable', icon: CreditCard, label: 'Accounts Payable' },
+        { path: '/finance?tab=accounts-receivable', icon: Receipt, label: 'Accounts Receivable' },
+        { path: '/finance?tab=order-costing', icon: Calculator, label: 'অর্ডার কস্টিং' },
+        { path: '/finance?tab=cash-bank', icon: Banknote, label: 'ক্যাশ ও ব্যাংক' },
+        { path: '/finance?tab=fixed-assets', icon: Building, label: 'Fixed Assets' },
+        { path: '/finance?tab=payroll', icon: UserCheck, label: 'পেরোল' },
+        { path: '/finance?tab=reporting', icon: PieChart, label: 'রিপোর্টিং' },
+      ]
+    },
     { path: '/financial-statement', icon: TrendingUp, label: 'Financial Statement' },
     { path: '/attendance', icon: Users, label: 'Attendance' },
     { path: '/people', icon: Users, label: 'People' },
