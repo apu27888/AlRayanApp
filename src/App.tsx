@@ -22,6 +22,7 @@ import ProductionPerformance from './pages/ProductionPerformance';
 import HRM from './pages/HRM';
 import Extra from './pages/Extra';
 import ExtraInventory from './pages/ExtraInventory';
+import ExtraAudit from './pages/ExtraAudit';
 import FinancialStatement from './pages/FinancialStatement';
 import Attendance from './pages/Attendance';
 import DataStock from './pages/DataStock';
@@ -51,6 +52,7 @@ function App() {
               <Route path="hrm" element={<HRM />} />
               <Route path="extra" element={<Extra />} />
               <Route path="extra-inventory" element={<ExtraInventory />} />
+              <Route path="extra-audit" element={<ExtraAudit />} />
               <Route path="financial-statement" element={<FinancialStatement />} />
               <Route path="attendance" element={<Attendance />} />
               <Route path="data-stock" element={<DataStock />} />

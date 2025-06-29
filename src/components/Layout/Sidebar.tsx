@@ -31,7 +31,14 @@ import {
   Award,
   Layers,
   Briefcase,
-  Box
+  Box,
+  Search,
+  AlertTriangle,
+  Eye,
+  CheckCircle,
+  FileCheck,
+  Scale,
+  Gavel
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -54,7 +61,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     'production-performance': false,
     'hrm': false,
     'extra': false,
-    'extra-inventory': false
+    'extra-inventory': false,
+    'extra-audit': false
   });
 
   const navItems: NavItem[] = [
@@ -165,6 +173,31 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         { path: '/extra-inventory?tab=cost-analysis', icon: DollarSign, label: 'খরচ বিশ্লেষণ' },
         { path: '/extra-inventory?tab=reports', icon: FileText, label: 'রিপোর্ট' },
         { path: '/extra-inventory?tab=settings', icon: Settings, label: 'সেটিংস' },
+      ]
+    },
+    { 
+      path: 'extra-audit',
+      icon: Search,
+      label: 'Extra Audit',
+      children: [
+        { path: '/extra-audit?tab=dashboard', icon: BarChart3, label: 'অডিট ড্যাশবোর্ড' },
+        { path: '/extra-audit?tab=internal-audit', icon: Eye, label: 'অভ্যন্তরীণ অডিট' },
+        { path: '/extra-audit?tab=external-audit', icon: Search, label: 'বাহ্যিক অডিট' },
+        { path: '/extra-audit?tab=compliance-audit', icon: Shield, label: 'কমপ্লায়েন্স অডিট' },
+        { path: '/extra-audit?tab=financial-audit', icon: DollarSign, label: 'আর্থিক অডিট' },
+        { path: '/extra-audit?tab=operational-audit', icon: Activity, label: 'পরিচালনা অডিট' },
+        { path: '/extra-audit?tab=quality-audit', icon: CheckCircle, label: 'গুণগত মান অডিট' },
+        { path: '/extra-audit?tab=social-audit', icon: Users, label: 'সামাজিক অডিট' },
+        { path: '/extra-audit?tab=environmental-audit', icon: Layers, label: 'পরিবেশগত অডিট' },
+        { path: '/extra-audit?tab=risk-assessment', icon: AlertTriangle, label: 'ঝুঁকি মূল্যায়ন' },
+        { path: '/extra-audit?tab=audit-planning', icon: Calendar, label: 'অডিট পরিকল্পনা' },
+        { path: '/extra-audit?tab=findings-tracking', icon: FileCheck, label: 'ফলাফল ট্র্যাকিং' },
+        { path: '/extra-audit?tab=corrective-actions', icon: CheckSquare, label: 'সংশোধনী ব্যবস্থা' },
+        { path: '/extra-audit?tab=audit-reports', icon: FileText, label: 'অডিট রিপোর্ট' },
+        { path: '/extra-audit?tab=legal-compliance', icon: Scale, label: 'আইনি সম্মতি' },
+        { path: '/extra-audit?tab=certification-management', icon: Award, label: 'সার্টিফিকেশন ব্যবস্থাপনা' },
+        { path: '/extra-audit?tab=vendor-audit', icon: Building, label: 'ভেন্ডর অডিট' },
+        { path: '/extra-audit?tab=audit-settings', icon: Settings, label: 'অডিট সেটিংস' },
       ]
     },
   ];
