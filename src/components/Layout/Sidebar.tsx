@@ -28,7 +28,9 @@ import {
   Settings,
   Clock,
   Calendar,
-  Award
+  Award,
+  Layers,
+  Briefcase
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -49,7 +51,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     'stock': true,
     'finance': false,
     'production-performance': false,
-    'hrm': false
+    'hrm': false,
+    'extra': false
   });
 
   const navItems: NavItem[] = [
@@ -127,6 +130,23 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       ]
     },
     { path: '/reporting', icon: FileText, label: 'Reporting' },
+    { 
+      path: 'extra',
+      icon: Layers,
+      label: 'Extra',
+      children: [
+        { path: '/extra?tab=dashboard', icon: BarChart3, label: 'ড্যাশবোর্ড' },
+        { path: '/extra?tab=company-profile', icon: Building, label: 'কোম্পানি প্রোফাইল' },
+        { path: '/extra?tab=compliance', icon: Shield, label: 'কমপ্লায়েন্স' },
+        { path: '/extra?tab=logistics', icon: Activity, label: 'লজিস্টিকস' },
+        { path: '/extra?tab=vendor-management', icon: Users, label: 'ভেন্ডর ম্যানেজমেন্ট' },
+        { path: '/extra?tab=document-management', icon: FileText, label: 'ডকুমেন্ট ম্যানেজমেন্ট' },
+        { path: '/extra?tab=facility-management', icon: Building, label: 'ফ্যাসিলিটি ম্যানেজমেন্ট' },
+        { path: '/extra?tab=training', icon: Award, label: 'ট্রেনিং ও উন্নয়ন' },
+        { path: '/extra?tab=legal-affairs', icon: Briefcase, label: 'আইনি বিষয়াবলী' },
+        { path: '/extra?tab=admin-settings', icon: Settings, label: 'অ্যাডমিন সেটিংস' },
+      ]
+    },
   ];
 
   const toggleMenu = (path: string) => {

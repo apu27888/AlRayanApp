@@ -20,6 +20,7 @@ import Requisition from './pages/Requisition';
 import Finance from './pages/Finance';
 import ProductionPerformance from './pages/ProductionPerformance';
 import HRM from './pages/HRM';
+import Extra from './pages/Extra';
 import FinancialStatement from './pages/FinancialStatement';
 import Attendance from './pages/Attendance';
 import DataStock from './pages/DataStock';
@@ -47,6 +48,7 @@ function App() {
               <Route path="finance" element={<Finance />} />
               <Route path="production-performance" element={<ProductionPerformance />} />
               <Route path="hrm" element={<HRM />} />
+              <Route path="extra" element={<Extra />} />
               <Route path="financial-statement" element={<FinancialStatement />} />
               <Route path="attendance" element={<Attendance />} />
               <Route path="data-stock" element={<DataStock />} />
