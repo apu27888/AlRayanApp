@@ -38,7 +38,15 @@ import {
   CheckCircle,
   FileCheck,
   Scale,
-  Gavel
+  Gavel,
+  Target,
+  Zap,
+  Brain,
+  Timer,
+  TrendingDown,
+  BarChart,
+  LineChart,
+  Gauge
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -62,7 +70,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     'hrm': false,
     'extra': false,
     'extra-inventory': false,
-    'extra-audit': false
+    'extra-audit': false,
+    'extra-worker-efficiency': false
   });
 
   const navItems: NavItem[] = [
@@ -198,6 +207,28 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         { path: '/extra-audit?tab=certification-management', icon: Award, label: 'সার্টিফিকেশন ব্যবস্থাপনা' },
         { path: '/extra-audit?tab=vendor-audit', icon: Building, label: 'ভেন্ডর অডিট' },
         { path: '/extra-audit?tab=audit-settings', icon: Settings, label: 'অডিট সেটিংস' },
+      ]
+    },
+    { 
+      path: 'extra-worker-efficiency',
+      icon: Brain,
+      label: 'Extra Worker Efficiency',
+      children: [
+        { path: '/extra-worker-efficiency?tab=dashboard', icon: BarChart3, label: 'দক্ষতা ড্যাশবোর্ড' },
+        { path: '/extra-worker-efficiency?tab=individual-analysis', icon: Users, label: 'ব্যক্তিগত বিশ্লেষণ' },
+        { path: '/extra-worker-efficiency?tab=team-analysis', icon: Target, label: 'টিম বিশ্লেষণ' },
+        { path: '/extra-worker-efficiency?tab=skill-assessment', icon: Brain, label: 'দক্ষতা মূল্যায়ন' },
+        { path: '/extra-worker-efficiency?tab=productivity-tracking', icon: TrendingUp, label: 'উৎপাদনশীলতা ট্র্যাকিং' },
+        { path: '/extra-worker-efficiency?tab=time-motion-study', icon: Timer, label: 'সময় ও গতি অধ্যয়ন' },
+        { path: '/extra-worker-efficiency?tab=performance-metrics', icon: Gauge, label: 'পারফরম্যান্স মেট্রিক্স' },
+        { path: '/extra-worker-efficiency?tab=training-needs', icon: Award, label: 'প্রশিক্ষণ প্রয়োজন' },
+        { path: '/extra-worker-efficiency?tab=efficiency-trends', icon: LineChart, label: 'দক্ষতার ট্রেন্ড' },
+        { path: '/extra-worker-efficiency?tab=benchmarking', icon: BarChart, label: 'বেঞ্চমার্কিং' },
+        { path: '/extra-worker-efficiency?tab=incentive-analysis', icon: Award, label: 'প্রণোদনা বিশ্লেষণ' },
+        { path: '/extra-worker-efficiency?tab=workload-analysis', icon: Activity, label: 'কাজের চাপ বিশ্লেষণ' },
+        { path: '/extra-worker-efficiency?tab=efficiency-reports', icon: FileText, label: 'দক্ষতা রিপোর্ট' },
+        { path: '/extra-worker-efficiency?tab=improvement-plans', icon: TrendingUp, label: 'উন্নতি পরিকল্পনা' },
+        { path: '/extra-worker-efficiency?tab=efficiency-settings', icon: Settings, label: 'দক্ষতা সেটিংস' },
       ]
     },
   ];
