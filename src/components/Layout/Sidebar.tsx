@@ -30,7 +30,8 @@ import {
   Calendar,
   Award,
   Layers,
-  Briefcase
+  Briefcase,
+  Box
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -52,7 +53,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     'finance': false,
     'production-performance': false,
     'hrm': false,
-    'extra': false
+    'extra': false,
+    'extra-inventory': false
   });
 
   const navItems: NavItem[] = [
@@ -145,6 +147,24 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         { path: '/extra?tab=training', icon: Award, label: 'ট্রেনিং ও উন্নয়ন' },
         { path: '/extra?tab=legal-affairs', icon: Briefcase, label: 'আইনি বিষয়াবলী' },
         { path: '/extra?tab=admin-settings', icon: Settings, label: 'অ্যাডমিন সেটিংস' },
+      ]
+    },
+    { 
+      path: 'extra-inventory',
+      icon: Box,
+      label: 'Extra Inventory',
+      children: [
+        { path: '/extra-inventory?tab=dashboard', icon: BarChart3, label: 'ড্যাশবোর্ড' },
+        { path: '/extra-inventory?tab=warehouse-management', icon: Warehouse, label: 'গুদাম ব্যবস্থাপনা' },
+        { path: '/extra-inventory?tab=procurement', icon: Package, label: 'ক্রয় ব্যবস্থাপনা' },
+        { path: '/extra-inventory?tab=supplier-inventory', icon: Users, label: 'সাপ্লায়ার ইনভেন্টরি' },
+        { path: '/extra-inventory?tab=quality-control', icon: Shield, label: 'কোয়ালিটি কন্ট্রোল' },
+        { path: '/extra-inventory?tab=inventory-planning', icon: CheckSquare, label: 'ইনভেন্টরি পরিকল্পনা' },
+        { path: '/extra-inventory?tab=batch-tracking', icon: Package, label: 'ব্যাচ ট্র্যাকিং' },
+        { path: '/extra-inventory?tab=waste-management', icon: Activity, label: 'বর্জ্য ব্যবস্থাপনা' },
+        { path: '/extra-inventory?tab=cost-analysis', icon: DollarSign, label: 'খরচ বিশ্লেষণ' },
+        { path: '/extra-inventory?tab=reports', icon: FileText, label: 'রিপোর্ট' },
+        { path: '/extra-inventory?tab=settings', icon: Settings, label: 'সেটিংস' },
       ]
     },
   ];
