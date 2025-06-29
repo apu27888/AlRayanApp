@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { 
-  BarChart3, 
-  Users, 
-  Target, 
-  Brain, 
-  TrendingUp, 
-  Timer, 
-  Gauge, 
-  Award, 
-  LineChart, 
-  BarChart, 
-  Activity, 
-  FileText, 
+  Brain,
+  Users,
+  Target,
+  TrendingUp,
+  Timer,
+  Gauge,
+  Award,
+  LineChart,
+  BarChart,
+  Activity,
+  FileText,
   Settings,
   Plus,
   Search,
@@ -27,17 +26,16 @@ import {
   AlertTriangle,
   CheckCircle,
   Star,
-  User,
-  UserCheck,
-  Briefcase,
   BookOpen,
-  DollarSign,
-  PieChart
+  Briefcase,
+  PieChart,
+  ArrowUp,
+  ArrowDown,
+  Minus
 } from 'lucide-react';
 import Button from '../components/UI/Button';
 import ProgressBar from '../components/UI/ProgressBar';
 import StatusBadge from '../components/UI/StatusBadge';
-import { employees } from '../data/mockData';
 
 const ExtraWorkerEfficiency: React.FC = () => {
   const { setPageTitle } = useOutletContext<{ setPageTitle: (title: string) => void }>();
@@ -61,7 +59,7 @@ const ExtraWorkerEfficiency: React.FC = () => {
   };
 
   const tabs = [
-    { id: 'dashboard', label: 'দক্ষতা ড্যাশবোর্ড', icon: BarChart3 },
+    { id: 'dashboard', label: 'দক্ষতা ড্যাশবোর্ড', icon: BarChart },
     { id: 'individual-analysis', label: 'ব্যক্তিগত বিশ্লেষণ', icon: Users },
     { id: 'team-analysis', label: 'টিম বিশ্লেষণ', icon: Target },
     { id: 'skill-assessment', label: 'দক্ষতা মূল্যায়ন', icon: Brain },
@@ -84,13 +82,14 @@ const ExtraWorkerEfficiency: React.FC = () => {
         <h3 className="text-xl font-semibold">Worker Efficiency Dashboard</h3>
         <div className="flex space-x-3">
           <select className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+            <option>Today</option>
             <option>This Week</option>
             <option>This Month</option>
             <option>This Quarter</option>
           </select>
           <Button variant="secondary" size="sm">
             <Download size={16} className="mr-2" />
-            Export Report
+            Export Dashboard
           </Button>
         </div>
       </div>
@@ -103,7 +102,7 @@ const ExtraWorkerEfficiency: React.FC = () => {
               <p className="text-sm font-medium text-gray-500">গড় দক্ষতা</p>
               <p className="text-2xl font-bold text-blue-600">87.5%</p>
               <p className="text-xs text-green-500 flex items-center mt-1">
-                <TrendingUp size={12} className="mr-1" />
+                <ArrowUp size={12} className="mr-1" />
                 +3.2% from last week
               </p>
             </div>
@@ -116,15 +115,31 @@ const ExtraWorkerEfficiency: React.FC = () => {
         <div className="bg-white p-6 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">শীর্ষ পারফরমার</p>
-              <p className="text-2xl font-bold text-green-600">25</p>
+              <p className="text-sm font-medium text-gray-500">উৎপাদনশীলতা</p>
+              <p className="text-2xl font-bold text-green-600">92.3%</p>
               <p className="text-xs text-green-500 flex items-center mt-1">
-                <Star size={12} className="mr-1" />
-                90%+ efficiency
+                <ArrowUp size={12} className="mr-1" />
+                +5.1% improvement
               </p>
             </div>
             <div className="bg-green-100 p-3 rounded-full">
-              <Award className="text-green-600" size={24} />
+              <TrendingUp className="text-green-600" size={24} />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500">গুণগত মান</p>
+              <p className="text-2xl font-bold text-purple-600">94.8%</p>
+              <p className="text-xs text-green-500 flex items-center mt-1">
+                <CheckCircle size={12} className="mr-1" />
+                Excellent quality
+              </p>
+            </div>
+            <div className="bg-purple-100 p-3 rounded-full">
+              <Star className="text-purple-600" size={24} />
             </div>
           </div>
         </div>
@@ -133,70 +148,55 @@ const ExtraWorkerEfficiency: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">প্রশিক্ষণ প্রয়োজন</p>
-              <p className="text-2xl font-bold text-orange-600">18</p>
+              <p className="text-2xl font-bold text-orange-600">23</p>
               <p className="text-xs text-orange-500 flex items-center mt-1">
                 <BookOpen size={12} className="mr-1" />
-                Below 75% efficiency
+                Workers need training
               </p>
             </div>
             <div className="bg-orange-100 p-3 rounded-full">
-              <Brain className="text-orange-600" size={24} />
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-500">গড় উৎপাদনশীলতা</p>
-              <p className="text-2xl font-bold text-purple-600">142 pcs/hr</p>
-              <p className="text-xs text-green-500 flex items-center mt-1">
-                <Zap size={12} className="mr-1" />
-                +8 pcs from target
-              </p>
-            </div>
-            <div className="bg-purple-100 p-3 rounded-full">
-              <Target className="text-purple-600" size={24} />
+              <Award className="text-orange-600" size={24} />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Department-wise Efficiency */}
+      {/* Efficiency by Department */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h4 className="font-semibold text-lg mb-4 flex items-center">
-            <BarChart3 className="mr-2" size={20} />
+            <Target className="mr-2" size={20} />
             বিভাগ অনুযায়ী দক্ষতা
           </h4>
           <div className="space-y-4">
             {[
-              { dept: 'Sewing', efficiency: 89.2, target: 85, workers: 45, trend: 'up' },
+              { dept: 'Sewing', efficiency: 89.5, target: 85, workers: 45, trend: 'up' },
               { dept: 'Cutting', efficiency: 92.1, target: 90, workers: 18, trend: 'up' },
-              { dept: 'Finishing', efficiency: 85.7, target: 85, workers: 28, trend: 'stable' },
-              { dept: 'Quality', efficiency: 94.3, target: 95, workers: 12, trend: 'down' },
-              { dept: 'Packing', efficiency: 88.9, target: 85, workers: 22, trend: 'up' }
+              { dept: 'Finishing', efficiency: 85.3, target: 85, workers: 28, trend: 'stable' },
+              { dept: 'Quality Control', efficiency: 96.8, target: 95, workers: 12, trend: 'up' },
+              { dept: 'Packing', efficiency: 83.7, target: 85, workers: 22, trend: 'down' },
+              { dept: 'Maintenance', efficiency: 78.2, target: 80, workers: 8, trend: 'down' }
             ].map((dept, index) => (
-              <div key={index} className="border rounded-lg p-4">
+              <div key={index} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-center mb-2">
-                  <div>
+                  <div className="flex items-center space-x-2">
                     <h5 className="font-semibold">{dept.dept}</h5>
-                    <p className="text-sm text-gray-600">{dept.workers} workers</p>
+                    <span className="text-xs text-gray-500">({dept.workers} workers)</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className={`text-sm font-medium ${
+                    <span className={`text-sm font-semibold ${
                       dept.efficiency >= dept.target ? 'text-green-600' : 'text-red-600'
                     }`}>
                       {dept.efficiency}%
                     </span>
-                    {dept.trend === 'up' && <TrendingUp className="text-green-500" size={16} />}
-                    {dept.trend === 'down' && <TrendingDown className="text-red-500" size={16} />}
-                    {dept.trend === 'stable' && <Target className="text-gray-500" size={16} />}
+                    {dept.trend === 'up' && <ArrowUp className="text-green-500" size={16} />}
+                    {dept.trend === 'down' && <ArrowDown className="text-red-500" size={16} />}
+                    {dept.trend === 'stable' && <Minus className="text-gray-500" size={16} />}
                   </div>
                 </div>
                 <ProgressBar 
                   progress={dept.efficiency} 
-                  color={dept.efficiency >= dept.target ? 'green' : dept.efficiency >= 80 ? 'yellow' : 'red'}
+                  color={dept.efficiency >= dept.target ? 'green' : dept.efficiency >= dept.target - 5 ? 'yellow' : 'red'}
                 />
                 <div className="flex justify-between text-xs text-gray-500 mt-1">
                   <span>Target: {dept.target}%</span>
@@ -215,11 +215,11 @@ const ExtraWorkerEfficiency: React.FC = () => {
           </h4>
           <div className="space-y-3">
             {[
-              { name: 'ফাতিমা বেগম', dept: 'Quality', efficiency: 97.8, production: 165, rank: 1 },
-              { name: 'আবুল কালাম', dept: 'Sewing', efficiency: 95.2, production: 158, rank: 2 },
-              { name: 'করিম মিয়া', dept: 'Cutting', efficiency: 94.7, production: 152, rank: 3 },
-              { name: 'সালমা খাতুন', dept: 'Finishing', efficiency: 93.1, production: 148, rank: 4 },
-              { name: 'রহিম উদ্দিন', dept: 'Sewing', efficiency: 92.5, production: 145, rank: 5 }
+              { name: 'ফাতিমা খাতুন', dept: 'Sewing', efficiency: 98.5, production: 145, quality: 99.2, rank: 1 },
+              { name: 'আবুল কালাম', dept: 'Cutting', efficiency: 96.8, production: 132, quality: 98.5, rank: 2 },
+              { name: 'সালমা বেগম', dept: 'Quality Control', efficiency: 95.2, production: 128, quality: 100, rank: 3 },
+              { name: 'করিম মিয়া', dept: 'Finishing', efficiency: 94.7, production: 125, quality: 97.8, rank: 4 },
+              { name: 'রহিমা খাতুন', dept: 'Sewing', efficiency: 93.9, production: 122, quality: 96.5, rank: 5 }
             ].map((worker, index) => (
               <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
                 <div className="flex items-center space-x-3">
@@ -232,15 +232,21 @@ const ExtraWorkerEfficiency: React.FC = () => {
                   </div>
                   <div>
                     <p className="font-medium">{worker.name}</p>
-                    <p className="text-sm text-gray-600">{worker.dept}</p>
+                    <p className="text-xs text-gray-500">{worker.dept}</p>
                   </div>
                 </div>
                 <div className="text-right">
                   <p className="font-semibold text-green-600">{worker.efficiency}%</p>
-                  <p className="text-sm text-gray-600">{worker.production} pcs/hr</p>
+                  <p className="text-xs text-gray-500">{worker.production} pcs/day</p>
                 </div>
               </div>
             ))}
+          </div>
+          <div className="mt-4">
+            <Button variant="secondary" size="sm" className="w-full">
+              <Eye size={14} className="mr-2" />
+              View All Rankings
+            </Button>
           </div>
         </div>
       </div>
@@ -253,34 +259,37 @@ const ExtraWorkerEfficiency: React.FC = () => {
         </h4>
         <div className="space-y-3">
           {[
-            { week: 'সপ্তাহ ১', efficiency: 85.2, target: 85 },
-            { week: 'সপ্তাহ ২', efficiency: 86.8, target: 85 },
-            { week: 'সপ্তাহ ৩', efficiency: 84.9, target: 85 },
-            { week: 'সপ্তাহ ৪', efficiency: 87.5, target: 85 },
-            { week: 'সপ্তাহ ৫', efficiency: 89.1, target: 85 }
-          ].map((week, index) => {
-            const percentage = (week.efficiency / 100) * 100;
-            const isAboveTarget = week.efficiency >= week.target;
-            
-            return (
-              <div key={index} className="space-y-1">
-                <div className="flex justify-between text-sm">
-                  <span className="font-medium">{week.week}</span>
-                  <span className={`font-semibold ${isAboveTarget ? 'text-green-600' : 'text-red-600'}`}>
-                    {week.efficiency}% (Target: {week.target}%)
-                  </span>
+            { week: 'Week 1', overall: 84.2, sewing: 86.1, cutting: 89.5, finishing: 82.3, quality: 95.8 },
+            { week: 'Week 2', overall: 85.8, sewing: 87.3, cutting: 90.2, finishing: 83.7, quality: 96.2 },
+            { week: 'Week 3', overall: 86.9, sewing: 88.1, cutting: 91.8, finishing: 84.9, quality: 96.5 },
+            { week: 'Week 4', overall: 87.5, sewing: 89.5, cutting: 92.1, finishing: 85.3, quality: 96.8 }
+          ].map((week, index) => (
+            <div key={index} className="space-y-2">
+              <div className="flex justify-between text-sm font-medium">
+                <span>{week.week}</span>
+                <span className="text-blue-600">Overall: {week.overall}%</span>
+              </div>
+              <div className="grid grid-cols-4 gap-2 text-xs">
+                <div className="flex items-center space-x-1">
+                  <div className="w-3 h-3 bg-green-500 rounded"></div>
+                  <span>Sewing: {week.sewing}%</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-4">
-                  <div 
-                    className={`h-4 rounded-full transition-all duration-500 ${
-                      isAboveTarget ? 'bg-green-500' : 'bg-red-500'
-                    }`}
-                    style={{ width: `${percentage}%` }}
-                  />
+                <div className="flex items-center space-x-1">
+                  <div className="w-3 h-3 bg-blue-500 rounded"></div>
+                  <span>Cutting: {week.cutting}%</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <div className="w-3 h-3 bg-yellow-500 rounded"></div>
+                  <span>Finishing: {week.finishing}%</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <div className="w-3 h-3 bg-purple-500 rounded"></div>
+                  <span>Quality: {week.quality}%</span>
                 </div>
               </div>
-            );
-          })}
+              <ProgressBar progress={week.overall} color={week.overall >= 85 ? 'green' : week.overall >= 80 ? 'yellow' : 'red'} />
+            </div>
+          ))}
         </div>
       </div>
 
@@ -309,7 +318,7 @@ const ExtraWorkerEfficiency: React.FC = () => {
             className="flex flex-col items-center space-y-2 h-20"
             onClick={() => handleTabChange('training-needs')}
           >
-            <BookOpen size={24} />
+            <Award size={24} />
             <span className="text-sm">Training Needs</span>
           </Button>
           <Button 
@@ -343,7 +352,7 @@ const ExtraWorkerEfficiency: React.FC = () => {
             <option>Sewing</option>
             <option>Cutting</option>
             <option>Finishing</option>
-            <option>Quality</option>
+            <option>Quality Control</option>
           </select>
           <Button variant="secondary" size="sm">
             <Filter size={16} className="mr-2" />
@@ -357,64 +366,31 @@ const ExtraWorkerEfficiency: React.FC = () => {
           <table className="w-full text-left">
             <thead className="bg-gray-50">
               <tr>
-                <th className="p-3 font-semibold text-sm">Worker</th>
+                <th className="p-3 font-semibold text-sm">Worker ID</th>
+                <th className="p-3 font-semibold text-sm">Name</th>
                 <th className="p-3 font-semibold text-sm">Department</th>
                 <th className="p-3 font-semibold text-sm">Efficiency</th>
                 <th className="p-3 font-semibold text-sm">Productivity</th>
                 <th className="p-3 font-semibold text-sm">Quality Score</th>
                 <th className="p-3 font-semibold text-sm">Attendance</th>
                 <th className="p-3 font-semibold text-sm">Trend</th>
-                <th className="p-3 font-semibold text-sm">Status</th>
                 <th className="p-3 font-semibold text-sm">Actions</th>
               </tr>
             </thead>
             <tbody>
               {[
-                { 
-                  id: 'EMP-0101', 
-                  name: 'আবুল কালাম', 
-                  dept: 'Sewing', 
-                  efficiency: 95.2, 
-                  productivity: 158, 
-                  quality: 96.8, 
-                  attendance: 98, 
-                  trend: 'up',
-                  status: 'Excellent'
-                },
-                { 
-                  id: 'EMP-0256', 
-                  name: 'ফাতিমা বেগম', 
-                  dept: 'Quality', 
-                  efficiency: 97.8, 
-                  productivity: 165, 
-                  quality: 99.2, 
-                  attendance: 100, 
-                  trend: 'up',
-                  status: 'Outstanding'
-                },
-                { 
-                  id: 'EMP-0102', 
-                  name: 'করিম মিয়া', 
-                  dept: 'Cutting', 
-                  efficiency: 72.5, 
-                  productivity: 98, 
-                  quality: 88.5, 
-                  attendance: 85, 
-                  trend: 'down',
-                  status: 'Needs Improvement'
-                }
+                { id: 'EMP-0101', name: 'আবুল কালাম', dept: 'Sewing', efficiency: 89.5, productivity: 92.3, quality: 96.8, attendance: 95.2, trend: 'up' },
+                { id: 'EMP-0256', name: 'ফাতিমা বেগম', dept: 'Quality Control', efficiency: 96.8, productivity: 94.1, quality: 99.2, attendance: 98.5, trend: 'up' },
+                { id: 'EMP-0102', name: 'করিম মিয়া', dept: 'Cutting', efficiency: 85.3, productivity: 88.7, quality: 94.5, attendance: 92.1, trend: 'stable' },
+                { id: 'EMP-0203', name: 'সালমা খাতুন', dept: 'Finishing', efficiency: 78.9, productivity: 82.4, quality: 91.2, attendance: 89.7, trend: 'down' }
               ].map((worker, index) => (
                 <tr key={index} className="border-b hover:bg-gray-50">
-                  <td className="p-3">
-                    <div>
-                      <p className="font-medium">{worker.name}</p>
-                      <p className="text-sm text-gray-600">{worker.id}</p>
-                    </div>
-                  </td>
+                  <td className="p-3 text-sm font-medium">{worker.id}</td>
+                  <td className="p-3 text-sm">{worker.name}</td>
                   <td className="p-3 text-sm">{worker.dept}</td>
                   <td className="p-3">
                     <div className="flex items-center space-x-2">
-                      <span className={`font-semibold ${
+                      <span className={`text-sm font-semibold ${
                         worker.efficiency >= 90 ? 'text-green-600' : 
                         worker.efficiency >= 80 ? 'text-yellow-600' : 'text-red-600'
                       }`}>
@@ -422,16 +398,34 @@ const ExtraWorkerEfficiency: React.FC = () => {
                       </span>
                     </div>
                   </td>
-                  <td className="p-3 text-sm font-semibold">{worker.productivity} pcs/hr</td>
-                  <td className="p-3 text-sm font-semibold text-blue-600">{worker.quality}%</td>
-                  <td className="p-3 text-sm">{worker.attendance}%</td>
                   <td className="p-3">
-                    {worker.trend === 'up' && <TrendingUp className="text-green-500" size={16} />}
-                    {worker.trend === 'down' && <TrendingDown className="text-red-500" size={16} />}
-                    {worker.trend === 'stable' && <Target className="text-gray-500" size={16} />}
+                    <span className={`text-sm font-semibold ${
+                      worker.productivity >= 90 ? 'text-green-600' : 
+                      worker.productivity >= 80 ? 'text-yellow-600' : 'text-red-600'
+                    }`}>
+                      {worker.productivity}%
+                    </span>
                   </td>
                   <td className="p-3">
-                    <StatusBadge status={worker.status} />
+                    <span className={`text-sm font-semibold ${
+                      worker.quality >= 95 ? 'text-green-600' : 
+                      worker.quality >= 90 ? 'text-yellow-600' : 'text-red-600'
+                    }`}>
+                      {worker.quality}%
+                    </span>
+                  </td>
+                  <td className="p-3">
+                    <span className={`text-sm font-semibold ${
+                      worker.attendance >= 95 ? 'text-green-600' : 
+                      worker.attendance >= 90 ? 'text-yellow-600' : 'text-red-600'
+                    }`}>
+                      {worker.attendance}%
+                    </span>
+                  </td>
+                  <td className="p-3">
+                    {worker.trend === 'up' && <ArrowUp className="text-green-500" size={16} />}
+                    {worker.trend === 'down' && <ArrowDown className="text-red-500" size={16} />}
+                    {worker.trend === 'stable' && <Minus className="text-gray-500" size={16} />}
                   </td>
                   <td className="p-3">
                     <div className="flex space-x-2">
@@ -465,67 +459,115 @@ const ExtraWorkerEfficiency: React.FC = () => {
           </select>
           <Button variant="secondary" size="sm">
             <Download size={16} className="mr-2" />
-            Export
+            Export Analysis
           </Button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Team Performance Comparison */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Team Performance Comparison</h4>
-          <div className="space-y-4">
-            {[
-              { team: 'Team Alpha', members: 12, efficiency: 92.5, productivity: 155, leader: 'সুপারভাইজার আহমেদ' },
-              { team: 'Team Beta', members: 10, efficiency: 88.7, productivity: 142, leader: 'সুপারভাইজার রহমান' },
-              { team: 'Team Gamma', members: 15, efficiency: 85.2, productivity: 138, leader: 'সুপারভাইজার খান' },
-              { team: 'Team Delta', members: 8, efficiency: 90.1, productivity: 148, leader: 'সুপারভাইজার আলী' }
-            ].map((team, index) => (
-              <div key={index} className="border rounded-lg p-4">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h5 className="font-semibold">{team.team}</h5>
-                    <p className="text-sm text-gray-600">{team.members} members • {team.leader}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-lg">{team.efficiency}%</p>
-                    <p className="text-sm text-gray-600">Efficiency</p>
-                  </div>
+        {/* Team Performance Cards */}
+        {[
+          { 
+            team: 'Team Alpha', 
+            leader: 'সুপারভাইজার আহমেদ', 
+            members: 12, 
+            efficiency: 92.5, 
+            productivity: 94.8, 
+            quality: 97.2,
+            target: 90,
+            status: 'Excellent'
+          },
+          { 
+            team: 'Team Beta', 
+            leader: 'সুপারভাইজার রহিম', 
+            members: 10, 
+            efficiency: 87.3, 
+            productivity: 89.1, 
+            quality: 94.5,
+            target: 85,
+            status: 'Good'
+          },
+          { 
+            team: 'Team Gamma', 
+            leader: 'সুপারভাইজার করিম', 
+            members: 15, 
+            efficiency: 83.7, 
+            productivity: 85.9, 
+            quality: 92.1,
+            target: 85,
+            status: 'Average'
+          },
+          { 
+            team: 'Team Delta', 
+            leader: 'সুপারভাইজার সালাম', 
+            members: 8, 
+            efficiency: 78.2, 
+            productivity: 81.4, 
+            quality: 89.7,
+            target: 80,
+            status: 'Needs Improvement'
+          }
+        ].map((team, index) => (
+          <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h4 className="font-semibold text-lg">{team.team}</h4>
+                <p className="text-sm text-gray-600">{team.leader}</p>
+                <p className="text-xs text-gray-500">{team.members} members</p>
+              </div>
+              <StatusBadge status={team.status} />
+            </div>
+            
+            <div className="space-y-3">
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Efficiency</span>
+                  <span className="font-semibold">{team.efficiency}%</span>
                 </div>
                 <ProgressBar 
                   progress={team.efficiency} 
-                  color={team.efficiency >= 90 ? 'green' : team.efficiency >= 85 ? 'yellow' : 'red'}
+                  color={team.efficiency >= team.target ? 'green' : team.efficiency >= team.target - 5 ? 'yellow' : 'red'}
                 />
-                <div className="flex justify-between text-sm text-gray-600 mt-2">
-                  <span>Productivity: {team.productivity} pcs/hr</span>
-                  <span>{team.efficiency >= 90 ? 'Excellent' : team.efficiency >= 85 ? 'Good' : 'Needs Improvement'}</span>
-                </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Team Collaboration Metrics */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Team Collaboration Metrics</h4>
-          <div className="space-y-4">
-            {[
-              { metric: 'Communication Score', value: 87, color: 'blue' },
-              { metric: 'Coordination Level', value: 92, color: 'green' },
-              { metric: 'Problem Solving', value: 85, color: 'yellow' },
-              { metric: 'Knowledge Sharing', value: 78, color: 'orange' },
-              { metric: 'Team Spirit', value: 94, color: 'purple' }
-            ].map((metric, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="font-medium">{metric.metric}</span>
-                  <span className="font-semibold">{metric.value}%</span>
+              
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Productivity</span>
+                  <span className="font-semibold">{team.productivity}%</span>
                 </div>
-                <ProgressBar progress={metric.value} color={metric.color as any} />
+                <ProgressBar 
+                  progress={team.productivity} 
+                  color={team.productivity >= 90 ? 'green' : team.productivity >= 85 ? 'yellow' : 'red'}
+                />
               </div>
-            ))}
+              
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Quality Score</span>
+                  <span className="font-semibold">{team.quality}%</span>
+                </div>
+                <ProgressBar 
+                  progress={team.quality} 
+                  color={team.quality >= 95 ? 'green' : team.quality >= 90 ? 'yellow' : 'red'}
+                />
+              </div>
+            </div>
+            
+            <div className="mt-4 pt-4 border-t">
+              <div className="flex justify-between text-sm">
+                <span>Target: {team.target}%</span>
+                <span className={team.efficiency >= team.target ? 'text-green-600' : 'text-red-600'}>
+                  {team.efficiency >= team.target ? 'Above Target' : 'Below Target'}
+                </span>
+              </div>
+            </div>
+            
+            <Button variant="secondary" size="sm" className="w-full mt-3">
+              <Eye size={14} className="mr-2" />
+              View Details
+            </Button>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
@@ -533,7 +575,7 @@ const ExtraWorkerEfficiency: React.FC = () => {
   const renderSkillAssessment = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold">Skill Assessment</h3>
+        <h3 className="text-xl font-semibold">Skill Assessment & Development</h3>
         <Button size="sm">
           <Plus size={16} className="mr-2" />
           New Assessment
@@ -543,25 +585,38 @@ const ExtraWorkerEfficiency: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Skill Categories */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Skill Categories Overview</h4>
+          <h4 className="font-semibold text-lg mb-4">Skill Categories Assessment</h4>
           <div className="space-y-4">
             {[
-              { skill: 'Technical Skills', average: 85.2, workers: 156, color: 'blue' },
-              { skill: 'Quality Awareness', average: 91.7, workers: 156, color: 'green' },
-              { skill: 'Time Management', average: 78.9, workers: 156, color: 'yellow' },
-              { skill: 'Problem Solving', average: 82.4, workers: 156, color: 'purple' },
-              { skill: 'Communication', average: 76.3, workers: 156, color: 'orange' },
-              { skill: 'Leadership', average: 68.5, workers: 25, color: 'red' }
+              { skill: 'Machine Operation', average: 87.5, workers: 45, level: 'Advanced' },
+              { skill: 'Quality Control', average: 92.3, workers: 12, level: 'Expert' },
+              { skill: 'Pattern Making', average: 78.9, workers: 8, level: 'Intermediate' },
+              { skill: 'Fabric Cutting', average: 85.2, workers: 18, level: 'Advanced' },
+              { skill: 'Finishing Techniques', average: 82.7, workers: 28, level: 'Intermediate' },
+              { skill: 'Problem Solving', average: 75.4, workers: 156, level: 'Intermediate' }
             ].map((skill, index) => (
               <div key={index} className="border rounded-lg p-4">
                 <div className="flex justify-between items-center mb-2">
-                  <div>
-                    <h5 className="font-semibold">{skill.skill}</h5>
-                    <p className="text-sm text-gray-600">{skill.workers} workers assessed</p>
+                  <h5 className="font-medium">{skill.skill}</h5>
+                  <div className="flex items-center space-x-2">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      skill.level === 'Expert' ? 'bg-green-100 text-green-800' :
+                      skill.level === 'Advanced' ? 'bg-blue-100 text-blue-800' :
+                      skill.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {skill.level}
+                    </span>
                   </div>
-                  <span className="font-semibold text-lg">{skill.average}%</span>
                 </div>
-                <ProgressBar progress={skill.average} color={skill.color as any} />
+                <div className="flex justify-between text-sm text-gray-600 mb-2">
+                  <span>{skill.workers} workers assessed</span>
+                  <span>Average: {skill.average}%</span>
+                </div>
+                <ProgressBar 
+                  progress={skill.average} 
+                  color={skill.average >= 90 ? 'green' : skill.average >= 80 ? 'yellow' : 'red'}
+                />
               </div>
             ))}
           </div>
@@ -573,70 +628,68 @@ const ExtraWorkerEfficiency: React.FC = () => {
           <div className="space-y-3">
             {[
               { 
-                name: 'ফাতিমা বেগম', 
-                dept: 'Quality', 
-                skills: { technical: 95, quality: 98, time: 92, problem: 89, communication: 85 },
-                overall: 91.8
+                name: 'ফাতিমা খাতুন', 
+                dept: 'Quality Control', 
+                skills: { machine: 95, quality: 98, pattern: 85, cutting: 90, finishing: 92, problem: 88 },
+                overall: 94.7
               },
               { 
                 name: 'আবুল কালাম', 
                 dept: 'Sewing', 
-                skills: { technical: 92, quality: 88, time: 85, problem: 87, communication: 78 },
-                overall: 86.0
+                skills: { machine: 92, quality: 88, pattern: 78, cutting: 85, finishing: 90, problem: 82 },
+                overall: 85.8
               },
               { 
                 name: 'করিম মিয়া', 
                 dept: 'Cutting', 
-                skills: { technical: 88, quality: 85, time: 82, problem: 84, communication: 75 },
-                overall: 82.8
+                skills: { machine: 88, quality: 85, pattern: 92, cutting: 95, finishing: 80, finishing: 85 },
+                overall: 87.5
               }
             ].map((worker, index) => (
               <div key={index} className="border rounded-lg p-4">
                 <div className="flex justify-between items-center mb-3">
                   <div>
-                    <h5 className="font-semibold">{worker.name}</h5>
+                    <h5 className="font-medium">{worker.name}</h5>
                     <p className="text-sm text-gray-600">{worker.dept}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-lg text-green-600">{worker.overall}%</p>
-                    <p className="text-sm text-gray-600">Overall</p>
+                    <p className="font-semibold text-blue-600">{worker.overall}%</p>
+                    <p className="text-xs text-gray-500">Overall Score</p>
                   </div>
                 </div>
-                <div className="grid grid-cols-5 gap-2 text-xs">
-                  <div className="text-center">
-                    <p className="font-medium">Tech</p>
-                    <p className={`font-semibold ${worker.skills.technical >= 90 ? 'text-green-600' : 'text-yellow-600'}`}>
-                      {worker.skills.technical}%
-                    </p>
+                <div className="grid grid-cols-3 gap-2 text-xs">
+                  <div className="flex justify-between">
+                    <span>Machine:</span>
+                    <span className="font-medium">{worker.skills.machine}%</span>
                   </div>
-                  <div className="text-center">
-                    <p className="font-medium">Quality</p>
-                    <p className={`font-semibold ${worker.skills.quality >= 90 ? 'text-green-600' : 'text-yellow-600'}`}>
-                      {worker.skills.quality}%
-                    </p>
+                  <div className="flex justify-between">
+                    <span>Quality:</span>
+                    <span className="font-medium">{worker.skills.quality}%</span>
                   </div>
-                  <div className="text-center">
-                    <p className="font-medium">Time</p>
-                    <p className={`font-semibold ${worker.skills.time >= 90 ? 'text-green-600' : 'text-yellow-600'}`}>
-                      {worker.skills.time}%
-                    </p>
+                  <div className="flex justify-between">
+                    <span>Pattern:</span>
+                    <span className="font-medium">{worker.skills.pattern}%</span>
                   </div>
-                  <div className="text-center">
-                    <p className="font-medium">Problem</p>
-                    <p className={`font-semibold ${worker.skills.problem >= 90 ? 'text-green-600' : 'text-yellow-600'}`}>
-                      {worker.skills.problem}%
-                    </p>
+                  <div className="flex justify-between">
+                    <span>Cutting:</span>
+                    <span className="font-medium">{worker.skills.cutting}%</span>
                   </div>
-                  <div className="text-center">
-                    <p className="font-medium">Comm</p>
-                    <p className={`font-semibold ${worker.skills.communication >= 90 ? 'text-green-600' : 'text-yellow-600'}`}>
-                      {worker.skills.communication}%
-                    </p>
+                  <div className="flex justify-between">
+                    <span>Finishing:</span>
+                    <span className="font-medium">{worker.skills.finishing}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Problem:</span>
+                    <span className="font-medium">{worker.skills.problem}%</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+          <Button variant="secondary" size="sm" className="w-full mt-4">
+            <Eye size={14} className="mr-2" />
+            View All Assessments
+          </Button>
         </div>
       </div>
     </div>
@@ -654,7 +707,7 @@ const ExtraWorkerEfficiency: React.FC = () => {
           </select>
           <Button variant="secondary" size="sm">
             <Download size={16} className="mr-2" />
-            Export
+            Export Data
           </Button>
         </div>
       </div>
@@ -664,8 +717,8 @@ const ExtraWorkerEfficiency: React.FC = () => {
         <div className="bg-white p-6 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Average Output</p>
-              <p className="text-2xl font-bold text-blue-600">142 pcs/hr</p>
+              <p className="text-sm font-medium text-gray-500">Daily Target</p>
+              <p className="text-2xl font-bold text-blue-600">2,400</p>
             </div>
             <Target className="text-blue-500" size={32} />
           </div>
@@ -673,28 +726,28 @@ const ExtraWorkerEfficiency: React.FC = () => {
         <div className="bg-white p-6 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Target Achievement</p>
-              <p className="text-2xl font-bold text-green-600">106%</p>
+              <p className="text-sm font-medium text-gray-500">Actual Production</p>
+              <p className="text-2xl font-bold text-green-600">2,215</p>
             </div>
-            <CheckCircle className="text-green-500" size={32} />
+            <TrendingUp className="text-green-500" size={32} />
           </div>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Quality Rate</p>
-              <p className="text-2xl font-bold text-purple-600">96.8%</p>
+              <p className="text-sm font-medium text-gray-500">Efficiency Rate</p>
+              <p className="text-2xl font-bold text-purple-600">92.3%</p>
             </div>
-            <Award className="text-purple-500" size={32} />
+            <Gauge className="text-purple-500" size={32} />
           </div>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Downtime</p>
-              <p className="text-2xl font-bold text-red-600">3.2%</p>
+              <p className="text-sm font-medium text-gray-500">Variance</p>
+              <p className="text-2xl font-bold text-red-600">-185</p>
             </div>
-            <AlertTriangle className="text-red-500" size={32} />
+            <TrendingDown className="text-red-500" size={32} />
           </div>
         </div>
       </div>
@@ -704,37 +757,40 @@ const ExtraWorkerEfficiency: React.FC = () => {
         <h4 className="font-semibold text-lg mb-4">Hourly Productivity Today</h4>
         <div className="space-y-3">
           {[
-            { hour: '8:00 AM', target: 140, actual: 135, efficiency: 96.4 },
-            { hour: '9:00 AM', target: 140, actual: 148, efficiency: 105.7 },
-            { hour: '10:00 AM', target: 140, actual: 152, efficiency: 108.6 },
-            { hour: '11:00 AM', target: 140, actual: 138, efficiency: 98.6 },
-            { hour: '1:00 PM', target: 140, actual: 142, efficiency: 101.4 },
-            { hour: '2:00 PM', target: 140, actual: 155, efficiency: 110.7 },
-            { hour: '3:00 PM', target: 140, actual: 149, efficiency: 106.4 },
-            { hour: '4:00 PM', target: 140, actual: 145, efficiency: 103.6 }
-          ].map((hour, index) => {
-            const percentage = (hour.actual / hour.target) * 100;
-            
-            return (
-              <div key={index} className="space-y-1">
-                <div className="flex justify-between text-sm">
-                  <span className="font-medium">{hour.hour}</span>
-                  <span className="text-gray-700">
-                    {hour.actual}/{hour.target} pcs/hr ({hour.efficiency}%)
+            { hour: '8:00 AM', target: 200, actual: 185, efficiency: 92.5 },
+            { hour: '9:00 AM', target: 200, actual: 195, efficiency: 97.5 },
+            { hour: '10:00 AM', target: 200, actual: 210, efficiency: 105.0 },
+            { hour: '11:00 AM', target: 200, actual: 188, efficiency: 94.0 },
+            { hour: '1:00 PM', target: 200, actual: 175, efficiency: 87.5 },
+            { hour: '2:00 PM', target: 200, actual: 205, efficiency: 102.5 },
+            { hour: '3:00 PM', target: 200, actual: 192, efficiency: 96.0 },
+            { hour: '4:00 PM', target: 200, actual: 198, efficiency: 99.0 }
+          ].map((hour, index) => (
+            <div key={index} className="space-y-1">
+              <div className="flex justify-between text-sm">
+                <span className="font-medium">{hour.hour}</span>
+                <div className="flex space-x-4">
+                  <span>Target: {hour.target}</span>
+                  <span>Actual: {hour.actual}</span>
+                  <span className={`font-semibold ${
+                    hour.efficiency >= 100 ? 'text-green-600' : 
+                    hour.efficiency >= 90 ? 'text-yellow-600' : 'text-red-600'
+                  }`}>
+                    {hour.efficiency}%
                   </span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-4">
-                  <div 
-                    className={`h-4 rounded-full transition-all duration-500 ${
-                      percentage >= 100 ? 'bg-green-500' : 
-                      percentage >= 90 ? 'bg-yellow-500' : 'bg-red-500'
-                    }`}
-                    style={{ width: `${Math.min(percentage, 100)}%` }}
-                  />
-                </div>
               </div>
-            );
-          })}
+              <div className="w-full bg-gray-200 rounded-full h-4">
+                <div 
+                  className={`h-4 rounded-full transition-all duration-500 ${
+                    hour.efficiency >= 100 ? 'bg-green-500' : 
+                    hour.efficiency >= 90 ? 'bg-yellow-500' : 'bg-red-500'
+                  }`}
+                  style={{ width: `${Math.min(100, hour.efficiency)}%` }}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -751,28 +807,48 @@ const ExtraWorkerEfficiency: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Time Analysis */}
+        {/* Operation Time Analysis */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Time Breakdown Analysis</h4>
+          <h4 className="font-semibold text-lg mb-4">Operation Time Analysis</h4>
           <div className="space-y-4">
             {[
-              { activity: 'Productive Work', time: 85.2, color: 'green', target: 85 },
-              { activity: 'Setup/Changeover', time: 8.5, color: 'blue', target: 10 },
-              { activity: 'Quality Check', time: 4.8, color: 'purple', target: 5 },
-              { activity: 'Waiting/Idle', time: 1.5, color: 'red', target: 2 }
-            ].map((activity, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="font-medium">{activity.activity}</span>
-                  <span className={`font-semibold ${
-                    activity.activity === 'Waiting/Idle' 
-                      ? activity.time <= activity.target ? 'text-green-600' : 'text-red-600'
-                      : activity.time >= activity.target ? 'text-green-600' : 'text-red-600'
+              { operation: 'Fabric Cutting', standard: 45, actual: 42, variance: -3, efficiency: 107.1 },
+              { operation: 'Sewing - Basic Seam', standard: 30, actual: 35, variance: 5, efficiency: 85.7 },
+              { operation: 'Button Attachment', standard: 15, actual: 18, variance: 3, efficiency: 83.3 },
+              { operation: 'Quality Check', standard: 20, actual: 22, variance: 2, efficiency: 90.9 },
+              { operation: 'Pressing', standard: 25, actual: 23, variance: -2, efficiency: 108.7 },
+              { operation: 'Packaging', standard: 10, actual: 12, variance: 2, efficiency: 83.3 }
+            ].map((op, index) => (
+              <div key={index} className="border rounded-lg p-4">
+                <div className="flex justify-between items-center mb-2">
+                  <h5 className="font-medium">{op.operation}</h5>
+                  <span className={`text-sm font-semibold ${
+                    op.efficiency >= 100 ? 'text-green-600' : 
+                    op.efficiency >= 90 ? 'text-yellow-600' : 'text-red-600'
                   }`}>
-                    {activity.time}% (Target: {activity.target}%)
+                    {op.efficiency}%
                   </span>
                 </div>
-                <ProgressBar progress={activity.time} color={activity.color as any} />
+                <div className="grid grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <p className="text-gray-600">Standard</p>
+                    <p className="font-semibold">{op.standard}s</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Actual</p>
+                    <p className="font-semibold">{op.actual}s</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Variance</p>
+                    <p className={`font-semibold ${op.variance < 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {op.variance > 0 ? '+' : ''}{op.variance}s
+                    </p>
+                  </div>
+                </div>
+                <ProgressBar 
+                  progress={op.efficiency} 
+                  color={op.efficiency >= 100 ? 'green' : op.efficiency >= 90 ? 'yellow' : 'red'}
+                />
               </div>
             ))}
           </div>
@@ -780,31 +856,41 @@ const ExtraWorkerEfficiency: React.FC = () => {
 
         {/* Motion Efficiency */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Motion Efficiency Metrics</h4>
+          <h4 className="font-semibold text-lg mb-4">Motion Efficiency Analysis</h4>
           <div className="space-y-4">
             {[
-              { metric: 'Hand Movement Efficiency', score: 92.5, benchmark: 90 },
-              { metric: 'Body Posture Score', score: 88.7, benchmark: 85 },
-              { metric: 'Tool Utilization', score: 94.2, benchmark: 90 },
-              { metric: 'Workspace Organization', score: 86.3, benchmark: 85 },
-              { metric: 'Ergonomic Compliance', score: 91.8, benchmark: 90 }
-            ].map((metric, index) => (
-              <div key={index} className="border rounded-lg p-3">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-medium text-sm">{metric.metric}</span>
-                  <span className={`font-semibold ${
-                    metric.score >= metric.benchmark ? 'text-green-600' : 'text-red-600'
+              { worker: 'ফাতিমা খাতুন', operation: 'Sewing', motions: 85, optimal: 78, efficiency: 91.8, waste: 8.2 },
+              { worker: 'আবুল কালাম', operation: 'Cutting', motions: 92, optimal: 85, efficiency: 92.4, waste: 7.6 },
+              { worker: 'করিম মিয়া', operation: 'Finishing', motions: 105, optimal: 95, efficiency: 90.5, waste: 9.5 },
+              { worker: 'সালমা বেগম', operation: 'Quality Check', motions: 68, optimal: 65, efficiency: 95.6, waste: 4.4 }
+            ].map((worker, index) => (
+              <div key={index} className="border rounded-lg p-4">
+                <div className="flex justify-between items-center mb-3">
+                  <div>
+                    <h5 className="font-medium">{worker.worker}</h5>
+                    <p className="text-sm text-gray-600">{worker.operation}</p>
+                  </div>
+                  <span className={`text-sm font-semibold ${
+                    worker.efficiency >= 95 ? 'text-green-600' : 
+                    worker.efficiency >= 90 ? 'text-yellow-600' : 'text-red-600'
                   }`}>
-                    {metric.score}%
+                    {worker.efficiency}%
                   </span>
                 </div>
-                <ProgressBar 
-                  progress={metric.score} 
-                  color={metric.score >= metric.benchmark ? 'green' : 'red'}
-                />
-                <div className="text-xs text-gray-500 mt-1">
-                  Benchmark: {metric.benchmark}%
+                <div className="grid grid-cols-2 gap-4 text-sm mb-2">
+                  <div>
+                    <p className="text-gray-600">Actual Motions: <span className="font-semibold">{worker.motions}</span></p>
+                    <p className="text-gray-600">Optimal Motions: <span className="font-semibold">{worker.optimal}</span></p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Efficiency: <span className="font-semibold">{worker.efficiency}%</span></p>
+                    <p className="text-red-600">Waste: <span className="font-semibold">{worker.waste}%</span></p>
+                  </div>
                 </div>
+                <ProgressBar 
+                  progress={worker.efficiency} 
+                  color={worker.efficiency >= 95 ? 'green' : worker.efficiency >= 90 ? 'yellow' : 'red'}
+                />
               </div>
             ))}
           </div>
@@ -816,111 +902,124 @@ const ExtraWorkerEfficiency: React.FC = () => {
   const renderPerformanceMetrics = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold">Performance Metrics</h3>
+        <h3 className="text-xl font-semibold">Performance Metrics Dashboard</h3>
         <div className="flex space-x-3">
           <select className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-            <option>All Metrics</option>
-            <option>Efficiency Only</option>
-            <option>Quality Only</option>
-            <option>Productivity Only</option>
+            <option>This Month</option>
+            <option>Last Month</option>
+            <option>This Quarter</option>
           </select>
           <Button variant="secondary" size="sm">
             <Download size={16} className="mr-2" />
-            Export
+            Export Metrics
           </Button>
         </div>
       </div>
 
-      {/* KPI Dashboard */}
+      {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[
-          { kpi: 'Overall Efficiency', value: 87.5, target: 85, unit: '%', trend: 'up', color: 'blue' },
-          { kpi: 'Quality Score', value: 96.8, target: 95, unit: '%', trend: 'up', color: 'green' },
-          { kpi: 'Productivity Rate', value: 142, target: 135, unit: 'pcs/hr', trend: 'up', color: 'purple' },
-          { kpi: 'Attendance Rate', value: 94.2, target: 95, unit: '%', trend: 'down', color: 'orange' },
-          { kpi: 'Training Hours', value: 8.5, target: 10, unit: 'hrs/month', trend: 'stable', color: 'yellow' },
-          { kpi: 'Safety Score', value: 98.5, target: 98, unit: '%', trend: 'up', color: 'red' },
-          { kpi: 'Cost per Unit', value: 2.85, target: 3.00, unit: '৳', trend: 'down', color: 'green' },
-          { kpi: 'Overtime Hours', value: 12.5, target: 15, unit: 'hrs/week', trend: 'down', color: 'blue' }
-        ].map((kpi, index) => (
-          <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-            <div className="flex items-center justify-between mb-2">
-              <h4 className="font-semibold text-sm text-gray-700">{kpi.kpi}</h4>
-              {kpi.trend === 'up' && <TrendingUp className="text-green-500" size={16} />}
-              {kpi.trend === 'down' && <TrendingDown className="text-red-500" size={16} />}
-              {kpi.trend === 'stable' && <Target className="text-gray-500" size={16} />}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500">Overall Equipment Effectiveness</p>
+              <p className="text-2xl font-bold text-blue-600">85.7%</p>
+              <p className="text-xs text-green-500 flex items-center mt-1">
+                <ArrowUp size={12} className="mr-1" />
+                +2.3% from last month
+              </p>
             </div>
-            <div className="mb-2">
-              <span className="text-2xl font-bold">{kpi.value}</span>
-              <span className="text-sm text-gray-600 ml-1">{kpi.unit}</span>
-            </div>
-            <div className="text-xs text-gray-500">
-              Target: {kpi.target} {kpi.unit}
-            </div>
-            <ProgressBar 
-              progress={kpi.kpi === 'Cost per Unit' || kpi.kpi === 'Overtime Hours' 
-                ? ((kpi.target - kpi.value) / kpi.target) * 100 
-                : (kpi.value / kpi.target) * 100
-              } 
-              color={kpi.color as any}
-            />
+            <Gauge className="text-blue-500" size={32} />
           </div>
-        ))}
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500">First Pass Yield</p>
+              <p className="text-2xl font-bold text-green-600">94.2%</p>
+              <p className="text-xs text-green-500 flex items-center mt-1">
+                <CheckCircle size={12} className="mr-1" />
+                Excellent quality
+              </p>
+            </div>
+            <Star className="text-green-500" size={32} />
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500">Cycle Time Efficiency</p>
+              <p className="text-2xl font-bold text-purple-600">89.5%</p>
+              <p className="text-xs text-yellow-500 flex items-center mt-1">
+                <Timer size={12} className="mr-1" />
+                Room for improvement
+              </p>
+            </div>
+            <Timer className="text-purple-500" size={32} />
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500">Labor Productivity</p>
+              <p className="text-2xl font-bold text-orange-600">92.8%</p>
+              <p className="text-xs text-green-500 flex items-center mt-1">
+                <TrendingUp size={12} className="mr-1" />
+                +1.8% improvement
+              </p>
+            </div>
+            <Activity className="text-orange-500" size={32} />
+          </div>
+        </div>
       </div>
 
-      {/* Performance Distribution */}
+      {/* Detailed Metrics Table */}
       <div className="bg-white p-6 rounded-lg shadow-md">
-        <h4 className="font-semibold text-lg mb-4">Performance Distribution</h4>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div>
-            <h5 className="font-medium mb-3">Efficiency Distribution</h5>
-            <div className="space-y-3">
+        <h4 className="font-semibold text-lg mb-4">Detailed Performance Metrics</h4>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="p-3 font-semibold text-sm">Metric</th>
+                <th className="p-3 font-semibold text-sm">Current Value</th>
+                <th className="p-3 font-semibold text-sm">Target</th>
+                <th className="p-3 font-semibold text-sm">Variance</th>
+                <th className="p-3 font-semibold text-sm">Trend</th>
+                <th className="p-3 font-semibold text-sm">Status</th>
+              </tr>
+            </thead>
+            <tbody>
               {[
-                { range: 'Excellent (90-100%)', count: 42, percentage: 27, color: 'bg-green-500' },
-                { range: 'Good (80-89%)', count: 68, percentage: 44, color: 'bg-blue-500' },
-                { range: 'Average (70-79%)', count: 32, percentage: 20, color: 'bg-yellow-500' },
-                { range: 'Below Average (<70%)', count: 14, percentage: 9, color: 'bg-red-500' }
-              ].map((range, index) => (
-                <div key={index} className="space-y-1">
-                  <div className="flex justify-between text-sm">
-                    <span>{range.range}</span>
-                    <span>{range.count} workers ({range.percentage}%)</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
-                    <div 
-                      className={`h-3 rounded-full ${range.color}`}
-                      style={{ width: `${range.percentage}%` }}
-                    />
-                  </div>
-                </div>
+                { metric: 'Production Efficiency', current: 87.5, target: 85, variance: 2.5, trend: 'up', status: 'Above Target' },
+                { metric: 'Quality Rate', current: 94.8, target: 95, variance: -0.2, trend: 'stable', status: 'Near Target' },
+                { metric: 'Attendance Rate', current: 91.2, target: 95, variance: -3.8, trend: 'down', status: 'Below Target' },
+                { metric: 'On-Time Delivery', current: 96.5, target: 98, variance: -1.5, trend: 'up', status: 'Near Target' },
+                { metric: 'Defect Rate', current: 3.2, target: 2.5, variance: 0.7, trend: 'down', status: 'Above Target' },
+                { metric: 'Rework Rate', current: 4.1, target: 3.0, variance: 1.1, trend: 'stable', status: 'Above Target' }
+              ].map((metric, index) => (
+                <tr key={index} className="border-b hover:bg-gray-50">
+                  <td className="p-3 text-sm font-medium">{metric.metric}</td>
+                  <td className="p-3 text-sm font-semibold">{metric.current}%</td>
+                  <td className="p-3 text-sm">{metric.target}%</td>
+                  <td className="p-3 text-sm">
+                    <span className={metric.variance >= 0 ? 'text-green-600' : 'text-red-600'}>
+                      {metric.variance > 0 ? '+' : ''}{metric.variance}%
+                    </span>
+                  </td>
+                  <td className="p-3">
+                    {metric.trend === 'up' && <ArrowUp className="text-green-500" size={16} />}
+                    {metric.trend === 'down' && <ArrowDown className="text-red-500" size={16} />}
+                    {metric.trend === 'stable' && <Minus className="text-gray-500" size={16} />}
+                  </td>
+                  <td className="p-3">
+                    <StatusBadge status={metric.status} />
+                  </td>
+                </tr>
               ))}
-            </div>
-          </div>
-          
-          <div>
-            <h5 className="font-medium mb-3">Quality Score Distribution</h5>
-            <div className="space-y-3">
-              {[
-                { range: 'Excellent (95-100%)', count: 89, percentage: 57, color: 'bg-green-500' },
-                { range: 'Good (90-94%)', count: 45, percentage: 29, color: 'bg-blue-500' },
-                { range: 'Average (85-89%)', count: 18, percentage: 11, color: 'bg-yellow-500' },
-                { range: 'Below Average (<85%)', count: 4, percentage: 3, color: 'bg-red-500' }
-              ].map((range, index) => (
-                <div key={index} className="space-y-1">
-                  <div className="flex justify-between text-sm">
-                    <span>{range.range}</span>
-                    <span>{range.count} workers ({range.percentage}%)</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
-                    <div 
-                      className={`h-3 rounded-full ${range.color}`}
-                      style={{ width: `${range.percentage}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -942,33 +1041,38 @@ const ExtraWorkerEfficiency: React.FC = () => {
           <h4 className="font-semibold text-lg mb-4">Training Priority Matrix</h4>
           <div className="space-y-4">
             {[
-              { skill: 'Quality Control Techniques', priority: 'High', workers: 25, urgency: 'Immediate', color: 'red' },
-              { skill: 'Machine Operation Efficiency', priority: 'High', workers: 18, urgency: 'This Month', color: 'orange' },
-              { skill: 'Time Management', priority: 'Medium', workers: 42, urgency: 'Next Quarter', color: 'yellow' },
-              { skill: 'Safety Procedures', priority: 'Medium', workers: 15, urgency: 'Next Month', color: 'blue' },
-              { skill: 'Communication Skills', priority: 'Low', workers: 35, urgency: 'Next Quarter', color: 'green' }
+              { skill: 'Advanced Machine Operation', priority: 'High', workers: 23, impact: 'High', urgency: 'High' },
+              { skill: 'Quality Control Techniques', priority: 'High', workers: 15, impact: 'High', urgency: 'Medium' },
+              { skill: 'Time Management', priority: 'Medium', workers: 45, impact: 'Medium', urgency: 'High' },
+              { skill: 'Safety Procedures', priority: 'High', workers: 156, impact: 'High', urgency: 'High' },
+              { skill: 'Problem Solving', priority: 'Medium', workers: 67, impact: 'Medium', urgency: 'Medium' },
+              { skill: 'Communication Skills', priority: 'Low', workers: 34, impact: 'Low', urgency: 'Low' }
             ].map((training, index) => (
               <div key={index} className="border rounded-lg p-4">
-                <div className="flex justify-between items-start mb-2">
+                <div className="flex justify-between items-center mb-2">
+                  <h5 className="font-medium">{training.skill}</h5>
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    training.priority === 'High' ? 'bg-red-100 text-red-800' :
+                    training.priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-green-100 text-green-800'
+                  }`}>
+                    {training.priority} Priority
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-4 text-sm">
                   <div>
-                    <h5 className="font-semibold">{training.skill}</h5>
-                    <p className="text-sm text-gray-600">{training.workers} workers need training</p>
+                    <p className="text-gray-600">Workers Needed</p>
+                    <p className="font-semibold">{training.workers}</p>
                   </div>
-                  <div className="text-right">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      training.priority === 'High' ? 'bg-red-100 text-red-800' :
-                      training.priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
-                    }`}>
-                      {training.priority} Priority
-                    </span>
-                    <p className="text-sm text-gray-600 mt-1">{training.urgency}</p>
+                  <div>
+                    <p className="text-gray-600">Impact</p>
+                    <p className="font-semibold">{training.impact}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Urgency</p>
+                    <p className="font-semibold">{training.urgency}</p>
                   </div>
                 </div>
-                <ProgressBar 
-                  progress={training.priority === 'High' ? 90 : training.priority === 'Medium' ? 60 : 30} 
-                  color={training.color as any}
-                />
               </div>
             ))}
           </div>
@@ -982,44 +1086,66 @@ const ExtraWorkerEfficiency: React.FC = () => {
               { 
                 name: 'করিম মিয়া', 
                 dept: 'Cutting', 
-                efficiency: 72.5,
-                recommendations: ['Quality Control', 'Time Management', 'Machine Operation'],
+                currentSkill: 78.5, 
+                targetSkill: 85, 
+                recommendations: ['Pattern Making', 'Precision Cutting'],
                 priority: 'High'
               },
               { 
-                name: 'সালমা খাতুন', 
+                name: 'সালমা বেগম', 
                 dept: 'Finishing', 
-                efficiency: 78.2,
-                recommendations: ['Efficiency Techniques', 'Problem Solving'],
+                currentSkill: 82.3, 
+                targetSkill: 90, 
+                recommendations: ['Quality Standards', 'Finishing Techniques'],
                 priority: 'Medium'
               },
               { 
                 name: 'রহিম উদ্দিন', 
                 dept: 'Sewing', 
-                efficiency: 81.5,
-                recommendations: ['Advanced Techniques', 'Leadership'],
-                priority: 'Low'
+                currentSkill: 75.8, 
+                targetSkill: 85, 
+                recommendations: ['Machine Maintenance', 'Speed Improvement'],
+                priority: 'High'
+              },
+              { 
+                name: 'নাসির আহমেদ', 
+                dept: 'Packing', 
+                currentSkill: 80.1, 
+                targetSkill: 85, 
+                recommendations: ['Packaging Standards', 'Efficiency Methods'],
+                priority: 'Medium'
               }
             ].map((worker, index) => (
               <div key={index} className="border rounded-lg p-4">
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h5 className="font-semibold">{worker.name}</h5>
-                    <p className="text-sm text-gray-600">{worker.dept} • {worker.efficiency}% efficiency</p>
+                    <h5 className="font-medium">{worker.name}</h5>
+                    <p className="text-sm text-gray-600">{worker.dept}</p>
                   </div>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    worker.priority === 'High' ? 'bg-red-100 text-red-800' :
-                    worker.priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-green-100 text-green-800'
+                    worker.priority === 'High' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'
                   }`}>
                     {worker.priority}
                   </span>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-sm font-medium text-gray-700">Recommended Training:</p>
+                <div className="mb-3">
+                  <div className="flex justify-between text-sm mb-1">
+                    <span>Current Skill Level</span>
+                    <span>Target: {worker.targetSkill}%</span>
+                  </div>
+                  <ProgressBar 
+                    progress={worker.currentSkill} 
+                    color={worker.currentSkill >= worker.targetSkill ? 'green' : 'yellow'}
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Gap: {(worker.targetSkill - worker.currentSkill).toFixed(1)}%
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-1">Recommended Training:</p>
                   <div className="flex flex-wrap gap-1">
                     {worker.recommendations.map((rec, recIndex) => (
-                      <span key={recIndex} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                      <span key={recIndex} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
                         {rec}
                       </span>
                     ))}
@@ -1040,98 +1166,123 @@ const ExtraWorkerEfficiency: React.FC = () => {
         <div className="flex space-x-3">
           <select className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
             <option>Last 6 Months</option>
-            <option>Last 3 Months</option>
+            <option>Last 12 Months</option>
             <option>This Year</option>
           </select>
           <Button variant="secondary" size="sm">
             <Download size={16} className="mr-2" />
-            Export
+            Export Trends
           </Button>
         </div>
       </div>
 
-      {/* Monthly Trends */}
+      {/* Monthly Efficiency Trends */}
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h4 className="font-semibold text-lg mb-4">Monthly Efficiency Trends</h4>
-        <div className="space-y-3">
+        <div className="space-y-4">
           {[
-            { month: 'জুলাই ২০২৪', efficiency: 82.5, productivity: 135, quality: 94.2, target: 85 },
-            { month: 'আগস্ট ২০২৪', efficiency: 84.1, productivity: 138, quality: 95.1, target: 85 },
-            { month: 'সেপ্টেম্বর ২০২ৄ', efficiency: 85.8, productivity: 142, quality: 95.8, target: 85 },
-            { month: 'অক্টোবর ২০২৪', efficiency: 86.9, productivity: 145, quality: 96.2, target: 85 },
-            { month: 'নভেম্বর ২০২৪', efficiency: 87.2, productivity: 148, quality: 96.5, target: 85 },
-            { month: 'ডিসেম্বর ২০২৪', efficiency: 87.5, productivity: 142, quality: 96.8, target: 85 }
-          ].map((month, index) => {
-            const percentage = (month.efficiency / 100) * 100;
-            const isAboveTarget = month.efficiency >= month.target;
-            
-            return (
-              <div key={index} className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="font-medium">{month.month}</span>
-                  <div className="flex space-x-4 text-xs">
-                    <span>Efficiency: {month.efficiency}%</span>
-                    <span>Productivity: {month.productivity} pcs/hr</span>
-                    <span>Quality: {month.quality}%</span>
-                  </div>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-4">
-                  <div 
-                    className={`h-4 rounded-full transition-all duration-500 ${
-                      isAboveTarget ? 'bg-green-500' : 'bg-red-500'
-                    }`}
-                    style={{ width: `${percentage}%` }}
-                  />
+            { month: 'জানুয়ারি', overall: 84.2, sewing: 86.1, cutting: 89.5, finishing: 82.3, quality: 95.8, target: 85 },
+            { month: 'ফেব্রুয়ারি', overall: 85.8, sewing: 87.3, cutting: 90.2, finishing: 83.7, quality: 96.2, target: 85 },
+            { month: 'মার্চ', overall: 86.9, sewing: 88.1, cutting: 91.8, finishing: 84.9, quality: 96.5, target: 85 },
+            { month: 'এপ্রিল', overall: 87.5, sewing: 89.5, cutting: 92.1, finishing: 85.3, quality: 96.8, target: 85 },
+            { month: 'মে', overall: 88.2, sewing: 90.1, cutting: 92.8, finishing: 86.1, quality: 97.1, target: 85 },
+            { month: 'জুন', overall: 89.1, sewing: 91.2, cutting: 93.5, finishing: 87.2, quality: 97.5, target: 85 }
+          ].map((month, index) => (
+            <div key={index} className="space-y-3">
+              <div className="flex justify-between items-center">
+                <h5 className="font-medium">{month.month}</h5>
+                <div className="flex items-center space-x-4">
+                  <span className={`font-semibold ${
+                    month.overall >= month.target ? 'text-green-600' : 'text-red-600'
+                  }`}>
+                    Overall: {month.overall}%
+                  </span>
+                  <span className="text-sm text-gray-500">Target: {month.target}%</span>
                 </div>
               </div>
-            );
-          })}
+              <ProgressBar 
+                progress={month.overall} 
+                color={month.overall >= month.target ? 'green' : month.overall >= month.target - 2 ? 'yellow' : 'red'}
+              />
+              <div className="grid grid-cols-4 gap-4 text-xs">
+                <div className="flex justify-between">
+                  <span>Sewing:</span>
+                  <span className="font-medium">{month.sewing}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Cutting:</span>
+                  <span className="font-medium">{month.cutting}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Finishing:</span>
+                  <span className="font-medium">{month.finishing}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Quality:</span>
+                  <span className="font-medium">{month.quality}%</span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Trend Analysis */}
+      {/* Trend Analysis Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Positive Trends</h4>
-          <div className="space-y-3">
+          <h4 className="font-semibold text-lg mb-4">Trend Analysis Summary</h4>
+          <div className="space-y-4">
             {[
-              { metric: 'Overall Efficiency', change: '+5.0%', period: '6 months', icon: TrendingUp, color: 'green' },
-              { metric: 'Quality Score', change: '+2.6%', period: '6 months', icon: TrendingUp, color: 'green' },
-              { metric: 'Productivity Rate', change: '+7 pcs/hr', period: '6 months', icon: TrendingUp, color: 'green' },
-              { metric: 'Training Completion', change: '+15%', period: '3 months', icon: TrendingUp, color: 'green' }
+              { metric: 'Overall Efficiency', trend: 'Increasing', change: '+5.9%', status: 'Positive' },
+              { metric: 'Sewing Department', trend: 'Steady Growth', change: '+5.1%', status: 'Positive' },
+              { metric: 'Cutting Department', trend: 'Strong Growth', change: '+4.0%', status: 'Positive' },
+              { metric: 'Finishing Department', trend: 'Moderate Growth', change: '+4.9%', status: 'Positive' },
+              { metric: 'Quality Control', trend: 'Slight Improvement', change: '+1.7%', status: 'Stable' }
             ].map((trend, index) => (
               <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <trend.icon className={`text-${trend.color}-500`} size={20} />
-                  <div>
-                    <p className="font-medium">{trend.metric}</p>
-                    <p className="text-sm text-gray-600">Last {trend.period}</p>
-                  </div>
+                <div>
+                  <p className="font-medium">{trend.metric}</p>
+                  <p className="text-sm text-gray-600">{trend.trend}</p>
                 </div>
-                <span className={`font-semibold text-${trend.color}-600`}>{trend.change}</span>
+                <div className="text-right">
+                  <p className={`font-semibold ${
+                    trend.status === 'Positive' ? 'text-green-600' : 'text-yellow-600'
+                  }`}>
+                    {trend.change}
+                  </p>
+                  <p className="text-xs text-gray-500">6 months</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Areas for Improvement</h4>
-          <div className="space-y-3">
+          <h4 className="font-semibold text-lg mb-4">Efficiency Forecasting</h4>
+          <div className="space-y-4">
             {[
-              { metric: 'Attendance Rate', change: '-1.2%', period: '2 months', icon: TrendingDown, color: 'red' },
-              { metric: 'Machine Downtime', change: '+0.8%', period: '1 month', icon: TrendingUp, color: 'red' },
-              { metric: 'Communication Score', change: '-2.1%', period: '3 months', icon: TrendingDown, color: 'red' },
-              { metric: 'Overtime Hours', change: '+3.5 hrs', period: '1 month', icon: TrendingUp, color: 'orange' }
-            ].map((trend, index) => (
-              <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <trend.icon className={`text-${trend.color}-500`} size={20} />
-                  <div>
-                    <p className="font-medium">{trend.metric}</p>
-                    <p className="text-sm text-gray-600">Last {trend.period}</p>
+              { period: 'Next Month', predicted: 89.8, confidence: 85, trend: 'up' },
+              { period: 'Next Quarter', predicted: 91.2, confidence: 78, trend: 'up' },
+              { period: 'Next 6 Months', predicted: 92.5, confidence: 65, trend: 'up' }
+            ].map((forecast, index) => (
+              <div key={index} className="border rounded-lg p-4">
+                <div className="flex justify-between items-center mb-2">
+                  <h5 className="font-medium">{forecast.period}</h5>
+                  <div className="flex items-center space-x-2">
+                    <span className="font-semibold text-blue-600">{forecast.predicted}%</span>
+                    {forecast.trend === 'up' && <ArrowUp className="text-green-500" size={16} />}
                   </div>
                 </div>
-                <span className={`font-semibold text-${trend.color}-600`}>{trend.change}</span>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Confidence Level</span>
+                    <span>{forecast.confidence}%</span>
+                  </div>
+                  <ProgressBar 
+                    progress={forecast.confidence} 
+                    color={forecast.confidence >= 80 ? 'green' : forecast.confidence >= 70 ? 'yellow' : 'red'}
+                  />
+                </div>
               </div>
             ))}
           </div>
@@ -1144,143 +1295,107 @@ const ExtraWorkerEfficiency: React.FC = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold">Performance Benchmarking</h3>
-        <div className="flex space-x-3">
-          <select className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-            <option>Industry Standards</option>
-            <option>Internal Benchmarks</option>
-            <option>Best Practices</option>
-          </select>
-          <Button variant="secondary" size="sm">
-            <Download size={16} className="mr-2" />
-            Export
-          </Button>
-        </div>
+        <Button size="sm">
+          <Plus size={16} className="mr-2" />
+          Add Benchmark
+        </Button>
       </div>
 
-      {/* Industry Comparison */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h4 className="font-semibold text-lg mb-4">Industry Benchmark Comparison</h4>
-        <div className="space-y-4">
-          {[
-            { metric: 'Overall Efficiency', ourValue: 87.5, industry: 82.0, best: 92.0, unit: '%' },
-            { metric: 'Quality Rate', ourValue: 96.8, industry: 94.5, best: 98.5, unit: '%' },
-            { metric: 'Productivity', ourValue: 142, industry: 135, best: 165, unit: 'pcs/hr' },
-            { metric: 'Training Hours/Month', ourValue: 8.5, industry: 12.0, best: 16.0, unit: 'hrs' },
-            { metric: 'Attendance Rate', ourValue: 94.2, industry: 96.0, best: 98.5, unit: '%' },
-            { metric: 'Safety Score', ourValue: 98.5, industry: 95.0, best: 99.2, unit: '%' }
-          ].map((metric, index) => (
-            <div key={index} className="border rounded-lg p-4">
-              <div className="flex justify-between items-center mb-3">
-                <h5 className="font-semibold">{metric.metric}</h5>
-                <div className="flex space-x-4 text-sm">
-                  <span className="text-blue-600 font-semibold">Us: {metric.ourValue}{metric.unit}</span>
-                  <span className="text-gray-600">Industry: {metric.industry}{metric.unit}</span>
-                  <span className="text-green-600">Best: {metric.best}{metric.unit}</span>
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs w-16">Our Score:</span>
-                  <div className="flex-1 bg-gray-200 rounded-full h-3">
-                    <div 
-                      className="bg-blue-500 h-3 rounded-full"
-                      style={{ width: `${(metric.ourValue / metric.best) * 100}%` }}
-                    />
-                  </div>
-                  <span className="text-xs w-12">{((metric.ourValue / metric.best) * 100).toFixed(1)}%</span>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs w-16">Industry:</span>
-                  <div className="flex-1 bg-gray-200 rounded-full h-3">
-                    <div 
-                      className="bg-gray-500 h-3 rounded-full"
-                      style={{ width: `${(metric.industry / metric.best) * 100}%` }}
-                    />
-                  </div>
-                  <span className="text-xs w-12">{((metric.industry / metric.best) * 100).toFixed(1)}%</span>
-                </div>
-              </div>
-              
-              <div className="mt-2 text-xs">
-                <span className={`font-medium ${
-                  metric.ourValue >= metric.industry ? 'text-green-600' : 'text-red-600'
-                }`}>
-                  {metric.ourValue >= metric.industry 
-                    ? `Above industry average by ${(metric.ourValue - metric.industry).toFixed(1)}${metric.unit}`
-                    : `Below industry average by ${(metric.industry - metric.ourValue).toFixed(1)}${metric.unit}`
-                  }
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Internal Benchmarking */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Industry Benchmarks */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Department Ranking</h4>
-          <div className="space-y-3">
+          <h4 className="font-semibold text-lg mb-4">Industry Benchmarks Comparison</h4>
+          <div className="space-y-4">
             {[
-              { dept: 'Quality', score: 94.3, rank: 1, change: 'up' },
-              { dept: 'Cutting', score: 92.1, rank: 2, change: 'up' },
-              { dept: 'Sewing', score: 89.2, rank: 3, change: 'stable' },
-              { dept: 'Packing', score: 88.9, rank: 4, change: 'up' },
-              { dept: 'Finishing', score: 85.7, rank: 5, change: 'down' }
-            ].map((dept, index) => (
-              <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
-                    dept.rank === 1 ? 'bg-yellow-500' :
-                    dept.rank === 2 ? 'bg-gray-400' :
-                    dept.rank === 3 ? 'bg-orange-600' : 'bg-blue-500'
-                  }`}>
-                    {dept.rank}
-                  </div>
-                  <div>
-                    <p className="font-medium">{dept.dept}</p>
-                    <p className="text-sm text-gray-600">Efficiency Score</p>
-                  </div>
+              { metric: 'Production Efficiency', ourValue: 87.5, industry: 82.3, best: 94.2, status: 'Above Average' },
+              { metric: 'Quality Rate', ourValue: 94.8, industry: 91.5, best: 98.1, status: 'Above Average' },
+              { metric: 'Labor Productivity', ourValue: 92.3, industry: 88.7, best: 96.8, status: 'Above Average' },
+              { metric: 'On-Time Delivery', ourValue: 89.2, industry: 92.1, best: 97.5, status: 'Below Average' },
+              { metric: 'Defect Rate', ourValue: 3.2, industry: 4.1, best: 1.8, status: 'Above Average' },
+              { metric: 'Employee Turnover', ourValue: 8.5, industry: 12.3, best: 5.2, status: 'Above Average' }
+            ].map((benchmark, index) => (
+              <div key={index} className="border rounded-lg p-4">
+                <div className="flex justify-between items-center mb-3">
+                  <h5 className="font-medium">{benchmark.metric}</h5>
+                  <StatusBadge status={benchmark.status} />
                 </div>
-                <div className="flex items-center space-x-2">
-                  <span className="font-semibold">{dept.score}%</span>
-                  {dept.change === 'up' && <TrendingUp className="text-green-500" size={16} />}
-                  {dept.change === 'down' && <TrendingDown className="text-red-500" size={16} />}
-                  {dept.change === 'stable' && <Target className="text-gray-500" size={16} />}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Our Performance</span>
+                    <span className="font-semibold text-blue-600">{benchmark.ourValue}%</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span>Industry Average</span>
+                    <span className="font-semibold text-gray-600">{benchmark.industry}%</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span>Industry Best</span>
+                    <span className="font-semibold text-green-600">{benchmark.best}%</span>
+                  </div>
+                  <div className="relative">
+                    <div className="w-full bg-gray-200 rounded-full h-4">
+                      <div 
+                        className="bg-blue-500 h-4 rounded-full"
+                        style={{ width: `${(benchmark.ourValue / benchmark.best) * 100}%` }}
+                      />
+                    </div>
+                    <div className="flex justify-between text-xs mt-1">
+                      <span>0%</span>
+                      <span className="text-gray-500">Industry Avg: {benchmark.industry}%</span>
+                      <span>Best: {benchmark.best}%</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
+        {/* Internal Benchmarks */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Best Practice Examples</h4>
-          <div className="space-y-3">
+          <h4 className="font-semibold text-lg mb-4">Internal Department Benchmarks</h4>
+          <div className="space-y-4">
             {[
-              { practice: 'Quality Control Process', leader: 'Quality Dept', score: 99.2, adoptable: true },
-              { practice: 'Workflow Optimization', leader: 'Cutting Dept', score: 95.8, adoptable: true },
-              { practice: 'Team Communication', leader: 'Sewing Dept', score: 92.5, adoptable: true },
-              { practice: 'Time Management', leader: 'Packing Dept', score: 91.3, adoptable: false }
-            ].map((practice, index) => (
-              <div key={index} className="border rounded-lg p-3">
-                <div className="flex justify-between items-start mb-2">
+              { dept: 'Sewing', efficiency: 89.5, rank: 2, bestPractice: 'Team Alpha Methods', gap: 2.7 },
+              { dept: 'Cutting', efficiency: 92.1, rank: 1, bestPractice: 'Precision Cutting Protocol', gap: 0 },
+              { dept: 'Finishing', efficiency: 85.3, rank: 4, bestPractice: 'Quality First Approach', gap: 6.8 },
+              { dept: 'Quality Control', efficiency: 96.8, rank: 1, bestPractice: 'Six Sigma Methods', gap: 0 },
+              { dept: 'Packing', efficiency: 83.7, rank: 5, bestPractice: 'Lean Packing System', gap: 8.4 },
+              { dept: 'Maintenance', efficiency: 78.2, rank: 6, bestPractice: 'Preventive Maintenance', gap: 13.9 }
+            ].map((dept, index) => (
+              <div key={index} className="border rounded-lg p-4">
+                <div className="flex justify-between items-center mb-3">
                   <div>
-                    <p className="font-medium">{practice.practice}</p>
-                    <p className="text-sm text-gray-600">Led by {practice.leader}</p>
+                    <h5 className="font-medium">{dept.dept}</h5>
+                    <p className="text-sm text-gray-600">Rank #{dept.rank}</p>
                   </div>
-                  <span className="font-semibold text-green-600">{practice.score}%</span>
+                  <span className={`font-semibold ${
+                    dept.rank === 1 ? 'text-green-600' : 
+                    dept.rank <= 3 ? 'text-yellow-600' : 'text-red-600'
+                  }`}>
+                    {dept.efficiency}%
+                  </span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <ProgressBar progress={practice.score} color="green" />
-                  <Button 
-                    size="sm" 
-                    variant={practice.adoptable ? "success" : "secondary"}
-                    disabled={!practice.adoptable}
-                  >
-                    {practice.adoptable ? 'Adopt' : 'In Use'}
-                  </Button>
+                <div className="space-y-2">
+                  <div className="text-sm">
+                    <p className="text-gray-600">Best Practice:</p>
+                    <p className="font-medium">{dept.bestPractice}</p>
+                  </div>
+                  {dept.gap > 0 && (
+                    <div className="text-sm">
+                      <p className="text-red-600">Gap to Best: {dept.gap}%</p>
+                      <ProgressBar 
+                        progress={100 - dept.gap} 
+                        color={dept.gap <= 3 ? 'green' : dept.gap <= 7 ? 'yellow' : 'red'}
+                      />
+                    </div>
+                  )}
+                  {dept.gap === 0 && (
+                    <div className="flex items-center text-sm text-green-600">
+                      <CheckCircle size={16} className="mr-1" />
+                      Department Leader
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -1293,182 +1408,186 @@ const ExtraWorkerEfficiency: React.FC = () => {
   const renderIncentiveAnalysis = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold">Incentive Analysis</h3>
+        <h3 className="text-xl font-semibold">Incentive & Motivation Analysis</h3>
         <Button size="sm">
           <Plus size={16} className="mr-2" />
           Create Incentive Plan
         </Button>
       </div>
 
-      {/* Incentive Impact */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-500">Total Incentives Paid</p>
-              <p className="text-2xl font-bold text-green-600">৳2,45,000</p>
-            </div>
-            <DollarSign className="text-green-500" size={32} />
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-500">Eligible Workers</p>
-              <p className="text-2xl font-bold text-blue-600">89/156</p>
-            </div>
-            <Users className="text-blue-500" size={32} />
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-500">ROI on Incentives</p>
-              <p className="text-2xl font-bold text-purple-600">285%</p>
-            </div>
-            <TrendingUp className="text-purple-500" size={32} />
-          </div>
-        </div>
-      </div>
-
-      {/* Incentive Programs */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Incentive Performance Correlation */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Active Incentive Programs</h4>
+          <h4 className="font-semibold text-lg mb-4">Incentive Impact Analysis</h4>
           <div className="space-y-4">
             {[
               { 
-                program: 'Efficiency Bonus', 
-                criteria: '90%+ efficiency', 
-                amount: '৳2,000/month', 
-                participants: 42,
-                impact: '+8.5% efficiency'
+                incentive: 'Production Bonus', 
+                participants: 45, 
+                avgIncrease: 12.5, 
+                cost: 25000, 
+                roi: 185,
+                effectiveness: 'High'
               },
               { 
-                program: 'Quality Excellence', 
-                criteria: '98%+ quality score', 
-                amount: '৳1,500/month', 
-                participants: 25,
-                impact: '+3.2% quality'
+                incentive: 'Quality Bonus', 
+                participants: 12, 
+                avgIncrease: 8.3, 
+                cost: 8000, 
+                roi: 156,
+                effectiveness: 'High'
               },
               { 
-                program: 'Perfect Attendance', 
-                criteria: '100% attendance', 
-                amount: '৳1,000/month', 
-                participants: 18,
-                impact: '+5.1% attendance'
+                incentive: 'Attendance Bonus', 
+                participants: 156, 
+                avgIncrease: 5.2, 
+                cost: 18000, 
+                roi: 142,
+                effectiveness: 'Medium'
               },
               { 
-                program: 'Innovation Award', 
-                criteria: 'Process improvement', 
-                amount: '৳5,000/idea', 
-                participants: 8,
-                impact: '+12% productivity'
+                incentive: 'Skill Development Bonus', 
+                participants: 23, 
+                avgIncrease: 15.8, 
+                cost: 15000, 
+                roi: 198,
+                effectiveness: 'High'
               }
-            ].map((program, index) => (
+            ].map((incentive, index) => (
               <div key={index} className="border rounded-lg p-4">
-                <div className="flex justify-between items-start mb-2">
+                <div className="flex justify-between items-center mb-3">
+                  <h5 className="font-medium">{incentive.incentive}</h5>
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    incentive.effectiveness === 'High' ? 'bg-green-100 text-green-800' :
+                    incentive.effectiveness === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-red-100 text-red-800'
+                  }`}>
+                    {incentive.effectiveness}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <h5 className="font-semibold">{program.program}</h5>
-                    <p className="text-sm text-gray-600">{program.criteria}</p>
+                    <p className="text-gray-600">Participants</p>
+                    <p className="font-semibold">{incentive.participants}</p>
                   </div>
-                  <span className="font-semibold text-green-600">{program.amount}</span>
-                </div>
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>{program.participants} participants</span>
-                  <span className="text-blue-600 font-medium">{program.impact}</span>
+                  <div>
+                    <p className="text-gray-600">Avg. Performance Increase</p>
+                    <p className="font-semibold text-green-600">+{incentive.avgIncrease}%</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Monthly Cost</p>
+                    <p className="font-semibold">৳{incentive.cost.toLocaleString()}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">ROI</p>
+                    <p className="font-semibold text-blue-600">{incentive.roi}%</p>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
+        {/* Individual Incentive Performance */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Incentive Effectiveness</h4>
-          <div className="space-y-4">
+          <h4 className="font-semibold text-lg mb-4">Top Incentive Earners</h4>
+          <div className="space-y-3">
             {[
-              { metric: 'Productivity Increase', before: 135, after: 142, improvement: 5.2 },
-              { metric: 'Quality Score', before: 93.5, after: 96.8, improvement: 3.5 },
-              { metric: 'Efficiency Rate', before: 82.1, after: 87.5, improvement: 6.6 },
-              { metric: 'Employee Satisfaction', before: 78, after: 89, improvement: 14.1 }
-            ].map((metric, index) => (
+              { 
+                name: 'ফাতিমা খাতুন', 
+                dept: 'Quality Control', 
+                totalIncentive: 4500, 
+                bonusTypes: ['Quality', 'Attendance', 'Skill'],
+                performance: 96.8
+              },
+              { 
+                name: 'আবুল কালাম', 
+                dept: 'Sewing', 
+                totalIncentive: 3800, 
+                bonusTypes: ['Production', 'Attendance'],
+                performance: 89.5
+              },
+              { 
+                name: 'করিম মিয়া', 
+                dept: 'Cutting', 
+                totalIncentive: 3200, 
+                bonusTypes: ['Production', 'Skill'],
+                performance: 85.3
+              },
+              { 
+                name: 'সালমা বেগম', 
+                dept: 'Finishing', 
+                totalIncentive: 2900, 
+                bonusTypes: ['Quality', 'Attendance'],
+                performance: 82.7
+              }
+            ].map((worker, index) => (
               <div key={index} className="border rounded-lg p-4">
-                <div className="flex justify-between items-center mb-2">
-                  <h5 className="font-semibold">{metric.metric}</h5>
-                  <span className="text-green-600 font-semibold">+{metric.improvement}%</span>
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h5 className="font-medium">{worker.name}</h5>
+                    <p className="text-sm text-gray-600">{worker.dept}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold text-green-600">৳{worker.totalIncentive.toLocaleString()}</p>
+                    <p className="text-xs text-gray-500">This month</p>
+                  </div>
                 </div>
-                <div className="flex justify-between text-sm text-gray-600 mb-2">
-                  <span>Before: {metric.before}</span>
-                  <span>After: {metric.after}</span>
-                </div>
-                <ProgressBar progress={(metric.improvement / 20) * 100} color="green" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Individual Incentive Tracking */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h4 className="font-semibold text-lg mb-4">Top Incentive Earners</h4>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="p-3 font-semibold text-sm">Worker</th>
-                <th className="p-3 font-semibold text-sm">Department</th>
-                <th className="p-3 font-semibold text-sm">Programs Qualified</th>
-                <th className="p-3 font-semibold text-sm">This Month</th>
-                <th className="p-3 font-semibold text-sm">Total Earned</th>
-                <th className="p-3 font-semibold text-sm">Performance Impact</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                { 
-                  name: 'ফাতিমা বেগম', 
-                  dept: 'Quality', 
-                  programs: ['Efficiency', 'Quality', 'Attendance'], 
-                  thisMonth: 4500, 
-                  total: 18000,
-                  impact: '+15.2%'
-                },
-                { 
-                  name: 'আবুল কালাম', 
-                  dept: 'Sewing', 
-                  programs: ['Efficiency', 'Attendance'], 
-                  thisMonth: 3000, 
-                  total: 12000,
-                  impact: '+12.8%'
-                },
-                { 
-                  name: 'করিম মিয়া', 
-                  dept: 'Cutting', 
-                  programs: ['Innovation'], 
-                  thisMonth: 5000, 
-                  total: 5000,
-                  impact: '+8.5%'
-                }
-              ].map((worker, index) => (
-                <tr key={index} className="border-b hover:bg-gray-50">
-                  <td className="p-3 font-medium">{worker.name}</td>
-                  <td className="p-3 text-sm">{worker.dept}</td>
-                  <td className="p-3">
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Performance Score</span>
+                    <span className="font-semibold">{worker.performance}%</span>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Active Bonuses:</p>
                     <div className="flex flex-wrap gap-1">
-                      {worker.programs.map((program, pIndex) => (
-                        <span key={pIndex} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                          {program}
+                      {worker.bonusTypes.map((bonus, bonusIndex) => (
+                        <span key={bonusIndex} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+                          {bonus}
                         </span>
                       ))}
                     </div>
-                  </td>
-                  <td className="p-3 font-semibold text-green-600">৳{worker.thisMonth.toLocaleString()}</td>
-                  <td className="p-3 font-semibold">৳{worker.total.toLocaleString()}</td>
-                  <td className="p-3 font-semibold text-blue-600">{worker.impact}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Incentive Effectiveness Chart */}
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <h4 className="font-semibold text-lg mb-4">Monthly Incentive vs Performance Correlation</h4>
+        <div className="space-y-3">
+          {[
+            { month: 'জানুয়ারি', incentivePaid: 45000, avgPerformance: 84.2, participation: 78 },
+            { month: 'ফেব্রুয়ারি', incentivePaid: 52000, avgPerformance: 85.8, participation: 82 },
+            { month: 'মার্চ', incentivePaid: 58000, avgPerformance: 86.9, participation: 85 },
+            { month: 'এপ্রিল', incentivePaid: 61000, avgPerformance: 87.5, participation: 88 },
+            { month: 'মে', incentivePaid: 64000, avgPerformance: 88.2, participation: 91 },
+            { month: 'জুন', incentivePaid: 67000, avgPerformance: 89.1, participation: 94 }
+          ].map((month, index) => (
+            <div key={index} className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="font-medium">{month.month}</span>
+                <div className="flex space-x-4">
+                  <span>Incentive: ৳{month.incentivePaid.toLocaleString()}</span>
+                  <span>Performance: {month.avgPerformance}%</span>
+                  <span>Participation: {month.participation}%</span>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <div className="text-xs text-gray-500 mb-1">Performance</div>
+                  <ProgressBar progress={month.avgPerformance} color="blue" />
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 mb-1">Participation</div>
+                  <ProgressBar progress={month.participation} color="green" />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -1477,236 +1596,196 @@ const ExtraWorkerEfficiency: React.FC = () => {
   const renderWorkloadAnalysis = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold">Workload Analysis</h3>
+        <h3 className="text-xl font-semibold">Workload Distribution Analysis</h3>
         <div className="flex space-x-3">
           <select className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
             <option>This Week</option>
+            <option>Last Week</option>
             <option>This Month</option>
-            <option>Custom Range</option>
           </select>
           <Button variant="secondary" size="sm">
             <Download size={16} className="mr-2" />
-            Export
+            Export Analysis
           </Button>
         </div>
       </div>
 
-      {/* Workload Distribution */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-500">Average Workload</p>
-              <p className="text-2xl font-bold text-blue-600">78%</p>
-            </div>
-            <Activity className="text-blue-500" size={32} />
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-500">Overloaded Workers</p>
-              <p className="text-2xl font-bold text-red-600">12</p>
-            </div>
-            <AlertTriangle className="text-red-500" size={32} />
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-500">Underutilized</p>
-              <p className="text-2xl font-bold text-yellow-600">8</p>
-            </div>
-            <TrendingDown className="text-yellow-500" size={32} />
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-500">Optimal Load</p>
-              <p className="text-2xl font-bold text-green-600">136</p>
-            </div>
-            <CheckCircle className="text-green-500" size={32} />
-          </div>
-        </div>
-      </div>
-
-      {/* Department Workload */}
+      {/* Workload Distribution by Department */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h4 className="font-semibold text-lg mb-4">Department Workload Distribution</h4>
           <div className="space-y-4">
             {[
-              { dept: 'Sewing', workload: 85, capacity: 100, workers: 45, status: 'High' },
-              { dept: 'Cutting', workload: 72, capacity: 100, workers: 18, status: 'Optimal' },
-              { dept: 'Finishing', workload: 68, capacity: 100, workers: 28, status: 'Low' },
-              { dept: 'Quality', workload: 92, capacity: 100, workers: 12, status: 'Overloaded' },
-              { dept: 'Packing', workload: 78, capacity: 100, workers: 22, status: 'Optimal' }
+              { dept: 'Sewing', workers: 45, capacity: 100, utilization: 92, overload: 8, status: 'High' },
+              { dept: 'Cutting', workers: 18, capacity: 100, utilization: 85, overload: 0, status: 'Optimal' },
+              { dept: 'Finishing', workers: 28, capacity: 100, utilization: 78, overload: 0, status: 'Under' },
+              { dept: 'Quality Control', workers: 12, capacity: 100, utilization: 95, overload: 12, status: 'High' },
+              { dept: 'Packing', workers: 22, capacity: 100, utilization: 88, overload: 3, status: 'Optimal' },
+              { dept: 'Maintenance', workers: 8, capacity: 100, utilization: 65, overload: 0, status: 'Under' }
             ].map((dept, index) => (
               <div key={index} className="border rounded-lg p-4">
-                <div className="flex justify-between items-center mb-2">
+                <div className="flex justify-between items-center mb-3">
                   <div>
-                    <h5 className="font-semibold">{dept.dept}</h5>
+                    <h5 className="font-medium">{dept.dept}</h5>
                     <p className="text-sm text-gray-600">{dept.workers} workers</p>
                   </div>
-                  <div className="text-right">
-                    <span className="font-semibold">{dept.workload}%</span>
-                    <span className={`ml-2 px-2 py-1 rounded-full text-xs font-medium ${
-                      dept.status === 'Overloaded' ? 'bg-red-100 text-red-800' :
-                      dept.status === 'High' ? 'bg-orange-100 text-orange-800' :
-                      dept.status === 'Optimal' ? 'bg-green-100 text-green-800' :
-                      'bg-yellow-100 text-yellow-800'
-                    }`}>
-                      {dept.status}
-                    </span>
-                  </div>
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    dept.status === 'High' ? 'bg-red-100 text-red-800' :
+                    dept.status === 'Optimal' ? 'bg-green-100 text-green-800' :
+                    'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {dept.status} Load
+                  </span>
                 </div>
-                <ProgressBar 
-                  progress={dept.workload} 
-                  color={
-                    dept.status === 'Overloaded' ? 'red' :
-                    dept.status === 'High' ? 'orange' :
-                    dept.status === 'Optimal' ? 'green' : 'yellow'
-                  }
-                />
-                <div className="flex justify-between text-xs text-gray-500 mt-1">
-                  <span>Capacity: {dept.capacity}%</span>
-                  <span>Utilization: {dept.workload}%</span>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Capacity Utilization</span>
+                    <span className="font-semibold">{dept.utilization}%</span>
+                  </div>
+                  <ProgressBar 
+                    progress={dept.utilization} 
+                    color={dept.utilization > 90 ? 'red' : dept.utilization > 80 ? 'green' : 'yellow'}
+                  />
+                  {dept.overload > 0 && (
+                    <div className="text-sm text-red-600">
+                      <AlertTriangle size={14} className="inline mr-1" />
+                      {dept.overload}% overload detected
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
           </div>
         </div>
 
+        {/* Individual Workload Analysis */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Workload Balance Recommendations</h4>
+          <h4 className="font-semibold text-lg mb-4">Individual Workload Status</h4>
           <div className="space-y-3">
             {[
               { 
-                issue: 'Quality Department Overloaded', 
-                recommendation: 'Redistribute 2 workers from Finishing', 
-                priority: 'High',
-                impact: 'Reduce workload by 15%'
+                name: 'ফাতিমা খাতুন', 
+                dept: 'Quality Control', 
+                workload: 105, 
+                efficiency: 96.8, 
+                overtime: 8, 
+                stress: 'Medium',
+                status: 'Overloaded'
               },
               { 
-                issue: 'Finishing Department Underutilized', 
-                recommendation: 'Assign additional quality tasks', 
-                priority: 'Medium',
-                impact: 'Increase utilization by 10%'
+                name: 'আবুল কালাম', 
+                dept: 'Sewing', 
+                workload: 95, 
+                efficiency: 89.5, 
+                overtime: 4, 
+                stress: 'Low',
+                status: 'Optimal'
               },
               { 
-                issue: 'Sewing Department High Load', 
-                recommendation: 'Consider overtime or temporary staff', 
-                priority: 'Medium',
-                impact: 'Maintain current efficiency'
+                name: 'করিম মিয়া', 
+                dept: 'Cutting', 
+                workload: 88, 
+                efficiency: 85.3, 
+                overtime: 2, 
+                stress: 'Low',
+                status: 'Optimal'
               },
               { 
-                issue: 'Cross-training Opportunity', 
-                recommendation: 'Train Finishing workers in Quality tasks', 
-                priority: 'Low',
-                impact: 'Improve flexibility'
+                name: 'সালমা বেগম', 
+                dept: 'Finishing', 
+                workload: 72, 
+                efficiency: 82.7, 
+                overtime: 0, 
+                stress: 'Low',
+                status: 'Underutilized'
               }
-            ].map((rec, index) => (
+            ].map((worker, index) => (
               <div key={index} className="border rounded-lg p-4">
-                <div className="flex justify-between items-start mb-2">
+                <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h5 className="font-semibold text-sm">{rec.issue}</h5>
-                    <p className="text-sm text-gray-600">{rec.recommendation}</p>
+                    <h5 className="font-medium">{worker.name}</h5>
+                    <p className="text-sm text-gray-600">{worker.dept}</p>
                   </div>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    rec.priority === 'High' ? 'bg-red-100 text-red-800' :
-                    rec.priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-green-100 text-green-800'
+                    worker.status === 'Overloaded' ? 'bg-red-100 text-red-800' :
+                    worker.status === 'Optimal' ? 'bg-green-100 text-green-800' :
+                    'bg-yellow-100 text-yellow-800'
                   }`}>
-                    {rec.priority}
+                    {worker.status}
                   </span>
                 </div>
-                <p className="text-xs text-blue-600 font-medium">Expected Impact: {rec.impact}</p>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <p className="text-gray-600">Workload</p>
+                    <p className="font-semibold">{worker.workload}%</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Efficiency</p>
+                    <p className="font-semibold">{worker.efficiency}%</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Overtime (hrs/week)</p>
+                    <p className="font-semibold">{worker.overtime}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">Stress Level</p>
+                    <p className={`font-semibold ${
+                      worker.stress === 'High' ? 'text-red-600' :
+                      worker.stress === 'Medium' ? 'text-yellow-600' : 'text-green-600'
+                    }`}>
+                      {worker.stress}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <ProgressBar 
+                    progress={worker.workload} 
+                    color={worker.workload > 100 ? 'red' : worker.workload > 85 ? 'green' : 'yellow'}
+                  />
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Individual Workload Analysis */}
+      {/* Workload Balancing Recommendations */}
       <div className="bg-white p-6 rounded-lg shadow-md">
-        <h4 className="font-semibold text-lg mb-4">Individual Workload Analysis</h4>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="p-3 font-semibold text-sm">Worker</th>
-                <th className="p-3 font-semibold text-sm">Department</th>
-                <th className="p-3 font-semibold text-sm">Current Load</th>
-                <th className="p-3 font-semibold text-sm">Capacity</th>
-                <th className="p-3 font-semibold text-sm">Utilization</th>
-                <th className="p-3 font-semibold text-sm">Stress Level</th>
-                <th className="p-3 font-semibold text-sm">Status</th>
-                <th className="p-3 font-semibold text-sm">Action</th>
-              </tr>
-            </thead>
-            <tbody>
+        <h4 className="font-semibold text-lg mb-4">Workload Balancing Recommendations</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h5 className="font-medium mb-3 text-red-600">Overloaded Areas</h5>
+            <div className="space-y-3">
               {[
-                { 
-                  name: 'ফাতিমা বেগম', 
-                  dept: 'Quality', 
-                  load: 95, 
-                  capacity: 100, 
-                  utilization: 95, 
-                  stress: 'High',
-                  status: 'Overloaded'
-                },
-                { 
-                  name: 'আবুল কালাম', 
-                  dept: 'Sewing', 
-                  load: 82, 
-                  capacity: 100, 
-                  utilization: 82, 
-                  stress: 'Medium',
-                  status: 'Optimal'
-                },
-                { 
-                  name: 'সালমা খাতুন', 
-                  dept: 'Finishing', 
-                  load: 58, 
-                  capacity: 100, 
-                  utilization: 58, 
-                  stress: 'Low',
-                  status: 'Underutilized'
-                }
-              ].map((worker, index) => (
-                <tr key={index} className="border-b hover:bg-gray-50">
-                  <td className="p-3 font-medium">{worker.name}</td>
-                  <td className="p-3 text-sm">{worker.dept}</td>
-                  <td className="p-3 text-sm">{worker.load}%</td>
-                  <td className="p-3 text-sm">{worker.capacity}%</td>
-                  <td className="p-3">
-                    <ProgressBar progress={worker.utilization} color={
-                      worker.utilization > 90 ? 'red' :
-                      worker.utilization > 75 ? 'green' : 'yellow'
-                    } />
-                  </td>
-                  <td className="p-3">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      worker.stress === 'High' ? 'bg-red-100 text-red-800' :
-                      worker.stress === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
-                    }`}>
-                      {worker.stress}
-                    </span>
-                  </td>
-                  <td className="p-3">
-                    <StatusBadge status={worker.status} />
-                  </td>
-                  <td className="p-3">
-                    <Button size="sm" variant="secondary">
-                      Adjust
-                    </Button>
-                  </td>
-                </tr>
+                { area: 'Quality Control Department', issue: '12% overload', solution: 'Add 2 temporary inspectors' },
+                { area: 'Sewing Line A', issue: '8% overload', solution: 'Redistribute work to Line C' },
+                { area: 'ফাতিমা খাতুন', issue: '105% workload', solution: 'Reduce inspection quota by 15%' }
+              ].map((item, index) => (
+                <div key={index} className="border-l-4 border-red-500 pl-4 py-2">
+                  <p className="font-medium">{item.area}</p>
+                  <p className="text-sm text-gray-600">{item.issue}</p>
+                  <p className="text-sm text-blue-600">💡 {item.solution}</p>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
+          
+          <div>
+            <h5 className="font-medium mb-3 text-yellow-600">Underutilized Areas</h5>
+            <div className="space-y-3">
+              {[
+                { area: 'Maintenance Department', issue: '35% underutilized', solution: 'Cross-train for quality control' },
+                { area: 'Finishing Department', issue: '22% underutilized', solution: 'Take on additional orders' },
+                { area: 'সালমা বেগম', issue: '72% workload', solution: 'Assign additional finishing tasks' }
+              ].map((item, index) => (
+                <div key={index} className="border-l-4 border-yellow-500 pl-4 py-2">
+                  <p className="font-medium">{item.area}</p>
+                  <p className="text-sm text-gray-600">{item.issue}</p>
+                  <p className="text-sm text-blue-600">💡 {item.solution}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1718,83 +1797,83 @@ const ExtraWorkerEfficiency: React.FC = () => {
         <h3 className="text-xl font-semibold">Efficiency Reports</h3>
         <Button size="sm">
           <Plus size={16} className="mr-2" />
-          Generate Custom Report
+          Create Custom Report
         </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {[
           { 
-            title: 'Individual Efficiency Report', 
-            description: 'Detailed analysis of each worker\'s performance', 
-            icon: User, 
+            title: 'Daily Efficiency Report', 
+            description: 'Daily worker and department efficiency metrics', 
+            icon: Calendar, 
             color: 'blue',
-            frequency: 'Weekly',
-            lastGenerated: '2 days ago'
+            lastGenerated: '2 hours ago',
+            frequency: 'Daily'
           },
           { 
-            title: 'Department Performance Report', 
-            description: 'Department-wise efficiency and productivity metrics', 
-            icon: Users, 
+            title: 'Weekly Performance Summary', 
+            description: 'Comprehensive weekly performance analysis', 
+            icon: BarChart, 
             color: 'green',
-            frequency: 'Monthly',
-            lastGenerated: '1 week ago'
+            lastGenerated: '1 day ago',
+            frequency: 'Weekly'
+          },
+          { 
+            title: 'Individual Worker Analysis', 
+            description: 'Detailed individual performance breakdown', 
+            icon: Users, 
+            color: 'purple',
+            lastGenerated: '3 hours ago',
+            frequency: 'On-demand'
           },
           { 
             title: 'Skill Assessment Report', 
-            description: 'Comprehensive skill evaluation and gaps analysis', 
+            description: 'Worker skill levels and training needs', 
             icon: Brain, 
-            color: 'purple',
-            frequency: 'Quarterly',
-            lastGenerated: '2 weeks ago'
-          },
-          { 
-            title: 'Training Effectiveness Report', 
-            description: 'Impact analysis of training programs on efficiency', 
-            icon: BookOpen, 
             color: 'orange',
-            frequency: 'Monthly',
-            lastGenerated: '3 days ago'
+            lastGenerated: '1 week ago',
+            frequency: 'Monthly'
           },
           { 
-            title: 'Productivity Trends Report', 
-            description: 'Historical trends and forecasting analysis', 
-            icon: LineChart, 
+            title: 'Productivity Trends', 
+            description: 'Long-term productivity trend analysis', 
+            icon: TrendingUp, 
             color: 'yellow',
-            frequency: 'Monthly',
-            lastGenerated: '1 week ago'
+            lastGenerated: '2 days ago',
+            frequency: 'Monthly'
           },
           { 
             title: 'Benchmarking Report', 
-            description: 'Comparison with industry standards and best practices', 
-            icon: BarChart, 
+            description: 'Performance comparison with industry standards', 
+            icon: Target, 
             color: 'red',
-            frequency: 'Quarterly',
-            lastGenerated: '1 month ago'
+            lastGenerated: '1 week ago',
+            frequency: 'Quarterly'
           },
           { 
-            title: 'Workload Analysis Report', 
-            description: 'Workload distribution and balance analysis', 
-            icon: Activity, 
+            title: 'Training Effectiveness', 
+            description: 'Impact analysis of training programs', 
+            icon: Award, 
             color: 'indigo',
-            frequency: 'Weekly',
-            lastGenerated: '1 day ago'
+            lastGenerated: '3 days ago',
+            frequency: 'Quarterly'
           },
           { 
-            title: 'Incentive Impact Report', 
-            description: 'ROI analysis of incentive programs', 
-            icon: DollarSign, 
-            color: 'green',
-            frequency: 'Monthly',
-            lastGenerated: '5 days ago'
+            title: 'Workload Distribution', 
+            description: 'Department and individual workload analysis', 
+            icon: Activity, 
+            color: 'pink',
+            lastGenerated: '5 hours ago',
+            frequency: 'Weekly'
           },
           { 
-            title: 'Executive Summary Report', 
-            description: 'High-level overview for management decision making', 
-            icon: Briefcase, 
-            color: 'gray',
-            frequency: 'Monthly',
-            lastGenerated: '3 days ago'
+            title: 'Incentive Impact Analysis', 
+            description: 'ROI and effectiveness of incentive programs', 
+            icon: Award, 
+            color: 'teal',
+            lastGenerated: '1 week ago',
+            frequency: 'Monthly'
           }
         ].map((report, index) => (
           <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer">
@@ -1803,17 +1882,17 @@ const ExtraWorkerEfficiency: React.FC = () => {
             </div>
             <h4 className="font-semibold text-lg mb-2">{report.title}</h4>
             <p className="text-gray-600 text-sm mb-4">{report.description}</p>
-            <div className="space-y-2 mb-4">
-              <div className="flex justify-between text-xs text-gray-500">
+            <div className="space-y-2 text-xs text-gray-500">
+              <div className="flex justify-between">
                 <span>Frequency:</span>
-                <span className="font-medium">{report.frequency}</span>
+                <span>{report.frequency}</span>
               </div>
-              <div className="flex justify-between text-xs text-gray-500">
+              <div className="flex justify-between">
                 <span>Last Generated:</span>
-                <span className="font-medium">{report.lastGenerated}</span>
+                <span>{report.lastGenerated}</span>
               </div>
             </div>
-            <div className="flex space-x-2">
+            <div className="flex space-x-2 mt-4">
               <Button size="sm" variant="secondary" className="flex-1">
                 <Eye size={14} className="mr-1" />
                 View
@@ -1835,43 +1914,28 @@ const ExtraWorkerEfficiency: React.FC = () => {
             <thead className="bg-gray-50">
               <tr>
                 <th className="p-3 font-semibold text-sm">Report Name</th>
-                <th className="p-3 font-semibold text-sm">Type</th>
-                <th className="p-3 font-semibold text-sm">Generated</th>
                 <th className="p-3 font-semibold text-sm">Generated By</th>
-                <th className="p-3 font-semibold text-sm">Size</th>
+                <th className="p-3 font-semibold text-sm">Date</th>
+                <th className="p-3 font-semibold text-sm">Type</th>
+                <th className="p-3 font-semibold text-sm">Status</th>
                 <th className="p-3 font-semibold text-sm">Actions</th>
               </tr>
             </thead>
             <tbody>
               {[
-                { 
-                  name: 'Weekly Individual Efficiency Report', 
-                  type: 'Individual Analysis', 
-                  date: '2025-01-15 09:30', 
-                  by: 'HR Manager',
-                  size: '2.4 MB'
-                },
-                { 
-                  name: 'Monthly Department Performance', 
-                  type: 'Department Analysis', 
-                  date: '2025-01-10 14:15', 
-                  by: 'Production Manager',
-                  size: '1.8 MB'
-                },
-                { 
-                  name: 'Q4 Skill Assessment Report', 
-                  type: 'Skill Assessment', 
-                  date: '2025-01-05 11:45', 
-                  by: 'Training Coordinator',
-                  size: '3.2 MB'
-                }
+                { name: 'Daily Efficiency - Jan 15', user: 'HR Manager', date: '2025-01-15 14:30', type: 'Daily', status: 'Ready' },
+                { name: 'Weekly Performance Summary', user: 'Production Manager', date: '2025-01-14 09:15', type: 'Weekly', status: 'Ready' },
+                { name: 'Individual Analysis - Top 10', user: 'Supervisor Ahmed', date: '2025-01-14 16:45', type: 'Custom', status: 'Ready' },
+                { name: 'Skill Assessment Q4 2024', user: 'Training Coordinator', date: '2025-01-13 11:20', type: 'Quarterly', status: 'Ready' }
               ].map((report, index) => (
                 <tr key={index} className="border-b hover:bg-gray-50">
-                  <td className="p-3 font-medium">{report.name}</td>
-                  <td className="p-3 text-sm">{report.type}</td>
+                  <td className="p-3 text-sm font-medium">{report.name}</td>
+                  <td className="p-3 text-sm">{report.user}</td>
                   <td className="p-3 text-sm">{report.date}</td>
-                  <td className="p-3 text-sm">{report.by}</td>
-                  <td className="p-3 text-sm">{report.size}</td>
+                  <td className="p-3 text-sm">{report.type}</td>
+                  <td className="p-3">
+                    <StatusBadge status={report.status} />
+                  </td>
                   <td className="p-3">
                     <div className="flex space-x-2">
                       <Button size="sm" variant="secondary">
@@ -1894,10 +1958,10 @@ const ExtraWorkerEfficiency: React.FC = () => {
   const renderImprovementPlans = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold">Improvement Plans</h3>
+        <h3 className="text-xl font-semibold">Improvement Plans & Action Items</h3>
         <Button size="sm">
           <Plus size={16} className="mr-2" />
-          Create New Plan
+          Create Improvement Plan
         </Button>
       </div>
 
@@ -1907,63 +1971,96 @@ const ExtraWorkerEfficiency: React.FC = () => {
         <div className="space-y-4">
           {[
             {
-              title: 'Quality Department Efficiency Enhancement',
-              target: 'Increase efficiency from 94.3% to 97%',
+              title: 'Sewing Department Efficiency Enhancement',
+              target: 'Increase efficiency from 89.5% to 95%',
               timeline: '3 months',
               progress: 65,
-              actions: ['Skills training', 'Process optimization', 'Tool upgrades'],
-              responsible: 'Quality Manager',
-              status: 'On Track'
+              owner: 'Production Manager',
+              status: 'In Progress',
+              actions: ['Implement lean manufacturing', 'Upgrade equipment', 'Skills training'],
+              priority: 'High'
             },
             {
-              title: 'Sewing Line Productivity Boost',
-              target: 'Increase productivity from 142 to 155 pcs/hr',
+              title: 'Quality Control Process Optimization',
+              target: 'Reduce defect rate from 3.2% to 2%',
               timeline: '2 months',
               progress: 40,
-              actions: ['Workflow redesign', 'Equipment maintenance', 'Team training'],
-              responsible: 'Production Supervisor',
-              status: 'Behind Schedule'
+              owner: 'Quality Manager',
+              status: 'In Progress',
+              actions: ['Six Sigma implementation', 'Inspector training', 'New inspection tools'],
+              priority: 'High'
             },
             {
-              title: 'Cross-Training Initiative',
-              target: 'Train 30 workers in multiple skills',
-              timeline: '6 months',
+              title: 'Finishing Department Capacity Utilization',
+              target: 'Increase utilization from 78% to 90%',
+              timeline: '6 weeks',
               progress: 80,
-              actions: ['Skill assessment', 'Training modules', 'Certification'],
-              responsible: 'HR Manager',
-              status: 'Ahead of Schedule'
+              owner: 'Finishing Supervisor',
+              status: 'On Track',
+              actions: ['Workflow optimization', 'Cross-training', 'Equipment maintenance'],
+              priority: 'Medium'
             }
           ].map((plan, index) => (
-            <div key={index} className="border rounded-lg p-4">
-              <div className="flex justify-between items-start mb-3">
-                <div>
-                  <h5 className="font-semibold">{plan.title}</h5>
-                  <p className="text-sm text-gray-600">{plan.target}</p>
-                  <p className="text-sm text-gray-500">Timeline: {plan.timeline} • Responsible: {plan.responsible}</p>
+            <div key={index} className="border rounded-lg p-6">
+              <div className="flex justify-between items-start mb-4">
+                <div className="flex-1">
+                  <h5 className="font-semibold text-lg">{plan.title}</h5>
+                  <p className="text-sm text-gray-600 mt-1">{plan.target}</p>
                 </div>
-                <StatusBadge status={plan.status} />
+                <div className="flex items-center space-x-2">
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    plan.priority === 'High' ? 'bg-red-100 text-red-800' :
+                    plan.priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-green-100 text-green-800'
+                  }`}>
+                    {plan.priority}
+                  </span>
+                  <StatusBadge status={plan.status} />
+                </div>
               </div>
               
-              <div className="mb-3">
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Progress</span>
-                  <span>{plan.progress}%</span>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
+                  <p className="text-sm text-gray-600">Timeline</p>
+                  <p className="font-medium">{plan.timeline}</p>
                 </div>
+                <div>
+                  <p className="text-sm text-gray-600">Owner</p>
+                  <p className="font-medium">{plan.owner}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Progress</p>
+                  <p className="font-medium">{plan.progress}%</p>
+                </div>
+              </div>
+              
+              <div className="mb-4">
                 <ProgressBar 
                   progress={plan.progress} 
-                  color={plan.progress >= 80 ? 'green' : plan.progress >= 60 ? 'yellow' : 'red'}
+                  color={plan.progress >= 80 ? 'green' : plan.progress >= 50 ? 'yellow' : 'red'}
                 />
               </div>
               
-              <div className="space-y-2">
-                <p className="text-sm font-medium text-gray-700">Key Actions:</p>
-                <div className="flex flex-wrap gap-1">
+              <div>
+                <p className="text-sm font-medium text-gray-700 mb-2">Key Actions:</p>
+                <div className="flex flex-wrap gap-2">
                   {plan.actions.map((action, actionIndex) => (
-                    <span key={actionIndex} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                    <span key={actionIndex} className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
                       {action}
                     </span>
                   ))}
                 </div>
+              </div>
+              
+              <div className="flex justify-end space-x-2 mt-4">
+                <Button size="sm" variant="secondary">
+                  <Eye size={14} className="mr-1" />
+                  View Details
+                </Button>
+                <Button size="sm" variant="secondary">
+                  <Edit size={14} className="mr-1" />
+                  Update Progress
+                </Button>
               </div>
             </div>
           ))}
@@ -1973,127 +2070,124 @@ const ExtraWorkerEfficiency: React.FC = () => {
       {/* Improvement Opportunities */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Identified Opportunities</h4>
+          <h4 className="font-semibold text-lg mb-4">Identified Improvement Opportunities</h4>
           <div className="space-y-3">
             {[
               {
-                area: 'Communication Skills',
-                currentScore: 76.3,
-                targetScore: 85,
+                area: 'Maintenance Department',
+                issue: 'Low capacity utilization (65%)',
+                potential: 'Cross-train for quality control',
                 impact: 'High',
-                effort: 'Medium',
-                priority: 'High'
+                effort: 'Medium'
               },
               {
-                area: 'Time Management',
-                currentScore: 78.9,
-                targetScore: 88,
+                area: 'Time & Motion Study',
+                issue: 'Excessive motion waste in sewing',
+                potential: 'Optimize workstation layout',
                 impact: 'Medium',
-                effort: 'Low',
-                priority: 'Medium'
+                effort: 'Low'
               },
               {
-                area: 'Machine Maintenance',
-                currentScore: 82.1,
-                targetScore: 90,
+                area: 'Skill Development',
+                issue: '23 workers need advanced training',
+                potential: 'Structured training program',
                 impact: 'High',
-                effort: 'High',
-                priority: 'Medium'
+                effort: 'High'
               },
               {
-                area: 'Workplace Organization',
-                currentScore: 74.5,
-                targetScore: 85,
+                area: 'Incentive Program',
+                issue: 'Low participation in skill bonus',
+                potential: 'Redesign incentive structure',
                 impact: 'Medium',
-                effort: 'Low',
-                priority: 'High'
+                effort: 'Low'
               }
             ].map((opportunity, index) => (
               <div key={index} className="border rounded-lg p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <h5 className="font-semibold">{opportunity.area}</h5>
-                    <p className="text-sm text-gray-600">
-                      Current: {opportunity.currentScore}% → Target: {opportunity.targetScore}%
-                    </p>
-                  </div>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    opportunity.priority === 'High' ? 'bg-red-100 text-red-800' :
-                    opportunity.priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-green-100 text-green-800'
-                  }`}>
-                    {opportunity.priority}
-                  </span>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="text-gray-600">Impact:</span>
-                    <span className={`ml-2 font-medium ${
-                      opportunity.impact === 'High' ? 'text-green-600' : 'text-yellow-600'
+                  <h5 className="font-medium">{opportunity.area}</h5>
+                  <div className="flex space-x-1">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      opportunity.impact === 'High' ? 'bg-green-100 text-green-800' :
+                      opportunity.impact === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-gray-100 text-gray-800'
                     }`}>
-                      {opportunity.impact}
+                      {opportunity.impact} Impact
                     </span>
-                  </div>
-                  <div>
-                    <span className="text-gray-600">Effort:</span>
-                    <span className={`ml-2 font-medium ${
-                      opportunity.effort === 'Low' ? 'text-green-600' : 
-                      opportunity.effort === 'Medium' ?   'text-yellow-600' : 'text-red-600'
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      opportunity.effort === 'Low' ? 'bg-green-100 text-green-800' :
+                      opportunity.effort === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-red-100 text-red-800'
                     }`}>
-                      {opportunity.effort}
+                      {opportunity.effort} Effort
                     </span>
                   </div>
                 </div>
+                <p className="text-sm text-gray-600 mb-2">{opportunity.issue}</p>
+                <p className="text-sm text-blue-600">💡 {opportunity.potential}</p>
               </div>
             ))}
           </div>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Success Stories</h4>
+          <h4 className="font-semibold text-lg mb-4">Quick Wins & Low-Hanging Fruits</h4>
           <div className="space-y-3">
             {[
               {
-                title: 'Finishing Department Turnaround',
-                description: 'Improved efficiency from 78% to 85.7% in 2 months',
-                impact: '+7.7% efficiency',
-                methods: ['Process redesign', 'Skills training', 'Equipment upgrade'],
-                timeline: 'Completed 2 months ago'
+                action: 'Optimize workstation layout in sewing',
+                impact: 'Reduce motion waste by 15%',
+                timeframe: '1 week',
+                cost: 'Low',
+                difficulty: 'Easy'
               },
               {
-                title: 'Quality Control Excellence',
-                description: 'Achieved 99.2% quality score through systematic improvements',
-                impact: '+4.7% quality',
-                methods: ['Training program', 'Standard procedures', 'Regular audits'],
-                timeline: 'Completed 3 months ago'
+                action: 'Implement daily efficiency tracking',
+                impact: 'Increase awareness and accountability',
+                timeframe: '2 weeks',
+                cost: 'Low',
+                difficulty: 'Easy'
               },
               {
-                title: 'Cross-Training Success',
-                description: 'Trained 25 workers in multiple skills, improving flexibility',
-                impact: '+15% flexibility',
-                methods: ['Skill mapping', 'Structured training', 'Mentorship program'],
-                timeline: 'Completed 1 month ago'
+                action: 'Cross-train maintenance staff',
+                impact: 'Increase department utilization by 20%',
+                timeframe: '1 month',
+                cost: 'Medium',
+                difficulty: 'Medium'
+              },
+              {
+                action: 'Redesign skill development incentives',
+                impact: 'Increase participation by 40%',
+                timeframe: '2 weeks',
+                cost: 'Low',
+                difficulty: 'Easy'
               }
-            ].map((story, index) => (
-              <div key={index} className="border rounded-lg p-4 bg-green-50">
-                <div className="mb-2">
-                  <h5 className="font-semibold text-green-800">{story.title}</h5>
-                  <p className="text-sm text-gray-600">{story.description}</p>
+            ].map((win, index) => (
+              <div key={index} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                <div className="flex justify-between items-start mb-2">
+                  <h5 className="font-medium text-green-700">{win.action}</h5>
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    win.difficulty === 'Easy' ? 'bg-green-100 text-green-800' :
+                    win.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-red-100 text-red-800'
+                  }`}>
+                    {win.difficulty}
+                  </span>
                 </div>
-                <div className="mb-2">
-                  <span className="text-sm font-semibold text-green-600">{story.impact}</span>
-                  <span className="text-xs text-gray-500 ml-2">• {story.timeline}</span>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-xs font-medium text-gray-700">Methods Used:</p>
-                  <div className="flex flex-wrap gap-1">
-                    {story.methods.map((method, methodIndex) => (
-                      <span key={methodIndex} className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
-                        {method}
-                      </span>
-                    ))}
+                <p className="text-sm text-gray-600 mb-3">{win.impact}</p>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-gray-500">Timeframe:</span>
+                    <span className="font-medium ml-1">{win.timeframe}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500">Cost:</span>
+                    <span className="font-medium ml-1">{win.cost}</span>
                   </div>
                 </div>
+                <Button size="sm" className="w-full mt-3">
+                  <Plus size={14} className="mr-1" />
+                  Create Action Plan
+                </Button>
               </div>
             ))}
           </div>
@@ -2104,143 +2198,192 @@ const ExtraWorkerEfficiency: React.FC = () => {
 
   const renderEfficiencySettings = () => (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold">Efficiency Settings</h3>
+      <h3 className="text-xl font-semibold">Efficiency Analysis Settings</h3>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Performance Targets */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h4 className="font-semibold text-lg mb-4">Performance Targets</h4>
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Minimum Efficiency Target (%)</label>
-              <input
-                type="number"
-                defaultValue={85}
-                className="w-24 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Overall Efficiency Target (%)</label>
+                <input
+                  type="number"
+                  defaultValue={85}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Quality Rate Target (%)</label>
+                <input
+                  type="number"
+                  defaultValue={95}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
             </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Excellent Performance Threshold (%)</label>
-              <input
-                type="number"
-                defaultValue={90}
-                className="w-24 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Productivity Target (%)</label>
+                <input
+                  type="number"
+                  defaultValue={90}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Attendance Target (%)</label>
+                <input
+                  type="number"
+                  defaultValue={95}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
             </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Quality Score Target (%)</label>
-              <input
-                type="number"
-                defaultValue={95}
-                className="w-24 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Productivity Target (pcs/hr)</label>
-              <input
-                type="number"
-                defaultValue={135}
-                className="w-24 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
+
+            <h5 className="font-medium text-gray-700 mt-6 mb-3">Department-wise Targets</h5>
+            {[
+              { dept: 'Sewing', target: 85 },
+              { dept: 'Cutting', target: 90 },
+              { dept: 'Finishing', target: 85 },
+              { dept: 'Quality Control', target: 95 }
+            ].map((dept, index) => (
+              <div key={index} className="flex items-center justify-between">
+                <label className="text-sm font-medium">{dept.dept} Target (%)</label>
+                <input
+                  type="number"
+                  defaultValue={dept.target}
+                  className="w-20 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+            ))}
           </div>
-          <Button className="w-full mt-4">Save Performance Targets</Button>
+          <Button className="w-full mt-4">Save Targets</Button>
         </div>
 
-        {/* Assessment Frequency */}
+        {/* Analysis Parameters */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Assessment Frequency</h4>
+          <h4 className="font-semibold text-lg mb-4">Analysis Parameters</h4>
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Individual Assessment</label>
-              <select className="p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Efficiency Calculation Method</label>
+              <select className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                <option>Standard Time Based</option>
+                <option>Target vs Actual</option>
+                <option>Weighted Average</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Data Collection Frequency</label>
+              <select className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                <option>Hourly</option>
+                <option>Daily</option>
                 <option>Weekly</option>
-                <option>Bi-weekly</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Performance Review Period</label>
+              <select className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                <option>Weekly</option>
                 <option>Monthly</option>
+                <option>Quarterly</option>
               </select>
             </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Team Assessment</label>
-              <select className="p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                <option>Monthly</option>
-                <option>Quarterly</option>
-                <option>Bi-annually</option>
-              </select>
-            </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Skill Assessment</label>
-              <select className="p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                <option>Quarterly</option>
-                <option>Bi-annually</option>
-                <option>Annually</option>
-              </select>
-            </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Performance Review</label>
-              <select className="p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                <option>Quarterly</option>
-                <option>Bi-annually</option>
-                <option>Annually</option>
-              </select>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Alert Threshold (%)</label>
+                <input
+                  type="number"
+                  defaultValue={80}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Critical Threshold (%)</label>
+                <input
+                  type="number"
+                  defaultValue={70}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
             </div>
           </div>
-          <Button className="w-full mt-4">Save Assessment Settings</Button>
+          <Button className="w-full mt-4">Save Parameters</Button>
         </div>
 
         {/* Notification Settings */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h4 className="font-semibold text-lg mb-4">Notification Settings</h4>
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Low Performance Alert</label>
-              <input type="checkbox" defaultChecked className="rounded" />
-            </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Training Due Reminder</label>
-              <input type="checkbox" defaultChecked className="rounded" />
-            </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Achievement Notifications</label>
-              <input type="checkbox" defaultChecked className="rounded" />
-            </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Weekly Summary Report</label>
-              <input type="checkbox" defaultChecked className="rounded" />
-            </div>
+            {[
+              { setting: 'Daily efficiency reports', enabled: true },
+              { setting: 'Weekly performance summaries', enabled: true },
+              { setting: 'Low efficiency alerts', enabled: true },
+              { setting: 'Training need notifications', enabled: false },
+              { setting: 'Benchmark comparison alerts', enabled: true },
+              { setting: 'Improvement plan updates', enabled: true }
+            ].map((setting, index) => (
+              <div key={index} className="flex items-center justify-between">
+                <label className="text-sm font-medium">{setting.setting}</label>
+                <input
+                  type="checkbox"
+                  defaultChecked={setting.enabled}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+              </div>
+            ))}
           </div>
-          <Button className="w-full mt-4">Save Notification Settings</Button>
+          <Button className="w-full mt-4">Save Notifications</Button>
         </div>
 
-        {/* Data Retention */}
+        {/* Report Automation */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h4 className="font-semibold text-lg mb-4">Data Retention</h4>
+          <h4 className="font-semibold text-lg mb-4">Report Automation</h4>
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Performance Data (months)</label>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Auto-generate Daily Reports</label>
+              <select className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                <option>Enabled</option>
+                <option>Disabled</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Weekly Report Day</label>
+              <select className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                <option>Monday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Monthly Report Date</label>
               <input
                 type="number"
-                defaultValue={24}
-                className="w-24 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                defaultValue={1}
+                min="1"
+                max="28"
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Training Records (months)</label>
-              <input
-                type="number"
-                defaultValue={36}
-                className="w-24 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Assessment Results (months)</label>
-              <input
-                type="number"
-                defaultValue={12}
-                className="w-24 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Report Recipients</label>
+              <textarea
+                rows={3}
+                defaultValue="hr@company.com, production@company.com, manager@company.com"
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter email addresses separated by commas"
               />
             </div>
           </div>
-          <Button className="w-full mt-4">Save Data Settings</Button>
+          <Button className="w-full mt-4">Save Automation</Button>
         </div>
       </div>
     </div>
