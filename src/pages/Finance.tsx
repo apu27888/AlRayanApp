@@ -15,14 +15,17 @@ import {
   Download,
   TrendingUp,
   TrendingDown,
-  DollarSign
+  DollarSign,
+  BarChart3,
+  Activity,
+  AlertCircle
 } from 'lucide-react';
 import Button from '../components/UI/Button';
 
 const Finance: React.FC = () => {
   const { setPageTitle } = useOutletContext<{ setPageTitle: (title: string) => void }>();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'general-ledger');
+  const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'dashboard');
 
   useEffect(() => {
     setPageTitle('Finance Management');
@@ -41,6 +44,7 @@ const Finance: React.FC = () => {
   };
 
   const tabs = [
+    { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'general-ledger', label: 'General Ledger', icon: FileText },
     { id: 'accounts-payable', label: 'Accounts Payable', icon: CreditCard },
     { id: 'accounts-receivable', label: 'Accounts Receivable', icon: Receipt },
@@ -50,6 +54,338 @@ const Finance: React.FC = () => {
     { id: 'payroll', label: 'পেরোল', icon: UserCheck },
     { id: 'reporting', label: 'রিপোর্টিং', icon: PieChart }
   ];
+
+  const renderDashboard = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Finance Dashboard</h3>
+        <div className="flex space-x-3">
+          <select className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+            <option>This Month</option>
+            <option>Last Month</option>
+            <option>This Quarter</option>
+            <option>This Year</option>
+          </select>
+          <Button variant="secondary" size="sm">
+            <Download size={16} className="mr-2" />
+            Export Report
+          </Button>
+        </div>
+      </div>
+
+      {/* Key Financial Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500">মোট আয়</p>
+              <p className="text-2xl font-bold text-green-600">৳12,45,000</p>
+              <p className="text-xs text-green-500 flex items-center mt-1">
+                <TrendingUp size={12} className="mr-1" />
+                +15.3% from last month
+              </p>
+            </div>
+            <div className="bg-green-100 p-3 rounded-full">
+              <TrendingUp className="text-green-600" size={24} />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500">মোট ব্যয়</p>
+              <p className="text-2xl font-bold text-red-600">৳8,75,000</p>
+              <p className="text-xs text-red-500 flex items-center mt-1">
+                <TrendingUp size={12} className="mr-1" />
+                +8.2% from last month
+              </p>
+            </div>
+            <div className="bg-red-100 p-3 rounded-full">
+              <TrendingDown className="text-red-600" size={24} />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500">নেট লাভ</p>
+              <p className="text-2xl font-bold text-blue-600">৳3,70,000</p>
+              <p className="text-xs text-green-500 flex items-center mt-1">
+                <TrendingUp size={12} className="mr-1" />
+                +22.5% from last month
+              </p>
+            </div>
+            <div className="bg-blue-100 p-3 rounded-full">
+              <DollarSign className="text-blue-600" size={24} />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500">ক্যাশ ব্যালেন্স</p>
+              <p className="text-2xl font-bold text-purple-600">৳10,00,000</p>
+              <p className="text-xs text-gray-500 flex items-center mt-1">
+                <Activity size={12} className="mr-1" />
+                Available funds
+              </p>
+            </div>
+            <div className="bg-purple-100 p-3 rounded-full">
+              <Banknote className="text-purple-600" size={24} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Monthly Income vs Expense Chart */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h4 className="font-semibold text-lg mb-4 flex items-center">
+            <BarChart3 className="mr-2" size={20} />
+            মাসিক আয় ও ব্যয়
+          </h4>
+          <div className="space-y-4">
+            {[
+              { month: 'জানুয়ারি', income: 1245000, expense: 875000 },
+              { month: 'ফেব্রুয়ারি', income: 1180000, expense: 920000 },
+              { month: 'মার্চ', income: 1350000, expense: 850000 },
+              { month: 'এপ্রিল', income: 1420000, expense: 980000 },
+              { month: 'মে', income: 1280000, expense: 890000 },
+              { month: 'জুন', income: 1380000, expense: 920000 }
+            ].map((item, index) => {
+              const maxValue = Math.max(item.income, item.expense);
+              const incomePercent = (item.income / maxValue) * 100;
+              const expensePercent = (item.expense / maxValue) * 100;
+              
+              return (
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between text-sm font-medium">
+                    <span>{item.month}</span>
+                    <div className="flex space-x-4">
+                      <span className="text-green-600">৳{(item.income / 1000).toFixed(0)}K</span>
+                      <span className="text-red-600">৳{(item.expense / 1000).toFixed(0)}K</span>
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs text-green-600 w-12">আয়:</span>
+                      <div className="flex-1 bg-gray-200 rounded-full h-3">
+                        <div 
+                          className="bg-green-500 h-3 rounded-full transition-all duration-500"
+                          style={{ width: `${incomePercent}%` }}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs text-red-600 w-12">ব্যয়:</span>
+                      <div className="flex-1 bg-gray-200 rounded-full h-3">
+                        <div 
+                          className="bg-red-500 h-3 rounded-full transition-all duration-500"
+                          style={{ width: `${expensePercent}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Expense Categories Chart */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h4 className="font-semibold text-lg mb-4 flex items-center">
+            <PieChart className="mr-2" size={20} />
+            খরচের খাত
+          </h4>
+          <div className="space-y-4">
+            {[
+              { category: 'কাঁচামাল', amount: 350000, color: 'bg-blue-500', percentage: 40 },
+              { category: 'বেতন ও ভাতা', amount: 262500, color: 'bg-green-500', percentage: 30 },
+              { category: 'ইউটিলিটি', amount: 87500, color: 'bg-yellow-500', percentage: 10 },
+              { category: 'ভাড়া', amount: 87500, color: 'bg-purple-500', percentage: 10 },
+              { category: 'অন্যান্য', amount: 87500, color: 'bg-red-500', percentage: 10 }
+            ].map((item, index) => (
+              <div key={index} className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className={`w-4 h-4 rounded-full ${item.color}`} />
+                  <span className="text-sm font-medium">{item.category}</span>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-semibold">৳{(item.amount / 1000).toFixed(0)}K</div>
+                  <div className="text-xs text-gray-500">{item.percentage}%</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Visual Pie Chart Representation */}
+          <div className="mt-6 flex justify-center">
+            <div className="relative w-32 h-32">
+              <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="16" fill="transparent" stroke="#e5e7eb" strokeWidth="2"/>
+                <circle cx="18" cy="18" r="16" fill="transparent" stroke="#3b82f6" strokeWidth="2" 
+                        strokeDasharray="40 60" strokeDashoffset="0"/>
+                <circle cx="18" cy="18" r="16" fill="transparent" stroke="#10b981" strokeWidth="2" 
+                        strokeDasharray="30 70" strokeDashoffset="-40"/>
+                <circle cx="18" cy="18" r="16" fill="transparent" stroke="#eab308" strokeWidth="2" 
+                        strokeDasharray="10 90" strokeDashoffset="-70"/>
+                <circle cx="18" cy="18" r="16" fill="transparent" stroke="#8b5cf6" strokeWidth="2" 
+                        strokeDasharray="10 90" strokeDashoffset="-80"/>
+                <circle cx="18" cy="18" r="16" fill="transparent" stroke="#ef4444" strokeWidth="2" 
+                        strokeDasharray="10 90" strokeDashoffset="-90"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Transactions */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Recent Payables */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex justify-between items-center mb-4">
+            <h4 className="font-semibold text-lg flex items-center">
+              <CreditCard className="mr-2 text-red-500" size={20} />
+              সাম্প্রতিক প্রাপ্য (Payables)
+            </h4>
+            <Button variant="secondary" size="sm">View All</Button>
+          </div>
+          <div className="space-y-3">
+            {[
+              { vendor: 'ABC Trims', amount: 75000, due: '2025-02-10', status: 'Pending', urgent: false },
+              { vendor: 'XYZ Fabrics', amount: 45000, due: '2025-01-20', status: 'Overdue', urgent: true },
+              { vendor: 'Cotton Mills Ltd', amount: 125000, due: '2025-02-15', status: 'Pending', urgent: false },
+              { vendor: 'Button Supplier', amount: 25000, due: '2025-01-25', status: 'Overdue', urgent: true }
+            ].map((item, index) => (
+              <div key={index} className={`p-3 rounded-lg border-l-4 ${
+                item.urgent ? 'border-red-500 bg-red-50' : 'border-yellow-500 bg-yellow-50'
+              }`}>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="font-medium text-sm">{item.vendor}</p>
+                    <p className="text-xs text-gray-600">Due: {item.due}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold text-sm">৳{item.amount.toLocaleString()}</p>
+                    <div className="flex items-center space-x-1">
+                      {item.urgent && <AlertCircle size={12} className="text-red-500" />}
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        item.status === 'Overdue' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {item.status}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+            <div className="flex justify-between text-sm">
+              <span>মোট প্রাপ্য:</span>
+              <span className="font-semibold text-red-600">৳2,70,000</span>
+            </div>
+            <div className="flex justify-between text-sm mt-1">
+              <span>অতিরিক্ত বকেয়া:</span>
+              <span className="font-semibold text-red-700">৳70,000</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Recent Receivables */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="flex justify-between items-center mb-4">
+            <h4 className="font-semibold text-lg flex items-center">
+              <Receipt className="mr-2 text-green-500" size={20} />
+              সাম্প্রতিক পাওনা (Receivables)
+            </h4>
+            <Button variant="secondary" size="sm">View All</Button>
+          </div>
+          <div className="space-y-3">
+            {[
+              { customer: 'H&M', amount: 425000, due: '2025-02-10', status: 'Pending', order: '#ORD-001' },
+              { customer: 'Zara', amount: 125000, due: '2025-01-25', status: 'Overdue', order: '#ORD-002' },
+              { customer: 'Uniqlo', amount: 325000, due: '2025-02-15', status: 'Pending', order: '#ORD-003' },
+              { customer: 'H&M', amount: 275000, due: '2025-02-20', status: 'Pending', order: '#ORD-004' }
+            ].map((item, index) => (
+              <div key={index} className={`p-3 rounded-lg border-l-4 ${
+                item.status === 'Overdue' ? 'border-red-500 bg-red-50' : 'border-green-500 bg-green-50'
+              }`}>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="font-medium text-sm">{item.customer}</p>
+                    <p className="text-xs text-gray-600">{item.order} • Due: {item.due}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold text-sm">৳{item.amount.toLocaleString()}</p>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      item.status === 'Overdue' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                    }`}>
+                      {item.status}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+            <div className="flex justify-between text-sm">
+              <span>মোট পাওনা:</span>
+              <span className="font-semibold text-green-600">৳11,50,000</span>
+            </div>
+            <div className="flex justify-between text-sm mt-1">
+              <span>অতিরিক্ত বকেয়া:</span>
+              <span className="font-semibold text-red-600">৳1,25,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <h4 className="font-semibold text-lg mb-4">Quick Actions</h4>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Button 
+            variant="secondary" 
+            className="flex flex-col items-center space-y-2 h-20"
+            onClick={() => handleTabChange('general-ledger')}
+          >
+            <FileText size={24} />
+            <span className="text-sm">New Entry</span>
+          </Button>
+          <Button 
+            variant="secondary" 
+            className="flex flex-col items-center space-y-2 h-20"
+            onClick={() => handleTabChange('accounts-payable')}
+          >
+            <CreditCard size={24} />
+            <span className="text-sm">Pay Bill</span>
+          </Button>
+          <Button 
+            variant="secondary" 
+            className="flex flex-col items-center space-y-2 h-20"
+            onClick={() => handleTabChange('accounts-receivable')}
+          >
+            <Receipt size={24} />
+            <span className="text-sm">Create Invoice</span>
+          </Button>
+          <Button 
+            variant="secondary" 
+            className="flex flex-col items-center space-y-2 h-20"
+            onClick={() => handleTabChange('reporting')}
+          >
+            <PieChart size={24} />
+            <span className="text-sm">View Reports</span>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 
   const renderGeneralLedger = () => (
     <div className="space-y-6">
@@ -582,6 +918,8 @@ const Finance: React.FC = () => {
 
   const renderTabContent = () => {
     switch (activeTab) {
+      case 'dashboard':
+        return renderDashboard();
       case 'general-ledger':
         return renderGeneralLedger();
       case 'accounts-payable':
@@ -599,7 +937,7 @@ const Finance: React.FC = () => {
       case 'reporting':
         return renderReporting();
       default:
-        return renderGeneralLedger();
+        return renderDashboard();
     }
   };
 

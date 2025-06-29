@@ -64,6 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       icon: DollarSign,
       label: 'Finance',
       children: [
+        { path: '/finance?tab=dashboard', icon: BarChart3, label: 'Dashboard' },
         { path: '/finance?tab=general-ledger', icon: FileText, label: 'General Ledger' },
         { path: '/finance?tab=accounts-payable', icon: CreditCard, label: 'Accounts Payable' },
         { path: '/finance?tab=accounts-receivable', icon: Receipt, label: 'Accounts Receivable' },
