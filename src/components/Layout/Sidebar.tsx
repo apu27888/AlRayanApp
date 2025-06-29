@@ -25,7 +25,10 @@ import {
   Activity,
   Shield,
   Database,
-  Settings
+  Settings,
+  Clock,
+  Calendar,
+  Award
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -45,7 +48,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     'order-management': false,
     'stock': true,
     'finance': false,
-    'production-performance': false
+    'production-performance': false,
+    'hrm': false
   });
 
   const navItems: NavItem[] = [
@@ -92,6 +96,21 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         { path: '/production-performance?tab=data-entry', icon: Database, label: 'ডেটা এন্ট্রি' },
         { path: '/production-performance?tab=reports', icon: FileText, label: 'রিপোর্ট' },
         { path: '/production-performance?tab=settings', icon: Settings, label: 'সেটিংস' },
+      ]
+    },
+    { 
+      path: 'hrm',
+      icon: Users,
+      label: 'HRM',
+      children: [
+        { path: '/hrm?tab=dashboard', icon: BarChart3, label: 'ড্যাশবোর্ড' },
+        { path: '/hrm?tab=attendance', icon: Clock, label: 'হাজিরা' },
+        { path: '/hrm?tab=payroll', icon: DollarSign, label: 'বেতন ব্যবস্থাপনা' },
+        { path: '/hrm?tab=employees', icon: Users, label: 'কর্মচারী তথ্য' },
+        { path: '/hrm?tab=leave-management', icon: Calendar, label: 'ছুটি ব্যবস্থাপনা' },
+        { path: '/hrm?tab=performance', icon: Award, label: 'কর্মক্ষমতা মূল্যায়ন' },
+        { path: '/hrm?tab=reports', icon: FileText, label: 'রিপোর্ট' },
+        { path: '/hrm?tab=settings', icon: Settings, label: 'সেটিংস' },
       ]
     },
     { path: '/financial-statement', icon: TrendingUp, label: 'Financial Statement' },
