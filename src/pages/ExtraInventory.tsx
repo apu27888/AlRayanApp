@@ -32,7 +32,9 @@ import {
   Warehouse,
   Box,
   Clipboard,
-  DollarSign
+  DollarSign,
+  Calculator,
+  Circle
 } from 'lucide-react';
 import Button from '../components/UI/Button';
 import StatusBadge from '../components/UI/StatusBadge';
