@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, UserCircle } from 'lucide-react';
+import BranchSelector from '../UI/BranchSelector';
 
 interface HeaderProps {
   title: string;
@@ -20,8 +21,13 @@ const Header: React.FC<HeaderProps> = ({ title, onMenuClick }) => {
       </div>
       
       <div className="flex items-center space-x-4">
-        <p className="text-md text-gray-600 hidden sm:block">Welcome, Inzamam Opu!</p>
-        <UserCircle size={32} className="text-gray-600" />
+        {/* Branch Selector */}
+        <BranchSelector />
+        
+        <div className="flex items-center space-x-3">
+          <p className="text-md text-gray-600 hidden sm:block">Welcome, Inzamam Opu!</p>
+          <UserCircle size={32} className="text-gray-600" />
+        </div>
       </div>
     </header>
   );
