@@ -21,7 +21,11 @@ import {
   Banknote,
   Building,
   UserCheck,
-  PieChart
+  PieChart,
+  Activity,
+  Shield,
+  Database,
+  Settings
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -40,7 +44,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
     'order-management': false,
     'stock': true,
-    'finance': false
+    'finance': false,
+    'production-performance': false
   });
 
   const navItems: NavItem[] = [
@@ -73,6 +78,20 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         { path: '/finance?tab=fixed-assets', icon: Building, label: 'Fixed Assets' },
         { path: '/finance?tab=payroll', icon: UserCheck, label: 'পেরোল' },
         { path: '/finance?tab=reporting', icon: PieChart, label: 'রিপোর্টিং' },
+      ]
+    },
+    { 
+      path: 'production-performance',
+      icon: Activity,
+      label: 'Production & Performance',
+      children: [
+        { path: '/production-performance?tab=dashboard', icon: BarChart3, label: 'ড্যাশবোর্ড' },
+        { path: '/production-performance?tab=order-tracking', icon: TrendingUp, label: 'অর্ডার ট্র্যাকিং' },
+        { path: '/production-performance?tab=line-performance', icon: Activity, label: 'লাইন পারফরম্যান্স' },
+        { path: '/production-performance?tab=quality-control', icon: Shield, label: 'কোয়ালিটি কন্ট্রোল' },
+        { path: '/production-performance?tab=data-entry', icon: Database, label: 'ডেটা এন্ট্রি' },
+        { path: '/production-performance?tab=reports', icon: FileText, label: 'রিপোর্ট' },
+        { path: '/production-performance?tab=settings', icon: Settings, label: 'সেটিংস' },
       ]
     },
     { path: '/financial-statement', icon: TrendingUp, label: 'Financial Statement' },
