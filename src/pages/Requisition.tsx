@@ -12,7 +12,7 @@ interface Requisition {
   date: string;
   department: string;
   requestedBy: string;
-  status: 'Pending' | 'Approved' | 'Rejected' | 'In Progress' | 'Completed';
+  status: 'Pending' | 'Approve' | 'In Progress' | 'Rejected' | 'Completed';
   totalQuantity: number;
   totalAmount: number;
   items: RequisitionItem[];
@@ -73,7 +73,7 @@ const Requisition: React.FC = () => {
       date: '2025-01-14',
       department: 'Quality Control',
       requestedBy: 'Fatima Begum',
-      status: 'Approved' as const,
+      status: 'Approve' as const,
       totalAmount: 15000,
       items: [
         { 
@@ -181,7 +181,7 @@ const Requisition: React.FC = () => {
       date: '2025-01-10',
       department: 'Printing',
       requestedBy: 'Nasir Ahmed',
-      status: 'Approved' as const,
+      status: 'Approve' as const,
       totalAmount: 35000,
       items: [
         { 
@@ -370,7 +370,7 @@ const Requisition: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Approved': return 'bg-green-100 text-green-800';
+      case 'Approve': return 'bg-green-100 text-green-800';
       case 'Pending': return 'bg-yellow-100 text-yellow-800';
       case 'In Progress': return 'bg-blue-100 text-blue-800';
       case 'Completed': return 'bg-green-100 text-green-800';
@@ -424,10 +424,10 @@ const Requisition: React.FC = () => {
               >
                 <option value="All">All Status</option>
                 <option value="Pending">Pending</option>
-                <option value="Approved">Approved</option>
+                <option value="Approve">Approve</option>
                 <option value="In Progress">In Progress</option>
-                <option value="Completed">Completed</option>
                 <option value="Rejected">Rejected</option>
+                <option value="Completed">Completed</option>
               </select>
             </div>
           </div>
@@ -633,17 +633,6 @@ const Requisition: React.FC = () => {
             <div className="space-y-3">
               {newRequisition.items.map((item, index) => (
                 <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-3 p-4 border border-gray-200 rounded-lg">
-                  <div className="hidden">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Item Name *</label>
-                    <input
-                      type="text"
-                      value={item.itemName}
-                      onChange={(e) => updateRequisitionItem(index, 'itemName', e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="Enter item name"
-                      required
-                    />
-                  </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">Quantity *</label>
                     <input
@@ -655,64 +644,6 @@ const Requisition: React.FC = () => {
                       min="1"
                       required
                     />
-                  </div>
-                  <div className="hidden">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Unit of Measurement *</label>
-                    <select
-                      value={item.unitOfMeasurement}
-                      onChange={(e) => updateRequisitionItem(index, 'unitOfMeasurement', e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      required
-                    >
-                      <option value="">Select Unit</option>
-                      <option value="Pieces">Pieces</option>
-                      <option value="Meters">Meters</option>
-                      <option value="Yards">Yards</option>
-                      <option value="Kilograms">Kilograms</option>
-                      <option value="Liters">Liters</option>
-                      <option value="Boxes">Boxes</option>
-                      <option value="Sets">Sets</option>
-                      <option value="Bottles">Bottles</option>
-                      <option value="Spools">Spools</option>
-                      <option value="Unit">Unit</option>
-                    </select>
-                  </div>
-                  <div className="hidden">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Unit Price *</label>
-                    <input
-                      type="number"
-                      value={item.unitPrice}
-                      onChange={(e) => updateRequisitionItem(index, 'unitPrice', parseFloat(e.target.value) || 0)}
-                      className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="0.00"
-                      min="0"
-                      step="0.01"
-                      required
-                    />
-                  </div>
-                  <div className="hidden">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Total Price</label>
-                    <input
-                      type="number"
-                      value={item.totalPrice}
-                      className="w-full p-2 border border-gray-300 rounded-md bg-gray-100"
-                      readOnly
-                    />
-                  </div>
-                  <div className="hidden">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Purpose/Justification *</label>
-                    <textarea
-                      value={item.purpose}
-                      onChange={(e) => updateRequisitionItem(index, 'purpose', e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 resize-none"
-                      placeholder="Brief explanation (max 200 chars)"
-                      maxLength={200}
-                      rows={2}
-                      required
-                    />
-                    <div className="text-xs text-gray-500 mt-1">
-                      {item.purpose.length}/200 characters
-                    </div>
                   </div>
                   <div className="flex items-end">
                     <button
