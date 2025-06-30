@@ -13,6 +13,7 @@ interface Requisition {
   department: string;
   requestedBy: string;
   status: 'Pending' | 'Approved' | 'Rejected' | 'In Progress' | 'Completed';
+  totalQuantity: number;
   totalAmount: number;
   items: RequisitionItem[];
   branchId?: string;
@@ -38,14 +39,14 @@ const Requisition: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
-  // Mock data for requisitions
-  const [requisitions, setRequisitions] = useState<Requisition[]>([
+  // Initial mock data for requisitions
+  const initialMockRequisitions = [
     {
       id: 'REQ-001',
       date: '2025-01-15',
       department: 'Production',
       requestedBy: 'Abul Kalam',
-      status: 'Pending',
+      status: 'Pending' as const,
       totalAmount: 25000,
       items: [
         { 
@@ -72,7 +73,7 @@ const Requisition: React.FC = () => {
       date: '2025-01-14',
       department: 'Quality Control',
       requestedBy: 'Fatima Begum',
-      status: 'Approved',
+      status: 'Approved' as const,
       totalAmount: 15000,
       items: [
         { 
@@ -99,7 +100,7 @@ const Requisition: React.FC = () => {
       date: '2025-01-13',
       department: 'Cutting',
       requestedBy: 'Karim Uddin',
-      status: 'In Progress',
+      status: 'In Progress' as const,
       totalAmount: 45000,
       items: [
         { 
@@ -126,7 +127,7 @@ const Requisition: React.FC = () => {
       date: '2025-01-12',
       department: 'Maintenance',
       requestedBy: 'Shahid Hasan',
-      status: 'Completed',
+      status: 'Completed' as const,
       totalAmount: 8000,
       items: [
         { 
@@ -153,7 +154,7 @@ const Requisition: React.FC = () => {
       date: '2025-01-11',
       department: 'Embroidery',
       requestedBy: 'Rashida Begum',
-      status: 'Rejected',
+      status: 'Rejected' as const,
       totalAmount: 12000,
       items: [
         { 
@@ -180,7 +181,7 @@ const Requisition: React.FC = () => {
       date: '2025-01-10',
       department: 'Printing',
       requestedBy: 'Nasir Ahmed',
-      status: 'Approved',
+      status: 'Approved' as const,
       totalAmount: 35000,
       items: [
         { 
@@ -202,7 +203,9 @@ const Requisition: React.FC = () => {
       ],
       branchId: 'BR-004'
     }
-  ]);
+  ];
+
+  const [requisitions, setRequisitions] = useState<Requisition[]>([]);
 
   const [newRequisition, setNewRequisition] = useState({
     department: '',
@@ -216,6 +219,15 @@ const Requisition: React.FC = () => {
       purpose: ''
     }]
   });
+
+  // Initialize requisitions with calculated totalQuantity
+  useEffect(() => {
+    const requisitionsWithTotalQuantity = initialMockRequisitions.map(req => ({
+      ...req,
+      totalQuantity: req.items.reduce((sum, item) => sum + item.quantity, 0)
+    }));
+    setRequisitions(requisitionsWithTotalQuantity);
+  }, []);
 
   // Filter requisitions by branch
   const filteredByBranch = useBranchFilter(requisitions);
@@ -290,6 +302,7 @@ const Requisition: React.FC = () => {
     }
 
     const totalAmount = newRequisition.items.reduce((sum, item) => sum + item.totalPrice, 0);
+    const totalQuantity = newRequisition.items.reduce((sum, item) => sum + item.quantity, 0);
     
     const requisition: Requisition = {
       id: generateRequisitionId(),
@@ -298,6 +311,7 @@ const Requisition: React.FC = () => {
       requestedBy: newRequisition.requestedBy,
       status: 'Pending',
       totalAmount,
+      totalQuantity,
       items: newRequisition.items.filter(item => item.itemName && item.quantity > 0),
       branchId: 'BR-002' // Default to main garments branch
     };
@@ -444,6 +458,7 @@ const Requisition: React.FC = () => {
                 <th className="px-6 py-4 font-semibold text-sm text-gray-900">Department</th>
                 <th className="px-6 py-4 font-semibold text-sm text-gray-900">Requested By</th>
                 <th className="px-6 py-4 font-semibold text-sm text-gray-900">Status</th>
+                <th className="px-6 py-4 font-semibold text-sm text-gray-900">Quantity</th>
                 <th className="px-6 py-4 font-semibold text-sm text-gray-900">Total Amount</th>
                 <th className="px-6 py-4 font-semibold text-sm text-gray-900">Actions</th>
               </tr>
@@ -464,6 +479,9 @@ const Requisition: React.FC = () => {
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(requisition.status)}`}>
                         {requisition.status}
                       </span>
+                    </td>
+                    <td className="px-6 py-4 text-sm font-semibold text-gray-900">
+                      {requisition.totalQuantity.toLocaleString()}
                     </td>
                     <td className="px-6 py-4 text-sm font-semibold text-gray-900">
                       ৳{requisition.totalAmount.toLocaleString()}
@@ -497,7 +515,7 @@ const Requisition: React.FC = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center">
+                  <td colSpan={8} className="px-6 py-12 text-center">
                     <div className="text-gray-500">
                       <p className="text-lg font-medium">No requisitions found</p>
                       <p className="text-sm mt-1">
@@ -614,8 +632,8 @@ const Requisition: React.FC = () => {
 
             <div className="space-y-3">
               {newRequisition.items.map((item, index) => (
-                <div key={index} className="grid grid-cols-1 md:grid-cols-7 gap-3 p-4 border border-gray-200 rounded-lg">
-                  <div>
+                <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-3 p-4 border border-gray-200 rounded-lg">
+                  <div className="hidden">
                     <label className="block text-xs font-medium text-gray-700 mb-1">Item Name *</label>
                     <input
                       type="text"
@@ -638,7 +656,7 @@ const Requisition: React.FC = () => {
                       required
                     />
                   </div>
-                  <div>
+                  <div className="hidden">
                     <label className="block text-xs font-medium text-gray-700 mb-1">Unit of Measurement *</label>
                     <select
                       value={item.unitOfMeasurement}
@@ -659,7 +677,7 @@ const Requisition: React.FC = () => {
                       <option value="Unit">Unit</option>
                     </select>
                   </div>
-                  <div>
+                  <div className="hidden">
                     <label className="block text-xs font-medium text-gray-700 mb-1">Unit Price *</label>
                     <input
                       type="number"
@@ -672,7 +690,7 @@ const Requisition: React.FC = () => {
                       required
                     />
                   </div>
-                  <div>
+                  <div className="hidden">
                     <label className="block text-xs font-medium text-gray-700 mb-1">Total Price</label>
                     <input
                       type="number"
@@ -681,7 +699,7 @@ const Requisition: React.FC = () => {
                       readOnly
                     />
                   </div>
-                  <div>
+                  <div className="hidden">
                     <label className="block text-xs font-medium text-gray-700 mb-1">Purpose/Justification *</label>
                     <textarea
                       value={item.purpose}
@@ -765,6 +783,14 @@ const Requisition: React.FC = () => {
                   </span>
                 </div>
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Total Quantity</label>
+                <p className="mt-1 text-sm font-semibold text-gray-900">{selectedRequisition.totalQuantity.toLocaleString()}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Total Amount</label>
+                <p className="mt-1 text-sm font-semibold text-gray-900">৳{selectedRequisition.totalAmount.toLocaleString()}</p>
+              </div>
             </div>
 
             <div>
@@ -799,7 +825,9 @@ const Requisition: React.FC = () => {
                   </tbody>
                   <tfoot className="bg-gray-50">
                     <tr>
-                      <td colSpan={4} className="px-4 py-3 text-sm font-semibold text-gray-900 text-right">Total Amount:</td>
+                      <td className="px-4 py-3 text-sm font-semibold text-gray-900">Total Quantity:</td>
+                      <td className="px-4 py-3 text-sm font-bold text-blue-600">{selectedRequisition.totalQuantity.toLocaleString()}</td>
+                      <td colSpan={2} className="px-4 py-3 text-sm font-semibold text-gray-900 text-right">Total Amount:</td>
                       <td className="px-4 py-3 text-sm font-bold text-blue-600">৳{selectedRequisition.totalAmount.toLocaleString()}</td>
                       <td className="px-4 py-3"></td>
                     </tr>
