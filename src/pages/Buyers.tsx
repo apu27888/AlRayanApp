@@ -6,10 +6,13 @@ import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
 import { useToast } from '../hooks/useToast';
 import { Buyer } from '../types';
+import { useBranchFilter } from '../hooks/useBranchFilter';
+import { useBranch } from '../contexts/BranchContext';
 
 const Buyers: React.FC = () => {
   const { setPageTitle } = useOutletContext<{ setPageTitle: (title: string) => void }>();
   const { showToast } = useToast();
+  const { currentBranch } = useBranch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newBuyer, setNewBuyer] = useState<Partial<Buyer>>({
     name: '',
@@ -24,6 +27,9 @@ const Buyers: React.FC = () => {
   useEffect(() => {
     setPageTitle('Buyer Management');
   }, [setPageTitle]);
+
+  // Filter buyers by current branch
+  const filteredBuyers = useBranchFilter(buyers);
 
   const generateNewBuyerId = () => {
     const existingIds = buyers.map(buyer => {
@@ -74,7 +80,8 @@ const Buyers: React.FC = () => {
       email: newBuyer.email!,
       phone: newBuyer.phone || '',
       country: newBuyer.country || '',
-      currency: newBuyer.currency || 'USD'
+      currency: newBuyer.currency || 'USD',
+      branchId: currentBranch?.id // Assign current branch ID
     };
 
     // Add to buyers array
@@ -108,7 +115,7 @@ const Buyers: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {buyers.map((buyer) => (
+            {filteredBuyers.map((buyer) => (
               <tr key={buyer.id} className="border-b">
                 <td className="p-3">{buyer.id}</td>
                 <td className="p-3">{buyer.name}</td>
@@ -129,6 +136,12 @@ const Buyers: React.FC = () => {
             ))}
           </tbody>
         </table>
+        {filteredBuyers.length === 0 && (
+          <div className="text-center py-8">
+            <p className="text-gray-500">No buyers found for the selected branch.</p>
+            <p className="text-sm text-gray-400 mt-2">Add a new buyer to get started.</p>
+          </div>
+        )}
       </div>
 
       <Modal

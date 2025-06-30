@@ -4,6 +4,7 @@ import { Package, Cog, Ship, User as UserTie } from 'lucide-react';
 import { orders, buyers } from '../data/mockData';
 import StatusBadge from '../components/UI/StatusBadge';
 import ProgressBar from '../components/UI/ProgressBar';
+import { useBranchFilter } from '../hooks/useBranchFilter';
 
 const Dashboard: React.FC = () => {
   const { setPageTitle } = useOutletContext<{ setPageTitle: (title: string) => void }>();
@@ -12,28 +13,32 @@ const Dashboard: React.FC = () => {
     setPageTitle('Dashboard');
   }, [setPageTitle]);
 
+  // Filter data by current branch
+  const filteredOrders = useBranchFilter(orders);
+  const filteredBuyers = useBranchFilter(buyers);
+
   const stats = [
     {
       title: 'Total Orders',
-      value: orders.length,
+      value: filteredOrders.length,
       icon: Package,
       color: 'bg-blue-100 text-blue-600'
     },
     {
       title: 'In Production',
-      value: orders.filter(o => o.progress > 0 && o.progress < 100).length,
+      value: filteredOrders.filter(o => o.progress > 0 && o.progress < 100).length,
       icon: Cog,
       color: 'bg-yellow-100 text-yellow-600'
     },
     {
       title: 'Shipment Pending',
-      value: orders.filter(o => o.productionStatus !== 'Shipped').length,
+      value: filteredOrders.filter(o => o.productionStatus !== 'Shipped').length,
       icon: Ship,
       color: 'bg-red-100 text-red-600'
     },
     {
       title: 'Total Buyers',
-      value: buyers.length,
+      value: filteredBuyers.length,
       icon: UserTie,
       color: 'bg-green-100 text-green-600'
     }
@@ -82,7 +87,7 @@ const Dashboard: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.slice(-4).map((order) => (
+              {filteredOrders.slice(-4).map((order) => (
                 <tr key={order.id} className="border-b">
                   <td className="p-3">
                     <Link 
@@ -109,6 +114,11 @@ const Dashboard: React.FC = () => {
             </tbody>
           </table>
         </div>
+        {filteredOrders.length === 0 && (
+          <div className="text-center py-8">
+            <p className="text-gray-500">No orders found for the selected branch.</p>
+          </div>
+        )}
       </div>
     </div>
   );
