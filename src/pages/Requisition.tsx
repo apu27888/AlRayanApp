@@ -21,8 +21,10 @@ interface Requisition {
 interface RequisitionItem {
   itemName: string;
   quantity: number;
+  unitOfMeasurement: string;
   unitPrice: number;
   totalPrice: number;
+  purpose: string;
 }
 
 const Requisition: React.FC = () => {
@@ -46,8 +48,22 @@ const Requisition: React.FC = () => {
       status: 'Pending',
       totalAmount: 25000,
       items: [
-        { itemName: 'Sewing Thread', quantity: 100, unitPrice: 50, totalPrice: 5000 },
-        { itemName: 'Buttons', quantity: 500, unitPrice: 40, totalPrice: 20000 }
+        { 
+          itemName: 'Sewing Thread', 
+          quantity: 100, 
+          unitOfMeasurement: 'Pieces',
+          unitPrice: 50, 
+          totalPrice: 5000,
+          purpose: 'Required for daily production line operations'
+        },
+        { 
+          itemName: 'Buttons', 
+          quantity: 500, 
+          unitOfMeasurement: 'Pieces',
+          unitPrice: 40, 
+          totalPrice: 20000,
+          purpose: 'Replacement for damaged buttons in current orders'
+        }
       ],
       branchId: 'BR-002'
     },
@@ -59,8 +75,22 @@ const Requisition: React.FC = () => {
       status: 'Approved',
       totalAmount: 15000,
       items: [
-        { itemName: 'Measuring Tape', quantity: 10, unitPrice: 500, totalPrice: 5000 },
-        { itemName: 'Scissors', quantity: 20, unitPrice: 500, totalPrice: 10000 }
+        { 
+          itemName: 'Measuring Tape', 
+          quantity: 10, 
+          unitOfMeasurement: 'Pieces',
+          unitPrice: 500, 
+          totalPrice: 5000,
+          purpose: 'Quality inspection and measurement verification'
+        },
+        { 
+          itemName: 'Scissors', 
+          quantity: 20, 
+          unitOfMeasurement: 'Pieces',
+          unitPrice: 500, 
+          totalPrice: 10000,
+          purpose: 'Cutting samples for quality testing'
+        }
       ],
       branchId: 'BR-002'
     },
@@ -72,8 +102,22 @@ const Requisition: React.FC = () => {
       status: 'In Progress',
       totalAmount: 45000,
       items: [
-        { itemName: 'Fabric Scissors', quantity: 5, unitPrice: 2000, totalPrice: 10000 },
-        { itemName: 'Cutting Table', quantity: 1, unitPrice: 35000, totalPrice: 35000 }
+        { 
+          itemName: 'Fabric Scissors', 
+          quantity: 5, 
+          unitOfMeasurement: 'Pieces',
+          unitPrice: 2000, 
+          totalPrice: 10000,
+          purpose: 'Precision cutting for new order requirements'
+        },
+        { 
+          itemName: 'Cutting Table', 
+          quantity: 1, 
+          unitOfMeasurement: 'Unit',
+          unitPrice: 35000, 
+          totalPrice: 35000,
+          purpose: 'Additional workspace for increased production capacity'
+        }
       ],
       branchId: 'BR-003'
     },
@@ -85,8 +129,22 @@ const Requisition: React.FC = () => {
       status: 'Completed',
       totalAmount: 8000,
       items: [
-        { itemName: 'Machine Oil', quantity: 4, unitPrice: 1000, totalPrice: 4000 },
-        { itemName: 'Spare Parts', quantity: 2, unitPrice: 2000, totalPrice: 4000 }
+        { 
+          itemName: 'Machine Oil', 
+          quantity: 4, 
+          unitOfMeasurement: 'Liters',
+          unitPrice: 1000, 
+          totalPrice: 4000,
+          purpose: 'Regular maintenance of sewing machines'
+        },
+        { 
+          itemName: 'Spare Parts', 
+          quantity: 2, 
+          unitOfMeasurement: 'Sets',
+          unitPrice: 2000, 
+          totalPrice: 4000,
+          purpose: 'Replacement parts for machine repair'
+        }
       ],
       branchId: 'BR-004'
     },
@@ -98,8 +156,22 @@ const Requisition: React.FC = () => {
       status: 'Rejected',
       totalAmount: 12000,
       items: [
-        { itemName: 'Embroidery Thread', quantity: 50, unitPrice: 200, totalPrice: 10000 },
-        { itemName: 'Needles', quantity: 100, unitPrice: 20, totalPrice: 2000 }
+        { 
+          itemName: 'Embroidery Thread', 
+          quantity: 50, 
+          unitOfMeasurement: 'Spools',
+          unitPrice: 200, 
+          totalPrice: 10000,
+          purpose: 'Special embroidery work for premium orders'
+        },
+        { 
+          itemName: 'Needles', 
+          quantity: 100, 
+          unitOfMeasurement: 'Pieces',
+          unitPrice: 20, 
+          totalPrice: 2000,
+          purpose: 'Replacement needles for embroidery machines'
+        }
       ],
       branchId: 'BR-005'
     },
@@ -111,8 +183,22 @@ const Requisition: React.FC = () => {
       status: 'Approved',
       totalAmount: 35000,
       items: [
-        { itemName: 'Printing Ink', quantity: 10, unitPrice: 3000, totalPrice: 30000 },
-        { itemName: 'Screen Mesh', quantity: 5, unitPrice: 1000, totalPrice: 5000 }
+        { 
+          itemName: 'Printing Ink', 
+          quantity: 10, 
+          unitOfMeasurement: 'Bottles',
+          unitPrice: 3000, 
+          totalPrice: 30000,
+          purpose: 'High-quality ink for customer logo printing'
+        },
+        { 
+          itemName: 'Screen Mesh', 
+          quantity: 5, 
+          unitOfMeasurement: 'Pieces',
+          unitPrice: 1000, 
+          totalPrice: 5000,
+          purpose: 'Screen replacement for printing setup'
+        }
       ],
       branchId: 'BR-004'
     }
@@ -121,7 +207,14 @@ const Requisition: React.FC = () => {
   const [newRequisition, setNewRequisition] = useState({
     department: '',
     requestedBy: '',
-    items: [{ itemName: '', quantity: 0, unitPrice: 0, totalPrice: 0 }]
+    items: [{ 
+      itemName: '', 
+      quantity: 0, 
+      unitOfMeasurement: '',
+      unitPrice: 0, 
+      totalPrice: 0,
+      purpose: ''
+    }]
   });
 
   // Filter requisitions by branch
@@ -182,6 +275,20 @@ const Requisition: React.FC = () => {
       return;
     }
 
+    // Validate that all item fields are filled
+    const invalidItems = newRequisition.items.filter(item => 
+      !item.itemName || 
+      !item.unitOfMeasurement || 
+      !item.purpose || 
+      item.quantity <= 0 || 
+      item.unitPrice <= 0
+    );
+
+    if (invalidItems.length > 0) {
+      showToast('Please fill in all required fields for each item including Unit of Measurement and Purpose!', 'error');
+      return;
+    }
+
     const totalAmount = newRequisition.items.reduce((sum, item) => sum + item.totalPrice, 0);
     
     const requisition: Requisition = {
@@ -199,7 +306,14 @@ const Requisition: React.FC = () => {
     setNewRequisition({
       department: '',
       requestedBy: '',
-      items: [{ itemName: '', quantity: 0, unitPrice: 0, totalPrice: 0 }]
+      items: [{ 
+        itemName: '', 
+        quantity: 0, 
+        unitOfMeasurement: '',
+        unitPrice: 0, 
+        totalPrice: 0,
+        purpose: ''
+      }]
     });
     setIsAddModalOpen(false);
     showToast('Requisition created successfully!', 'success');
@@ -208,7 +322,14 @@ const Requisition: React.FC = () => {
   const addRequisitionItem = () => {
     setNewRequisition(prev => ({
       ...prev,
-      items: [...prev.items, { itemName: '', quantity: 0, unitPrice: 0, totalPrice: 0 }]
+      items: [...prev.items, { 
+        itemName: '', 
+        quantity: 0, 
+        unitOfMeasurement: '',
+        unitPrice: 0, 
+        totalPrice: 0,
+        purpose: ''
+      }]
     }));
   };
 
@@ -493,30 +614,53 @@ const Requisition: React.FC = () => {
 
             <div className="space-y-3">
               {newRequisition.items.map((item, index) => (
-                <div key={index} className="grid grid-cols-1 md:grid-cols-5 gap-3 p-4 border border-gray-200 rounded-lg">
+                <div key={index} className="grid grid-cols-1 md:grid-cols-7 gap-3 p-4 border border-gray-200 rounded-lg">
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Item Name</label>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">Item Name *</label>
                     <input
                       type="text"
                       value={item.itemName}
                       onChange={(e) => updateRequisitionItem(index, 'itemName', e.target.value)}
                       className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Enter item name"
+                      required
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Quantity</label>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">Quantity *</label>
                     <input
                       type="number"
                       value={item.quantity}
                       onChange={(e) => updateRequisitionItem(index, 'quantity', parseInt(e.target.value) || 0)}
                       className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       placeholder="0"
-                      min="0"
+                      min="1"
+                      required
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Unit Price</label>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">Unit of Measurement *</label>
+                    <select
+                      value={item.unitOfMeasurement}
+                      onChange={(e) => updateRequisitionItem(index, 'unitOfMeasurement', e.target.value)}
+                      className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      required
+                    >
+                      <option value="">Select Unit</option>
+                      <option value="Pieces">Pieces</option>
+                      <option value="Meters">Meters</option>
+                      <option value="Yards">Yards</option>
+                      <option value="Kilograms">Kilograms</option>
+                      <option value="Liters">Liters</option>
+                      <option value="Boxes">Boxes</option>
+                      <option value="Sets">Sets</option>
+                      <option value="Bottles">Bottles</option>
+                      <option value="Spools">Spools</option>
+                      <option value="Unit">Unit</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">Unit Price *</label>
                     <input
                       type="number"
                       value={item.unitPrice}
@@ -525,6 +669,7 @@ const Requisition: React.FC = () => {
                       placeholder="0.00"
                       min="0"
                       step="0.01"
+                      required
                     />
                   </div>
                   <div>
@@ -535,6 +680,21 @@ const Requisition: React.FC = () => {
                       className="w-full p-2 border border-gray-300 rounded-md bg-gray-100"
                       readOnly
                     />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">Purpose/Justification *</label>
+                    <textarea
+                      value={item.purpose}
+                      onChange={(e) => updateRequisitionItem(index, 'purpose', e.target.value)}
+                      className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 resize-none"
+                      placeholder="Brief explanation (max 200 chars)"
+                      maxLength={200}
+                      rows={2}
+                      required
+                    />
+                    <div className="text-xs text-gray-500 mt-1">
+                      {item.purpose.length}/200 characters
+                    </div>
                   </div>
                   <div className="flex items-end">
                     <button
@@ -580,7 +740,7 @@ const Requisition: React.FC = () => {
         isOpen={isViewModalOpen}
         onClose={() => setIsViewModalOpen(false)}
         title={`Requisition Details - ${selectedRequisition?.id}`}
-        size="lg"
+        size="xl"
       >
         {selectedRequisition && (
           <div className="space-y-6">
@@ -615,8 +775,10 @@ const Requisition: React.FC = () => {
                     <tr>
                       <th className="px-4 py-3 text-sm font-medium text-gray-900">Item Name</th>
                       <th className="px-4 py-3 text-sm font-medium text-gray-900">Quantity</th>
+                      <th className="px-4 py-3 text-sm font-medium text-gray-900">Unit of Measurement</th>
                       <th className="px-4 py-3 text-sm font-medium text-gray-900">Unit Price</th>
                       <th className="px-4 py-3 text-sm font-medium text-gray-900">Total Price</th>
+                      <th className="px-4 py-3 text-sm font-medium text-gray-900">Purpose</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
@@ -624,15 +786,22 @@ const Requisition: React.FC = () => {
                       <tr key={index}>
                         <td className="px-4 py-3 text-sm text-gray-900">{item.itemName}</td>
                         <td className="px-4 py-3 text-sm text-gray-900">{item.quantity}</td>
+                        <td className="px-4 py-3 text-sm text-gray-900">{item.unitOfMeasurement}</td>
                         <td className="px-4 py-3 text-sm text-gray-900">৳{item.unitPrice.toLocaleString()}</td>
                         <td className="px-4 py-3 text-sm font-semibold text-gray-900">৳{item.totalPrice.toLocaleString()}</td>
+                        <td className="px-4 py-3 text-sm text-gray-900">
+                          <div className="max-w-xs">
+                            <p className="truncate" title={item.purpose}>{item.purpose}</p>
+                          </div>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
                   <tfoot className="bg-gray-50">
                     <tr>
-                      <td colSpan={3} className="px-4 py-3 text-sm font-semibold text-gray-900 text-right">Total Amount:</td>
+                      <td colSpan={4} className="px-4 py-3 text-sm font-semibold text-gray-900 text-right">Total Amount:</td>
                       <td className="px-4 py-3 text-sm font-bold text-blue-600">৳{selectedRequisition.totalAmount.toLocaleString()}</td>
+                      <td className="px-4 py-3"></td>
                     </tr>
                   </tfoot>
                 </table>
