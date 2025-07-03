@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import Footer from '../UI/Footer';
 
 const Layout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -25,6 +26,8 @@ const Layout: React.FC = () => {
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
           <Outlet context={{ setPageTitle }} />
         </main>
+        
+        <Footer />
       </div>
     </div>
   );
