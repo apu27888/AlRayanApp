@@ -1,0 +1,11 @@
+/* SPA routing support for Netlify */
+/* This will redirect all requests to index.html */
+/* Place this file in the public or root directory of your project */
+
+/* Netlify _redirects rule for React Router */
+/* Forces all routes to serve index.html */
+
+/* /!* /index.html 200 */
+/* The above is the classic syntax, but below is the modern one: */
+/* /    /index.html   200 */
+/	/index.html	200
