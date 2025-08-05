@@ -1,4 +1,5 @@
 import { Buyer, Employee, Supplier, StockItem, Order, StockLedgerEntry, PriceQuotation, BuyingHouse, Branch } from '../types';
+import { Buyer, Employee, Supplier, StockItem, Order, StockLedgerEntry, PriceQuotation, BuyingHouse } from '../types';
 
 export const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL'];
 export const BREAKDOWN_SIZES = ['6M','12M','18M','24M','30M','36M','2Y','4Y','6Y','8Y','10Y', '12Y','14Y','16Y','18Y','XS','S','M','L','XL','2XL','3XL','4XL'];
@@ -6,74 +7,10 @@ export const CATEGORIES = ['Woven Fabric', 'Knit Fabric', 'Yarn', 'Rib', 'Color'
 export const UNITS = ['Yds', 'Kg', 'Pc', 'L'];
 export const COSTING_ITEMS = ['T-SHIRT', 'POLO SHIRT', 'SHIRT', 'FROCK', 'LONG PANT', '¾ PANT', 'SHORT PANT', 'BOXER'];
 
-// Branch definitions
-export const branches: Branch[] = [
-  {
-    id: 'BR-001',
-    name: 'Al Rayan Buyer',
-    code: 'ARB',
-    type: 'main',
-    location: 'Dhaka, Bangladesh',
-    contactPerson: 'Mr. Ahmed Rahman',
-    phone: '+880-1700-000001',
-    email: 'contact@alrayanbuyerhouse.com',
-    isActive: true,
-    description: 'Main buying house operations and buyer relations'
-  },
-  {
-    id: 'BR-002',
-    name: 'Al Rayan Garments',
-    code: 'ARG',
-    type: 'main',
-    location: 'Savar, Dhaka',
-    contactPerson: 'Ms. Fatima Sultana',
-    phone: '+880-1800-000002',
-    email: 'production@alrayangarments.com',
-    isActive: true,
-    description: 'Main garments manufacturing and production facility'
-  },
-  {
-    id: 'BR-003',
-    name: 'Al Rayan Knitting',
-    code: 'ARK',
-    type: 'subsidiary',
-    location: 'Gazipur, Dhaka',
-    contactPerson: 'Mr. Karim Uddin',
-    phone: '+880-1900-000003',
-    email: 'knitting@alrayanknitting.com',
-    isActive: true,
-    description: 'Specialized knitting and fabric production unit'
-  },
-  {
-    id: 'BR-004',
-    name: 'Al Rayan Printing',
-    code: 'ARP',
-    type: 'subsidiary',
-    location: 'Narayanganj, Dhaka',
-    contactPerson: 'Mr. Shahid Hasan',
-    phone: '+880-1600-000004',
-    email: 'printing@alrayanprinting.com',
-    isActive: true,
-    description: 'Printing, dyeing and finishing operations'
-  },
-  {
-    id: 'BR-005',
-    name: 'Al Rayan Embroidery',
-    code: 'ARE',
-    type: 'subsidiary',
-    location: 'Chittagong',
-    contactPerson: 'Ms. Rashida Begum',
-    phone: '+880-1500-000005',
-    email: 'embroidery@alrayanembroidery.com',
-    isActive: true,
-    description: 'Embroidery, embellishment and value addition services'
-  }
-];
-
 export const buyingHouses: BuyingHouse[] = [
-  { id: 'BH-001', name: 'Global Sourcing Ltd.', locationDist: 'Dhaka', grade: 'A+', contactPersonName: 'Mr. Rahman', phone: '+880-1700-000001', branchId: 'BR-001' },
-  { id: 'BH-002', name: 'Fashion Forward Inc.', locationDist: 'Chittagong', grade: 'A', contactPersonName: 'Ms. Sultana', phone: '+880-1800-000002', branchId: 'BR-001' },
-  { id: 'BH-003', name: 'Textile Solutions', locationDist: 'Gazipur', grade: 'B+', contactPersonName: 'Mr. Ahmed', phone: '+880-1900-000003', branchId: 'BR-001' },
+  { id: 'BH-001', name: 'Global Sourcing Ltd.', locationDist: 'Dhaka', grade: 'A+', contactPersonName: 'Mr. Rahman', phone: '+880-1700-000001' },
+  { id: 'BH-002', name: 'Fashion Forward Inc.', locationDist: 'Chittagong', grade: 'A', contactPersonName: 'Ms. Sultana', phone: '+880-1800-000002' },
+  { id: 'BH-003', name: 'Textile Solutions', locationDist: 'Gazipur', grade: 'B+', contactPersonName: 'Mr. Ahmed', phone: '+880-1900-000003' },
 ];
 
 export const buyers: Buyer[] = [
@@ -87,8 +24,7 @@ export const buyers: Buyer[] = [
     phone: '+46 ...', 
     country: 'Sweden', 
     currency: 'USD',
-    buyingHouseId: 'BH-001',
-    branchId: 'BR-001'
+    buyingHouseId: 'BH-001'
   },
   { 
     id: 'B-002', 
@@ -100,8 +36,7 @@ export const buyers: Buyer[] = [
     phone: '+34 ...', 
     country: 'Spain', 
     currency: 'EUR',
-    buyingHouseId: 'BH-002',
-    branchId: 'BR-001'
+    buyingHouseId: 'BH-002'
   },
 ];
 
@@ -116,8 +51,7 @@ export const employees: Employee[] = [
     address: 'Mirpur, Dhaka', 
     country: 'Bangladesh', 
     joiningDate: '2023-01-15', 
-    salary: { basic: 8000, houseRent: 4000, medical: 1000, conveyance: 500, other: 0 },
-    branchId: 'BR-002'
+    salary: { basic: 8000, houseRent: 4000, medical: 1000, conveyance: 500, other: 0 }
   },
   { 
     id: 'EMP-0256', 
@@ -129,8 +63,7 @@ export const employees: Employee[] = [
     address: 'Uttara, Dhaka', 
     country: 'Bangladesh', 
     joiningDate: '2022-11-20', 
-    salary: { basic: 12000, houseRent: 6000, medical: 1000, conveyance: 500, other: 500 },
-    branchId: 'BR-002'
+    salary: { basic: 12000, houseRent: 6000, medical: 1000, conveyance: 500, other: 500 }
   },
 ];
 
@@ -143,8 +76,7 @@ export const suppliers: Supplier[] = [
     email: 'contact@abc.com', 
     country: 'Bangladesh', 
     bank: { name: 'City Bank', account: '123456789', branch: 'Gulshan' }, 
-    productType: 'Buttons, Zippers',
-    branchId: 'BR-002'
+    productType: 'Buttons, Zippers'
   },
   { 
     id: 'SUP-002', 
@@ -154,56 +86,55 @@ export const suppliers: Supplier[] = [
     email: 'sales@xyz.com', 
     country: 'China', 
     bank: { name: 'Bank of China', account: '987654321', branch: 'Shenzhen' }, 
-    productType: 'Knit & Woven Fabrics',
-    branchId: 'BR-003'
+    productType: 'Knit & Woven Fabrics'
   },
 ];
 
 export const stockItems: StockItem[] = [
   // Colors
-  { code: 'CLR-001', name: 'Crimson Red', category: 'Color', value: '#DC143C', stock: 1000, unit: 'L', branchId: 'BR-004' },
-  { code: 'CLR-002', name: 'Royal Blue', category: 'Color', value: '#4169E1', stock: 1000, unit: 'L', branchId: 'BR-004' },
-  { code: 'CLR-003', name: 'Canary Yellow', category: 'Color', value: '#FFEF00', stock: 1000, unit: 'L', branchId: 'BR-004' },
-  { code: 'CLR-004', name: 'Forest Green', category: 'Color', value: '#228B22', stock: 1000, unit: 'L', branchId: 'BR-004' },
-  { code: 'CLR-005', name: 'Pure White', category: 'Color', value: '#FFFFFF', stock: 5000, unit: 'L', branchId: 'BR-004' },
-  { code: 'CLR-006', name: 'Jet Black', category: 'Color', value: '#000000', stock: 5000, unit: 'L', branchId: 'BR-004' },
-  { code: 'CLR-007', name: 'Tangerine Orange', category: 'Color', value: '#F28500', stock: 800, unit: 'L', branchId: 'BR-004' },
-  { code: 'CLR-008', name: 'Navy Blue', category: 'Color', value: '#000080', stock: 1200, unit: 'L', branchId: 'BR-004' },
-  { code: 'CLR-009', name: 'Charcoal Grey', category: 'Color', value: '#36454F', stock: 1500, unit: 'L', branchId: 'BR-004' },
-  { code: 'CLR-010', name: 'Beige', category: 'Color', value: '#F5F5DC', stock: 2000, unit: 'L', branchId: 'BR-004' },
+  { code: 'CLR-001', name: 'Crimson Red', category: 'Color', value: '#DC143C', stock: 1000, unit: 'L' },
+  { code: 'CLR-002', name: 'Royal Blue', category: 'Color', value: '#4169E1', stock: 1000, unit: 'L' },
+  { code: 'CLR-003', name: 'Canary Yellow', category: 'Color', value: '#FFEF00', stock: 1000, unit: 'L' },
+  { code: 'CLR-004', name: 'Forest Green', category: 'Color', value: '#228B22', stock: 1000, unit: 'L' },
+  { code: 'CLR-005', name: 'Pure White', category: 'Color', value: '#FFFFFF', stock: 5000, unit: 'L' },
+  { code: 'CLR-006', name: 'Jet Black', category: 'Color', value: '#000000', stock: 5000, unit: 'L' },
+  { code: 'CLR-007', name: 'Tangerine Orange', category: 'Color', value: '#F28500', stock: 800, unit: 'L' },
+  { code: 'CLR-008', name: 'Navy Blue', category: 'Color', value: '#000080', stock: 1200, unit: 'L' },
+  { code: 'CLR-009', name: 'Charcoal Grey', category: 'Color', value: '#36454F', stock: 1500, unit: 'L' },
+  { code: 'CLR-010', name: 'Beige', category: 'Color', value: '#F5F5DC', stock: 2000, unit: 'L' },
 
   // Woven Fabrics
-  { code: 'WF-001', name: 'Poplin fabric', category: 'Woven Fabric', stock: 1500, unit: 'Yds', branchId: 'BR-003' },
-  { code: 'WF-002', name: 'Oxford fabric', category: 'Woven Fabric', stock: 1200, unit: 'Yds', branchId: 'BR-003' },
-  { code: 'WF-003', name: 'Rimi Cotton', category: 'Woven Fabric', stock: 900, unit: 'Yds', branchId: 'BR-003' },
-  { code: 'WF-004', name: 'Stitch Twill', category: 'Woven Fabric', stock: 2000, unit: 'Yds', branchId: 'BR-003' },
-  { code: 'WF-005', name: 'Non Stitch Twill', category: 'Woven Fabric', stock: 1800, unit: 'Yds', branchId: 'BR-003' },
+  { code: 'WF-001', name: 'Poplin fabric', category: 'Woven Fabric', stock: 1500, unit: 'Yds' },
+  { code: 'WF-002', name: 'Oxford fabric', category: 'Woven Fabric', stock: 1200, unit: 'Yds' },
+  { code: 'WF-003', name: 'Rimi Cotton', category: 'Woven Fabric', stock: 900, unit: 'Yds' },
+  { code: 'WF-004', name: 'Stitch Twill', category: 'Woven Fabric', stock: 2000, unit: 'Yds' },
+  { code: 'WF-005', name: 'Non Stitch Twill', category: 'Woven Fabric', stock: 1800, unit: 'Yds' },
 
   // Knit Fabrics
-  { code: 'KF-001', name: 'Single Jersey', category: 'Knit Fabric', stock: 3000, unit: 'Yds', branchId: 'BR-003' },
-  { code: 'KF-002', name: 'Lycra 5/9', category: 'Knit Fabric', stock: 1800, unit: 'Yds', branchId: 'BR-003' },
-  { code: 'KF-003', name: 'Terry', category: 'Knit Fabric', stock: 2500, unit: 'Yds', branchId: 'BR-003' },
-  { code: 'KF-004', name: 'Cross Terry', category: 'Knit Fabric', stock: 1200, unit: 'Yds', branchId: 'BR-003' },
-  { code: 'KF-008', name: 'PK', category: 'Knit Fabric', stock: 2000, unit: 'Yds', branchId: 'BR-003' },
+  { code: 'KF-001', name: 'Single Jersey', category: 'Knit Fabric', stock: 3000, unit: 'Yds' },
+  { code: 'KF-002', name: 'Lycra 5/9', category: 'Knit Fabric', stock: 1800, unit: 'Yds' },
+  { code: 'KF-003', name: 'Terry', category: 'Knit Fabric', stock: 2500, unit: 'Yds' },
+  { code: 'KF-004', name: 'Cross Terry', category: 'Knit Fabric', stock: 1200, unit: 'Yds' },
+  { code: 'KF-008', name: 'PK', category: 'Knit Fabric', stock: 2000, unit: 'Yds' },
 
   // Yarns
-  { code: 'YRN-G1', name: '20/1 Cotton - Grey', category: 'Yarn', stock: 500, unit: 'Kg', branchId: 'BR-003' },
-  { code: 'YRN-G2', name: '24/1 Cotton - Grey', category: 'Yarn', stock: 550, unit: 'Kg', branchId: 'BR-003' },
-  { code: 'YRN-G3', name: '26/1 Cotton - Grey', category: 'Yarn', stock: 600, unit: 'Kg', branchId: 'BR-003' },
+  { code: 'YRN-G1', name: '20/1 Cotton - Grey', category: 'Yarn', stock: 500, unit: 'Kg' },
+  { code: 'YRN-G2', name: '24/1 Cotton - Grey', category: 'Yarn', stock: 550, unit: 'Kg' },
+  { code: 'YRN-G3', name: '26/1 Cotton - Grey', category: 'Yarn', stock: 600, unit: 'Kg' },
 
   // Ribs
-  { code: 'RB-001', name: '1x1 Rib', category: 'Rib', stock: 800, unit: 'Kg', branchId: 'BR-003' },
-  { code: 'RB-002', name: '2x1 Rib', category: 'Rib', stock: 750, unit: 'Kg', branchId: 'BR-003' },
+  { code: 'RB-001', name: '1x1 Rib', category: 'Rib', stock: 800, unit: 'Kg' },
+  { code: 'RB-002', name: '2x1 Rib', category: 'Rib', stock: 750, unit: 'Kg' },
 
   // Trims
-  { code: 'TRM-001', name: 'Sewing thread', category: 'Trims', stock: 50000, unit: 'Pc', branchId: 'BR-002' },
-  { code: 'TRM-002', name: 'Care Label', category: 'Trims', stock: 20000, unit: 'Pc', branchId: 'BR-002' },
-  { code: 'TRM-003', name: 'Size Label', category: 'Trims', stock: 20000, unit: 'Pc', branchId: 'BR-002' },
-  { code: 'TRM-009', name: 'Button', category: 'Trims', stock: 25000, unit: 'Pc', branchId: 'BR-002' },
+  { code: 'TRM-001', name: 'Sewing thread', category: 'Trims', stock: 50000, unit: 'Pc' },
+  { code: 'TRM-002', name: 'Care Label', category: 'Trims', stock: 20000, unit: 'Pc' },
+  { code: 'TRM-003', name: 'Size Label', category: 'Trims', stock: 20000, unit: 'Pc' },
+  { code: 'TRM-009', name: 'Button', category: 'Trims', stock: 25000, unit: 'Pc' },
 
   // Accessories
-  { code: 'ACC-001', name: 'Cartoon', category: 'Accessories', stock: 1000, unit: 'Pc', branchId: 'BR-002' },
-  { code: 'ACC-002', name: 'Gum Tape', category: 'Accessories', stock: 500, unit: 'Pc', branchId: 'BR-002' },
+  { code: 'ACC-001', name: 'Cartoon', category: 'Accessories', stock: 1000, unit: 'Pc' },
+  { code: 'ACC-002', name: 'Gum Tape', category: 'Accessories', stock: 500, unit: 'Pc' },
 ];
 
 export const orders: Order[] = [
@@ -321,8 +252,7 @@ export const orders: Order[] = [
         ],
         Dyeing: []
       }
-    },
-    branchId: 'BR-002'
+    }
   },
   {
     id: '#ORD-002',
@@ -354,8 +284,7 @@ export const orders: Order[] = [
       rbb: [],
       requisitionBudget: {},
       production: {}
-    },
-    branchId: 'BR-002'
+    }
   }
 ];
 
@@ -368,8 +297,7 @@ export const stockLedger: StockLedgerEntry[] = [
     quantity: 150,
     remarks: 'Issued for #ORD-001',
     before: 1000,
-    after: 850,
-    branchId: 'BR-002'
+    after: 850
   }
 ];
 

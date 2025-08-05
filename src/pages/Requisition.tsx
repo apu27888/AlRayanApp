@@ -5,7 +5,6 @@ import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
 import StatusBadge from '../components/UI/StatusBadge';
 import { useToast } from '../hooks/useToast';
-import { useBranchFilter } from '../hooks/useBranchFilter';
 
 interface Requisition {
   id: string;
@@ -16,7 +15,6 @@ interface Requisition {
   totalQuantity: number;
   totalAmount: number;
   items: RequisitionItem[];
-  branchId?: string;
 }
 
 interface RequisitionItem {
@@ -66,7 +64,6 @@ const Requisition: React.FC = () => {
           purpose: 'Replacement for damaged buttons in current orders'
         }
       ],
-      branchId: 'BR-002'
     },
     {
       id: 'REQ-002',
@@ -93,7 +90,6 @@ const Requisition: React.FC = () => {
           purpose: 'Cutting samples for quality testing'
         }
       ],
-      branchId: 'BR-002'
     },
     {
       id: 'REQ-003',
@@ -120,7 +116,6 @@ const Requisition: React.FC = () => {
           purpose: 'Additional workspace for increased production capacity'
         }
       ],
-      branchId: 'BR-003'
     },
     {
       id: 'REQ-004',
@@ -147,7 +142,6 @@ const Requisition: React.FC = () => {
           purpose: 'Replacement parts for machine repair'
         }
       ],
-      branchId: 'BR-004'
     },
     {
       id: 'REQ-005',
@@ -174,7 +168,6 @@ const Requisition: React.FC = () => {
           purpose: 'Replacement needles for embroidery machines'
         }
       ],
-      branchId: 'BR-005'
     },
     {
       id: 'REQ-006',
@@ -201,7 +194,6 @@ const Requisition: React.FC = () => {
           purpose: 'Screen replacement for printing setup'
         }
       ],
-      branchId: 'BR-004'
     }
   ];
 
@@ -229,15 +221,12 @@ const Requisition: React.FC = () => {
     setRequisitions(requisitionsWithTotalQuantity);
   }, []);
 
-  // Filter requisitions by branch
-  const filteredByBranch = useBranchFilter(requisitions);
-
   useEffect(() => {
     setPageTitle('Requisition Management');
   }, [setPageTitle]);
 
   // Filter and search logic
-  const filteredRequisitions = filteredByBranch.filter(req => {
+  const filteredRequisitions = requisitions.filter(req => {
     const matchesSearch = searchTerm === '' || 
       req.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       req.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -313,7 +302,6 @@ const Requisition: React.FC = () => {
       totalAmount,
       totalQuantity,
       items: newRequisition.items.filter(item => item.itemName && item.quantity > 0),
-      branchId: 'BR-002' // Default to main garments branch
     };
 
     setRequisitions(prev => [requisition, ...prev]);

@@ -9,7 +9,6 @@ export interface Buyer {
   country: string;
   currency: string;
   buyingHouseId?: string;
-  branchId?: string; // Added for multi-branch support
 }
 
 export interface BuyingHouse {
@@ -19,7 +18,6 @@ export interface BuyingHouse {
   grade: string;
   contactPersonName: string;
   phone: string;
-  branchId?: string; // Added for multi-branch support
 }
 
 export interface Employee {
@@ -39,7 +37,6 @@ export interface Employee {
     conveyance: number;
     other: number;
   };
-  branchId?: string; // Added for multi-branch support
 }
 
 export interface Supplier {
@@ -55,7 +52,6 @@ export interface Supplier {
     branch: string;
   };
   productType: string;
-  branchId?: string; // Added for multi-branch support
 }
 
 export interface StockItem {
@@ -65,7 +61,6 @@ export interface StockItem {
   stock: number;
   unit: string;
   value?: string; // For colors
-  branchId?: string; // Added for multi-branch support
 }
 
 export interface OrderItem {
@@ -134,7 +129,6 @@ export interface Order {
   programPlan: ProgramPlan;
   buyingHouseId?: string;
   numberOfStyles?: number;
-  branchId?: string; // Added for multi-branch support
 }
 
 export interface CostingRevision {
@@ -203,7 +197,6 @@ export interface StockLedgerEntry {
   remarks: string;
   before?: number;
   after?: number;
-  branchId?: string; // Added for multi-branch support
 }
 
 export interface PriceQuotation {
@@ -223,19 +216,4 @@ export interface PriceQuotation {
   rp4: number;
   fPrice: number;
   status: string;
-  branchId?: string; // Added for multi-branch support
-}
-
-// New Branch interface
-export interface Branch {
-  id: string;
-  name: string;
-  code: string;
-  type: 'main' | 'subsidiary';
-  location: string;
-  contactPerson: string;
-  phone: string;
-  email: string;
-  isActive: boolean;
-  description?: string;
 }
